@@ -15,7 +15,7 @@ description: |
 
 # Welcome {-}
 
-This is the website for the graduate course in Causal Inference (Biostat M235) at the University of California, Los Angeles (UCLA).
+This is the website for the undergraduate course in Causal Inference (Biostat M235) at the University of California, Los Angeles (UCLA).
 
 Instructor: [Falco J. Bargagli-Stoffi](https://www.falcobargaglistoffi.com/).
 
