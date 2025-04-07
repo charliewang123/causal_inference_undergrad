@@ -1,0 +1,47 @@
+--- 
+# title: "Causal Inference Graduate Course"
+# author: "Falco J. Bargagli-Stoffi"
+# date: "`April 2025`"
+site: bookdown::bookdown_site
+documentclass: book
+# bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  A graduate course on causal inference
+# biblio-style: apalike
+# csl: chicago-fullnote-bibliography.csl
+---
+
+# Welcome {-}
+
+This is the website for the graduate course in Causal Inference (Biostat M235) at the University of California, Los Angeles (UCLA).
+
+Instructor: [Falco J. Bargagli-Stoffi](https://www.falcobargaglistoffi.com/).
+
+Teaching assistant: [Kelsey Ishimoto](https://cch.ucla.edu/people/kelsey-ishimoto/).
+
+Each course module in the left panel will span several lectures. We will build this website over the course of the quarter, uploading lecture slides as we go.
+
+## Learning objectives {-}
+
+> [**Syllabus**](https://drive.google.com/file/d/1ca24sjKu307y0hSZwuzfxLcQSA_OjiWl/view?usp=sharing)
+
+The course aims to introduce the key concepts and state-of-the-art methods for causal inference from randomized experiments and observational studies. We will first introduce the basic concepts of the potential outcome framework (with a particular focus on the essential role of the treatment assignment mechanism) and the causal graphical model approach. Then, we will cover different situations corresponding to different assumptions concerning the assignment mechanism. We will discuss the design and analysis of experiments and how to make inference under different modes, including design (randomization)-based, frequentist, and Bayesian. We will cover the design and analysis of observational studies with regular assignment mechanisms where the unconfoundedness assumption is assumed to hold. We will introduce methods and sensitivity analyses to account for possible violations of unconfoundedness. Finally, we will cover heterogeneous treatment effects, and causal machine learning approaches to causal heterogeneity.
+
+## Teaching Material {-}
+
+Selected chapters from the book list below. Articles in (bio)statistical and econometric journals.
+
+> Imbens, G.W., and D.B. Rubin. 2015. [**Causal Inference for Statistics, Social, and Biomedical Sciences**](https://www.cambridge.org/core/books/causal-inference-for-statistics-social-and-biomedical-sciences/71126BE90C58F1A431FE9B2DD07938AB) Cambridge: Cambridge University Press.
+>
+> Ding, P. 2023. [**A First Course in Causal Inference**](https://www.routledge.com/A-First-Course-in-Causal-Inference/Ding/p/book/9781032758626) New York: Routledge.
+>
+> Pearl, J. 2009. [**Causality**](https://www.cambridge.org/core/books/causality/B0046844FAE10CBF274D4ACBDAEB5F5B) Cambridge: Cambridge University Press.
+
+
+## Acknowledgments {-}
+
+Special thanks to Prof. [Fabrizia Mealli](https://sites.google.com/unifi.it/fabriziamealli) and Prof. [Davide Viviano](https://dviviano.github.io/) for their invaluable help in preparing this course.
+
+
