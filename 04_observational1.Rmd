@@ -1,3 +1,26 @@
-# Observational Studies Under Unconfoundedness
+# Randomized Controlled Trials (RCTs) and Quasi-Experiments
 
-> Week 4 [**Slides**](https://drive.google.com/drive/folders/14Iymvk2FlZqVsWrtbDLmwSzR5aNS-Mcg?usp=sharing)
+> ## Class materials
+>
+> Slides: [**Module 4**](https://drive.google.com/drive/folders/14Iymvk2FlZqVsWrtbDLmwSzR5aNS-Mcg?usp=sharing)
+>
+> Recording: [**Module 4, Part 1**](https://your-recording-link.com)
+>
+> Recording: [**Module 4, Part 2**](https://your-recording-link.com)
+
+> ## Textbook reading
+>
+> [**Hernán & Robins, Causal Inference: What If – Chapters 7–8**](https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf)
+
+> ## Supplementary reading
+>
+> [**Freedman, D. A. (2008). On types of scientific inquiry: The role of RCTs in health policy. Journal of the Royal Statistical Society: Series A, 171(2), 359–385.**](https://rss.onlinelibrary.wiley.com/doi/full/10.1111/j.1467-985X.2007.00500.x)\
+> Examples of quasi-experiments from public health and education
+
+> ## Topics covered
+>
+> -   Introduction to Randomized Controlled Trials (RCTs)
+> -   Randomization and exchangeability
+> -   Intent-to-treat vs. per-protocol analyses
+> -   Quasi-experiments: definition and types
+> -   Strengths and limitations of RCTs and quasi-experiments
