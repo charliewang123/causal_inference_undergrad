@@ -1,6 +1,6 @@
 foundations-causal-thinking-in-public-health
-randomization-and-experiments
-foundations-causal-graphs
-observational-studies-under-unconfoundedness
-observational-studies-with-violations-of-unconfoundedness
-heterogeneous-treatment-effects-and-causal-machine-learning
+foundations-ii-causal-graphs-study-designs
+bias-and-identification
+randomized-controlled-trials-rcts-and-quasi-experiments
+observational-studies-and-bias-adjustment
+effect-modification-and-interaction
