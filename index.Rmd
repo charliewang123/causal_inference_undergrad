@@ -81,7 +81,10 @@ We will explore how causal effects are identified and estimated, how to detect a
 
 ## Tools {.unnumbered}  
 
-This course will make use of: - **R** and **RStudio** - Interactive R tutorials and guided analysis - GitHub for accessing materials and submitting assignments  
+This course will make use of:   
+- **R** and **RStudio**   
+- Interactive R tutorials and guided analysis   
+- GitHub for accessing materials and submitting assignments    
 
 ## Useful Links {.unnumbered}  
 
