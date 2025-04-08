@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Welcome | Causal-Inference-Graduate.knit</title>
+  <title>8 Sensitivity Analysis | Causal-Inference-Graduate.knit</title>
   <meta name="description" content="An undergraduate course on causal inference" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Welcome | Causal-Inference-Graduate.knit" />
+  <meta property="og:title" content="8 Sensitivity Analysis | Causal-Inference-Graduate.knit" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An undergraduate course on causal inference" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Welcome | Causal-Inference-Graduate.knit" />
+  <meta name="twitter:title" content="8 Sensitivity Analysis | Causal-Inference-Graduate.knit" />
   
   <meta name="twitter:description" content="An undergraduate course on causal inference" />
   
@@ -28,8 +28,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="foundations-causal-thinking-in-public-health.html"/>
+<link rel="prev" href="measurement-missing-data-and-selection-bias.html"/>
+<link rel="next" href="systems-thinking-and-policy-translation.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -115,112 +115,42 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<!--bookdown:title:end-->
-<!--bookdown:title:start-->
-<div id="welcome" class="section level1 unnumbered hasAnchor">
-<h1>Welcome<a href="index.html#welcome" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Welcome to the course website for <strong>The Science of Why: Causal Inference for Public Health</strong>. This course introduces the foundations of causal inference in public health and medical sciences, with an emphasis on distinguishing between association and causation in real-world research.</p>
-<div id="course-description" class="section level2 unnumbered hasAnchor">
-<h2>Course Description<a href="index.html#course-description" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this course, students will:</p>
-<ul>
-<li>Explore foundational concepts such as counterfactuals, causal estimands, and identification strategies.<br />
-</li>
-<li>Learn how to critically evaluate causal claims in public health literature.<br />
-</li>
-<li>Understand and apply experimental and observational study designs, causal diagrams (DAGs), and bias adjustment methods.<br />
-</li>
-<li>Develop practical skills through R-based tutorials and case studies.</li>
-</ul>
-<p>This course is ideal for undergraduates interested in public health, epidemiology, biostatistics, or social science research.</p>
-</div>
-<div id="instructor" class="section level2 unnumbered hasAnchor">
-<h2>Instructor<a href="index.html#instructor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Falco J. Bargagli-Stoffi</strong><br />
-Assistant Professor<br />
-Department of Biostatistics<br />
-UCLA Fielding School of Public Health<br />
-<a href="mailto:falco@ucla.edu">falco@ucla.edu</a></p>
-<p>Office hours: By appointment. (Book via the scheduling link on this website.)</p>
-</div>
-<div id="teaching-assistants" class="section level2 unnumbered hasAnchor">
-<h2>Teaching Assistants<a href="index.html#teaching-assistants" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>TBD — will be announced on the course website.</p>
-</div>
-<div id="course-logistics" class="section level2 unnumbered hasAnchor">
-<h2>Course Logistics<a href="index.html#course-logistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><strong>Offered</strong>: Fall Term<br />
-</li>
-<li><strong>Meetings</strong>: Lecture (3 hours), Discussion (1 hour) — in-person unless otherwise announced<br />
-</li>
-<li><strong>Assignments</strong>: Posted on the course website, due before 8 PM on specified dates<br />
-</li>
-<li><strong>Final Project</strong>: Group presentation + written report during finals week</li>
-</ul>
-</div>
-<div id="required-materials" class="section level2 unnumbered hasAnchor">
-<h2>Required Materials<a href="index.html#required-materials" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Primary Textbook</strong>:<br />
-Hernán MA, Robins JM. (2023) <em>Causal Inference: What If</em><br />
-<a href="https://www.miguelhernan.org/causal-inference-book/">Free PDF available here</a></p>
-<p><strong>Secondary (Recommended) Texts</strong>: - Rosenbaum PR. <em>Causal Inference</em>. MIT Press.<br />
-- Pearl J., Mackenzie D. <em>The Book of Why</em>. Basic Books.</p>
-<p><strong>Supplementary Readings</strong>:<br />
-Will be shared throughout the course.</p>
-</div>
-<div id="learning-objectives" class="section level2 unnumbered hasAnchor">
-<h2>Learning Objectives<a href="index.html#learning-objectives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sensitivity-analysis" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Sensitivity Analysis<a href="sensitivity-analysis.html#sensitivity-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <blockquote>
-<p><a href="https://docs.google.com/document/d/17_kJcFCyRMHCMWIgOoCczqUh12HBkO7z/edit?tab=t.0"><strong>Syllabus</strong></a></p>
+<h2 id="class-materials-7" class="hasAnchor">Class materials<a href="sensitivity-analysis.html#class-materials-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Slides: <a href="https://your-slide-link.com"><strong>Module 8</strong></a></p>
+<p>Recording: <a href="https://your-recording-link.com"><strong>Module 8, Part 1</strong></a></p>
+<p>Recording: <a href="https://your-recording-link.com"><strong>Module 8, Part 2</strong></a></p>
 </blockquote>
-<p>This course introduces students to the foundations of causal inference in public health and medical sciences, with a strong emphasis on the difference between <strong>association and causation</strong>. Students will learn to critically evaluate causal claims, understand causal diagrams (DAGs), and assess study design choices in both randomized and observational studies.</p>
-<p>We will explore how causal effects are identified and estimated, how to detect and adjust for biases (like confounding and selection bias), and how to use critical thinking tools when reviewing public health research. Students will also be introduced to concepts like effect modification, interaction, and systems thinking through real-world applications.</p>
-</div>
-<div id="upon-successful-completion-of-this-course-students-will-be-able-to" class="section level2 unnumbered hasAnchor">
-<h2>Upon successful completion of this course, students will be able to:<a href="index.html#upon-successful-completion-of-this-course-students-will-be-able-to" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<h2 id="textbook-reading-7" class="hasAnchor">Textbook reading<a href="sensitivity-analysis.html#textbook-reading-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf"><strong>Hernán &amp; Robins, Causal Inference: What If – Chapter 14</strong></a></p>
+</blockquote>
+<blockquote>
+<h2 id="supplementary-reading-7" class="hasAnchor">Supplementary reading<a href="sensitivity-analysis.html#supplementary-reading-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://www.acpjournals.org/doi/10.7326/M16-2607"><strong>VanderWeele, T. J., &amp; Ding, P. (2017). Sensitivity analysis in observational research: introducing the E-value. Annals of Internal Medicine, 167(4), 268–274.</strong></a><br />
+Case studies on unmeasured confounding and robustness of findings</p>
+</blockquote>
+<blockquote>
+<h2 id="topics-covered-7" class="hasAnchor">Topics covered<a href="sensitivity-analysis.html#topics-covered-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Communicate public health findings and causal claims in written and oral forms<br />
-</li>
-<li>Evaluate causal claims in academic and public health literature<br />
-</li>
-<li>Design and assess both randomized trials and observational studies<br />
-</li>
-<li>Construct and analyze causal diagrams (DAGs) for identifying sources of bias<br />
-</li>
-<li>Apply concepts of effect modification, interaction, and confounding<br />
-</li>
-<li>Interpret findings within the context of public health policy and practice<br />
-</li>
-<li>Work independently and collaboratively to assess causal research</li>
+<li>Introduction to sensitivity analysis</li>
+<li>Quantifying the potential impact of unmeasured confounding</li>
+<li>The E-value: interpretation and calculation</li>
+<li>Designing more robust studies</li>
+<li>Communicating uncertainty in causal claims</li>
 </ul>
-</div>
-<div id="tools" class="section level2 unnumbered hasAnchor">
-<h2>Tools<a href="index.html#tools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This course will make use of:<br />
-- <strong>R</strong> and <strong>RStudio</strong><br />
-- Interactive R tutorials and guided analysis<br />
-- GitHub for accessing materials and submitting assignments</p>
-</div>
-<div id="useful-links" class="section level2 unnumbered hasAnchor">
-<h2>Useful Links<a href="index.html#useful-links" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><a href="http://www.cae.ucla.edu">UCLA Center for Accessible Education</a><br />
-</li>
-<li><a href="https://equity.ucla.edu">UCLA Equity, Diversity, and Inclusion</a><br />
-</li>
-<li><a href="https://ph.ucla.edu/about-fsph/fsph-equity-diversity-and-inclusion-taking-action-together">FSPH EDI Initiative</a></li>
-</ul>
+</blockquote>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="foundations-causal-thinking-in-public-health.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="measurement-missing-data-and-selection-bias.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="systems-thinking-and-policy-translation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -251,7 +181,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/index.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/08_missing_data.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -259,7 +189,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/index.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/08_missing_data.Rmd",
     "text": null
   },
   "download": null,

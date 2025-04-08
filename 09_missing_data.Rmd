@@ -1,0 +1,26 @@
+# Systems Thinking and Policy Translation
+
+> ## Class materials
+>
+> Slides: [**Module 9**](https://your-slide-link.com)
+>
+> Recording: [**Module 9, Part 1**](https://your-recording-link.com)
+>
+> Recording: [**Module 9, Part 2**](https://your-recording-link.com)
+
+> ## Textbook reading
+>
+> [**Hernán & Robins, Causal Inference: What If – Chapter 15**](https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf)
+
+> ## Supplementary reading
+>
+> [**Sterman, J. D. (2006). Learning from evidence in a complex world. American Journal of Public Health, 96(3), 505–514.**](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1470480/)\
+> Examples of systems-level interventions in public health and policy
+
+> ## Topics covered
+>
+> -   Introduction to systems thinking in public health
+> -   Complex causality and feedback loops
+> -   Translating causal findings into policy recommendations
+> -   Ethical and practical challenges of implementation
+> -   Evaluating impact in dynamic systems
