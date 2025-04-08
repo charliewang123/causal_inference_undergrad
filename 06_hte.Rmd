@@ -14,7 +14,7 @@
 
 > ## Supplementary reading
 >
-> [**Knol, M. J., & VanderWeele, T. J. (2012). Recommendations for presenting analyses of effect modification and interaction. International Journal of Epidemiology, 41(2), 514–520.**](https://academic.oup.com/ije/article/41/2/514/709435)  
+> [**Knol, M. J., & VanderWeele, T. J. (2012). Recommendations for presenting analyses of effect modification and interaction. International Journal of Epidemiology, 41(2), 514–520.**](https://academic.oup.com/ije/article/41/2/514/709435)\
 > Real-world public health examples of effect modification
 
 > ## Topics covered
