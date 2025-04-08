@@ -1,3 +1,26 @@
-# Foundations: Causal Graphs
+# Bias and Identification
 
-> Week 3 [**Slides**](https://drive.google.com/drive/folders/14Iymvk2FlZqVsWrtbDLmwSzR5aNS-Mcg?usp=sharing)
+> ## Class materials
+>
+> Slides: [**Module 3**](https://drive.google.com/drive/folders/14Iymvk2FlZqVsWrtbDLmwSzR5aNS-Mcg?usp=sharing)
+>
+> Recording: [**Module 3, Part 1**](https://your-recording-link.com)
+>
+> Recording: [**Module 3, Part 2**](https://your-recording-link.com)
+
+> ## Textbook reading
+>
+> [**Hernán & Robins, Causal Inference: What If – Chapters 5–6**](https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf)
+
+> ## Supplementary reading
+>
+> [**Greenland, S. (2003). Quantifying biases in causal models: classical confounding vs collider-stratification bias. Epidemiology, 14(3), 300–306.**](https://journals.lww.com/epidem/Fulltext/2003/05000/Quantifying_Biases_in_Causal_Models__Classical.7.aspx)\
+> Additional DAG exercises provided in class
+
+> ## Topics covered
+>
+> -   Confounding bias and how it arises
+> -   Collider bias and overcontrol
+> -   Selection bias and missing data
+> -   Identifiability of causal effects
+> -   Using DAGs to reason about sources of bias
