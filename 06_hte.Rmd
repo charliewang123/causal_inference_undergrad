@@ -1,3 +1,26 @@
-# Heterogeneous Treatment Effects and Causal Machine Learning
+# Effect Modification and Interaction
 
-> Week 7 [**Slides**](https://drive.google.com/drive/folders/14Iymvk2FlZqVsWrtbDLmwSzR5aNS-Mcg?usp=sharing)
+> ## Class materials
+>
+> Slides: [**Module 6**](https://drive.google.com/drive/folders/14Iymvk2FlZqVsWrtbDLmwSzR5aNS-Mcg?usp=sharing)
+>
+> Recording: [**Module 6, Part 1**](https://your-recording-link.com)
+>
+> Recording: [**Module 6, Part 2**](https://your-recording-link.com)
+
+> ## Textbook reading
+>
+> [**Hernán & Robins, Causal Inference: What If – Chapter 11**](https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf)
+
+> ## Supplementary reading
+>
+> [**Knol, M. J., & VanderWeele, T. J. (2012). Recommendations for presenting analyses of effect modification and interaction. International Journal of Epidemiology, 41(2), 514–520.**](https://academic.oup.com/ije/article/41/2/514/709435)  
+> Real-world public health examples of effect modification
+
+> ## Topics covered
+>
+> -   What is effect modification?
+> -   Distinguishing interaction from confounding
+> -   Statistical vs. biological interaction
+> -   Stratified analysis and interaction terms in regression
+> -   Interpretation and communication of heterogeneity in effects
