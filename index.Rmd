@@ -1,47 +1,85 @@
---- 
-# title: "Causal Inference Graduate Course"
+---
+# title: "The Science of Why: Causal Inference for Public Health"
 # author: "Falco J. Bargagli-Stoffi"
-# date: "`April 2025`"
+# date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 # bibliography: [book.bib, packages.bib]
 # url: your book url like https://bookdown.org/yihui/bookdown
 # cover-image: path to the social sharing image like images/cover.jpg
 description: |
-  A graduate course on causal inference
+  An undergraduate course on causal inference
 # biblio-style: apalike
 # csl: chicago-fullnote-bibliography.csl
 ---
 
-# Welcome {-}
+# Welcome {.unnumbered}
 
-This is the website for the graduate course in Causal Inference (Biostat M235) at the University of California, Los Angeles (UCLA).
+Welcome to the course website for **The Science of Why: Causal Inference for Public Health**. This course introduces the foundations of causal inference in public health and medical sciences, with an emphasis on distinguishing between association and causation in real-world research.
 
-Instructor: [Falco J. Bargagli-Stoffi](https://www.falcobargaglistoffi.com/).
+## Course Description {.unnumbered}
 
-Teaching assistant: [Kelsey Ishimoto](https://cch.ucla.edu/people/kelsey-ishimoto/).
+In this course, students will: - Explore foundational concepts such as counterfactuals, causal estimands, and identification strategies. - Learn how to critically evaluate causal claims in public health literature. - Understand and apply experimental and observational study designs, causal diagrams (DAGs), and bias adjustment methods. - Develop practical skills through R-based tutorials and case studies.
 
-Each course module in the left panel will span several lectures. We will build this website over the course of the quarter, uploading lecture slides as we go.
+This course is ideal for undergraduates interested in public health, epidemiology, biostatistics, or social science research.
 
-## Learning objectives {-}
+## Instructor {.unnumbered}
 
-> [**Syllabus**](https://drive.google.com/file/d/1ca24sjKu307y0hSZwuzfxLcQSA_OjiWl/view?usp=sharing)
+**Falco J. Bargagli-Stoffi**\
+Assistant Professor\
+Department of Biostatistics\
+UCLA Fielding School of Public Health\
+[falco\@ucla.edu](mailto:falco@ucla.edu)
 
-The course aims to introduce the key concepts and state-of-the-art methods for causal inference from randomized experiments and observational studies. We will first introduce the basic concepts of the potential outcome framework (with a particular focus on the essential role of the treatment assignment mechanism) and the causal graphical model approach. Then, we will cover different situations corresponding to different assumptions concerning the assignment mechanism. We will discuss the design and analysis of experiments and how to make inference under different modes, including design (randomization)-based, frequentist, and Bayesian. We will cover the design and analysis of observational studies with regular assignment mechanisms where the unconfoundedness assumption is assumed to hold. We will introduce methods and sensitivity analyses to account for possible violations of unconfoundedness. Finally, we will cover heterogeneous treatment effects, and causal machine learning approaches to causal heterogeneity.
+Office hours: By appointment. (Book via the scheduling link on this website.)
 
-## Teaching Material {-}
+## Teaching Assistants {.unnumbered}
 
-Selected chapters from the book list below. Articles in (bio)statistical and econometric journals.
+TBD — will be announced on the course website.
 
-> Imbens, G.W., and D.B. Rubin. 2015. [**Causal Inference for Statistics, Social, and Biomedical Sciences**](https://www.cambridge.org/core/books/causal-inference-for-statistics-social-and-biomedical-sciences/71126BE90C58F1A431FE9B2DD07938AB) Cambridge: Cambridge University Press.
->
-> Ding, P. 2023. [**A First Course in Causal Inference**](https://www.routledge.com/A-First-Course-in-Causal-Inference/Ding/p/book/9781032758626) New York: Routledge.
->
-> Pearl, J. 2009. [**Causality**](https://www.cambridge.org/core/books/causality/B0046844FAE10CBF274D4ACBDAEB5F5B) Cambridge: Cambridge University Press.
+## Course Logistics {.unnumbered}
 
+-   **Offered**: Fall Term\
+-   **Meetings**: Lecture (3 hours), Discussion (1 hour) — in-person unless otherwise announced\
+-   **Assignments**: Posted on the course website, due before 8 PM on specified dates\
+-   **Final Project**: Group presentation + written report during finals week
 
-## Acknowledgments {-}
+## Required Materials {.unnumbered}
 
-Special thanks to Prof. [Fabrizia Mealli](https://sites.google.com/unifi.it/fabriziamealli) and Prof. [Davide Viviano](https://dviviano.github.io/) for their invaluable help in preparing this course.
+**Primary Textbook**:\
+Hernán MA, Robins JM. (2023) *Causal Inference: What If*\
+[Free PDF available here](https://www.miguelhernan.org/causal-inference-book/)
 
+**Secondary (Recommended) Texts**: - Rosenbaum PR. *Causal Inference*. MIT Press.\
+- Pearl J., Mackenzie D. *The Book of Why*. Basic Books.
 
+**Supplementary Readings**:\
+Will be shared throughout the course.
+
+## Learning Objectives {.unnumbered}
+
+> [**Syllabus**](https://docs.google.com/document/d/17_kJcFCyRMHCMWIgOoCczqUh12HBkO7z/edit?tab=t.0)
+
+This course introduces students to the foundations of causal inference in public health and medical sciences, with a strong emphasis on the difference between **association and causation**. Students will learn to critically evaluate causal claims, understand causal diagrams (DAGs), and assess study design choices in both randomized and observational studies.
+
+We will explore how causal effects are identified and estimated, how to detect and adjust for biases (like confounding and selection bias), and how to use critical thinking tools when reviewing public health research. Students will also be introduced to concepts like effect modification, interaction, and systems thinking through real-world applications.
+
+## Upon successful completion of this course, students will be able to: {.unnumbered}
+
+-   Communicate public health findings and causal claims in written and oral forms
+-   Evaluate causal claims in academic and public health literature
+-   Design and assess both randomized trials and observational studies
+-   Construct and analyze causal diagrams (DAGs) for identifying sources of bias
+-   Apply concepts of effect modification, interaction, and confounding
+-   Interpret findings within the context of public health policy and practice
+-   Work independently and collaboratively to assess causal research
+
+## Tools {.unnumbered}
+
+This course will make use of: - **R** and **RStudio** - Interactive R tutorials and guided analysis - GitHub for accessing materials and submitting assignments
+
+## Useful Links {.unnumbered}
+
+-   [UCLA Center for Accessible Education](http://www.cae.ucla.edu)
+-   [UCLA Equity, Diversity, and Inclusion](https://equity.ucla.edu)
+-   [FSPH EDI Initiative](https://ph.ucla.edu/about-fsph/fsph-equity-diversity-and-inclusion-taking-action-together)
