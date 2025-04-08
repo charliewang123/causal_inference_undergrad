@@ -1,0 +1,26 @@
+# Sensitivity Analysis
+
+> ## Class materials
+>
+> Slides: [**Module 8**](https://your-slide-link.com)
+>
+> Recording: [**Module 8, Part 1**](https://your-recording-link.com)
+>
+> Recording: [**Module 8, Part 2**](https://your-recording-link.com)
+
+> ## Textbook reading
+>
+> [**Hernán & Robins, Causal Inference: What If – Chapter 14**](https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf)
+
+> ## Supplementary reading
+>
+> [**VanderWeele, T. J., & Ding, P. (2017). Sensitivity analysis in observational research: introducing the E-value. Annals of Internal Medicine, 167(4), 268–274.**](https://www.acpjournals.org/doi/10.7326/M16-2607)\
+> Case studies on unmeasured confounding and robustness of findings
+
+> ## Topics covered
+>
+> -   Introduction to sensitivity analysis
+> -   Quantifying the potential impact of unmeasured confounding
+> -   The E-value: interpretation and calculation
+> -   Designing more robust studies
+> -   Communicating uncertainty in causal claims

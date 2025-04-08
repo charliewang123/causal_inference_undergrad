@@ -1,0 +1,28 @@
+# Final Project Presentations
+
+> ## Class materials
+>
+> Slides: [**Final Project Overview**](https://your-slide-link.com)
+>
+> Recording: [**Project Presentation Session**](https://your-recording-link.com)
+
+> ## Guidelines
+>
+> -   Projects must clearly state a causal question and why it's relevant to public health.
+> -   Use DAGs or potential outcomes framework to illustrate assumptions and design.
+> -   Present evidence from real or simulated data, clearly indicating assumptions and limitations.
+> -   Address potential biases and whether sensitivity analysis was performed.
+> -   Be ready to respond to peer and instructor questions.
+
+> ## Deliverables
+>
+> -   📄 **Written report** (5–8 pages)\
+> -   🎤 **In-class presentation** (8–10 minutes per group)\
+> -   🧠 Peer feedback on other presentations
+
+> ## Topics covered
+>
+> -   Synthesis of course concepts in real-world applications\
+> -   Communicating causal findings to a public health audience\
+> -   Critical peer review and constructive feedback\
+> -   Translating methods into actionable insights
