@@ -19,67 +19,72 @@ Welcome to the course website for **The Science of Why: Causal Inference for Pub
 
 ## Course Description {.unnumbered}
 
-In this course, students will: - Explore foundational concepts such as counterfactuals, causal estimands, and identification strategies. - Learn how to critically evaluate causal claims in public health literature. - Understand and apply experimental and observational study designs, causal diagrams (DAGs), and bias adjustment methods. - Develop practical skills through R-based tutorials and case studies.
+In this course, students will: 
 
-This course is ideal for undergraduates interested in public health, epidemiology, biostatistics, or social science research.
+- Explore foundational concepts such as counterfactuals, causal estimands, and identification strategies.  
+- Learn how to critically evaluate causal claims in public health literature.  
+- Understand and apply experimental and observational study designs, causal diagrams (DAGs), and bias adjustment methods.  
+- Develop practical skills through R-based tutorials and case studies.  
+
+This course is ideal for undergraduates interested in public health, epidemiology, biostatistics, or social science research.  
 
 ## Instructor {.unnumbered}
 
-**Falco J. Bargagli-Stoffi**\
-Assistant Professor\
-Department of Biostatistics\
-UCLA Fielding School of Public Health\
-[falco\@ucla.edu](mailto:falco@ucla.edu)
+**Falco J. Bargagli-Stoffi**  
+Assistant Professor  
+Department of Biostatistics  
+UCLA Fielding School of Public Health  
+[falco\@ucla.edu](mailto:falco@ucla.edu)  
 
-Office hours: By appointment. (Book via the scheduling link on this website.)
+Office hours: By appointment. (Book via the scheduling link on this website.)  
 
-## Teaching Assistants {.unnumbered}
+## Teaching Assistants {.unnumbered}  
 
-TBD — will be announced on the course website.
+TBD — will be announced on the course website.  
 
-## Course Logistics {.unnumbered}
+## Course Logistics {.unnumbered}  
 
--   **Offered**: Fall Term\
--   **Meetings**: Lecture (3 hours), Discussion (1 hour) — in-person unless otherwise announced\
--   **Assignments**: Posted on the course website, due before 8 PM on specified dates\
--   **Final Project**: Group presentation + written report during finals week
+-   **Offered**: Fall Term  
+-   **Meetings**: Lecture (3 hours), Discussion (1 hour) — in-person unless otherwise announced  
+-   **Assignments**: Posted on the course website, due before 8 PM on specified dates  
+-   **Final Project**: Group presentation + written report during finals week  
 
-## Required Materials {.unnumbered}
+## Required Materials {.unnumbered}  
 
-**Primary Textbook**:\
-Hernán MA, Robins JM. (2023) *Causal Inference: What If*\
-[Free PDF available here](https://www.miguelhernan.org/causal-inference-book/)
+**Primary Textbook**:  
+Hernán MA, Robins JM. (2023) *Causal Inference: What If*  
+[Free PDF available here](https://www.miguelhernan.org/causal-inference-book/)  
 
-**Secondary (Recommended) Texts**: - Rosenbaum PR. *Causal Inference*. MIT Press.\
-- Pearl J., Mackenzie D. *The Book of Why*. Basic Books.
+**Secondary (Recommended) Texts**: - Rosenbaum PR. *Causal Inference*. MIT Press.  
+- Pearl J., Mackenzie D. *The Book of Why*. Basic Books.  
 
-**Supplementary Readings**:\
-Will be shared throughout the course.
+**Supplementary Readings**:  
+Will be shared throughout the course.  
 
-## Learning Objectives {.unnumbered}
+## Learning Objectives {.unnumbered}  
 
-> [**Syllabus**](https://docs.google.com/document/d/17_kJcFCyRMHCMWIgOoCczqUh12HBkO7z/edit?tab=t.0)
+> [**Syllabus**](https://docs.google.com/document/d/17_kJcFCyRMHCMWIgOoCczqUh12HBkO7z/edit?tab=t.0)  
 
-This course introduces students to the foundations of causal inference in public health and medical sciences, with a strong emphasis on the difference between **association and causation**. Students will learn to critically evaluate causal claims, understand causal diagrams (DAGs), and assess study design choices in both randomized and observational studies.
+This course introduces students to the foundations of causal inference in public health and medical sciences, with a strong emphasis on the difference between **association and causation**. Students will learn to critically evaluate causal claims, understand causal diagrams (DAGs), and assess study design choices in both randomized and observational studies.  
 
-We will explore how causal effects are identified and estimated, how to detect and adjust for biases (like confounding and selection bias), and how to use critical thinking tools when reviewing public health research. Students will also be introduced to concepts like effect modification, interaction, and systems thinking through real-world applications.
+We will explore how causal effects are identified and estimated, how to detect and adjust for biases (like confounding and selection bias), and how to use critical thinking tools when reviewing public health research. Students will also be introduced to concepts like effect modification, interaction, and systems thinking through real-world applications.  
 
-## Upon successful completion of this course, students will be able to: {.unnumbered}
+## Upon successful completion of this course, students will be able to: {.unnumbered}  
 
--   Communicate public health findings and causal claims in written and oral forms
--   Evaluate causal claims in academic and public health literature
--   Design and assess both randomized trials and observational studies
--   Construct and analyze causal diagrams (DAGs) for identifying sources of bias
--   Apply concepts of effect modification, interaction, and confounding
--   Interpret findings within the context of public health policy and practice
--   Work independently and collaboratively to assess causal research
+-   Communicate public health findings and causal claims in written and oral forms  
+-   Evaluate causal claims in academic and public health literature  
+-   Design and assess both randomized trials and observational studies  
+-   Construct and analyze causal diagrams (DAGs) for identifying sources of bias  
+-   Apply concepts of effect modification, interaction, and confounding  
+-   Interpret findings within the context of public health policy and practice  
+-   Work independently and collaboratively to assess causal research  
 
-## Tools {.unnumbered}
+## Tools {.unnumbered}  
 
-This course will make use of: - **R** and **RStudio** - Interactive R tutorials and guided analysis - GitHub for accessing materials and submitting assignments
+This course will make use of: - **R** and **RStudio** - Interactive R tutorials and guided analysis - GitHub for accessing materials and submitting assignments  
 
-## Useful Links {.unnumbered}
+## Useful Links {.unnumbered}  
 
--   [UCLA Center for Accessible Education](http://www.cae.ucla.edu)
--   [UCLA Equity, Diversity, and Inclusion](https://equity.ucla.edu)
--   [FSPH EDI Initiative](https://ph.ucla.edu/about-fsph/fsph-equity-diversity-and-inclusion-taking-action-together)
+-   [UCLA Center for Accessible Education](http://www.cae.ucla.edu)  
+-   [UCLA Equity, Diversity, and Inclusion](https://equity.ucla.edu)  
+-   [FSPH EDI Initiative](https://ph.ucla.edu/about-fsph/fsph-equity-diversity-and-inclusion-taking-action-together)  
