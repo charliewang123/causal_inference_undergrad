@@ -157,7 +157,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.3" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html#causal-estimands-and-identification"><i class="fa fa-check"></i><b>1.3</b> 1.3 Causal Estimands and Identification</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="foundations-ii-causal-graphs-study-designs.html"><a href="foundations-ii-causal-graphs-study-designs.html"><i class="fa fa-check"></i><b>2</b> Foundations II: Causal Graphs &amp; Study Designs</a></li>
-<li class="chapter" data-level="3" data-path="bias-and-identification.html"><a href="bias-and-identification.html"><i class="fa fa-check"></i><b>3</b> Bias and Identification</a></li>
+<li class="chapter" data-level="3" data-path="bias-and-identification.html"><a href="bias-and-identification.html"><i class="fa fa-check"></i><b>3</b> Bias and Identification</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="bias-and-identification.html"><a href="bias-and-identification.html#confounding-bias-and-how-it-arises"><i class="fa fa-check"></i><b>3.1</b> 3.1 Confounding Bias and How It Arises</a></li>
+<li class="chapter" data-level="3.2" data-path="bias-and-identification.html"><a href="bias-and-identification.html#collider-bias-and-overcontrol"><i class="fa fa-check"></i><b>3.2</b> 3.2 Collider Bias and Overcontrol</a></li>
+<li class="chapter" data-level="3.3" data-path="bias-and-identification.html"><a href="bias-and-identification.html#selection-bias-and-missing-data"><i class="fa fa-check"></i><b>3.3</b> 3.3 Selection Bias and Missing Data</a></li>
+<li class="chapter" data-level="3.4" data-path="bias-and-identification.html"><a href="bias-and-identification.html#identifiability-of-causal-effects"><i class="fa fa-check"></i><b>3.4</b> 3.4 Identifiability of Causal Effects</a></li>
+<li class="chapter" data-level="3.5" data-path="bias-and-identification.html"><a href="bias-and-identification.html#using-dags-to-reason-about-sources-of-bias"><i class="fa fa-check"></i><b>3.5</b> 3.5 Using DAGs to Reason About Sources of Bias</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html"><i class="fa fa-check"></i><b>4</b> Randomized Controlled Trials (RCTs) and Quasi-Experiments</a></li>
 <li class="chapter" data-level="5" data-path="observational-studies-and-bias-adjustment.html"><a href="observational-studies-and-bias-adjustment.html"><i class="fa fa-check"></i><b>5</b> Observational Studies and Bias Adjustment</a></li>
 <li class="chapter" data-level="6" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html"><i class="fa fa-check"></i><b>6</b> Effect Modification and Interaction</a></li>
@@ -328,12 +335,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-104"><a href="foundations-causal-thinking-in-public-health.html#cb1-104" tabindex="-1"></a>  <span class="fu">unique</span>(<span class="fu">predict</span>(model))</span>
 <span id="cb1-105"><a href="foundations-causal-thinking-in-public-health.html#cb1-105" tabindex="-1"></a>  })</span></code></pre></div>
 <pre><code>##     Treatment Mild_Avg Severe_Avg Total_Avg
-## 1 Treatment A     15 %     30.1 %    17.2 %
-## 2 Treatment B    9.9 %       20 %    18.6 %</code></pre>
+## 1 Treatment A   15.1 %     29.8 %    17.2 %
+## 2 Treatment B     10 %       20 %    18.6 %</code></pre>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
 ## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<pre><code>## [1] 0.1501958 0.0988800 0.3009250 0.2000533</code></pre>
+<pre><code>## [1] 0.1505733 0.0999650 0.2977500 0.2002558</code></pre>
 </div>
 <div id="introduction-to-counterfactuals-and-potential-outcomes" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> 1.2 Introduction to Counterfactuals and Potential Outcomes<a href="foundations-causal-thinking-in-public-health.html#introduction-to-counterfactuals-and-potential-outcomes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -376,12 +383,12 @@ The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)</p>
 <span id="cb5-23"><a href="foundations-causal-thinking-in-public-health.html#cb5-23" tabindex="-1"></a></span>
 <span id="cb5-24"><a href="foundations-causal-thinking-in-public-health.html#cb5-24" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##        age      bmi cholesterol treatment        y  true_ite
-## 1 36.15645 28.05092    172.7654         1 146.4922 -23.49185
-## 2 49.85039 19.13110    233.5464         0 162.1413 -20.47249
-## 3 31.61164 19.82049    165.1446         1 143.8867 -22.93129
-## 4 59.93514 16.57722    200.5879         1 110.0670 -42.86714
-## 5 35.10888 25.62897    198.8463         1 149.4614 -17.30704
-## 6 51.47917 23.23631    185.0582         1 124.1248 -36.25523</code></pre>
+## 1 49.76391 29.73335    213.6757         1 142.6766 -25.19268
+## 2 40.13272 23.55795    181.9506         1 139.8081 -25.74217
+## 3 46.28427 25.92874    207.4285         0 164.5552 -27.75455
+## 4 57.24008 22.90951    243.5845         1 141.4731 -27.63559
+## 5 59.59806 19.50916    252.7379         1 150.5228 -24.96324
+## 6 50.83870 25.43793    189.5347         1 131.7792 -34.16687</code></pre>
 <p>Next, I estimated treatment effects using regression. Since I can’t observe both Y(0) and Y(1) for any individual, I used separate regressions for treatment and control groups. I used the models to predict counter factual outcomes for all patients and to compute the estimated ITE as the difference between Y(1) and Y(0).</p>
 <p>Estimate Treatment Effects Using Regression</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="foundations-causal-thinking-in-public-health.html#cb7-1" tabindex="-1"></a>control_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> age <span class="sc">+</span> bmi <span class="sc">+</span> cholesterol, <span class="at">data =</span> data, <span class="at">subset =</span> (treatment <span class="sc">==</span> <span class="dv">0</span>))</span>
@@ -394,12 +401,12 @@ The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)</p>
 <span id="cb7-8"><a href="foundations-causal-thinking-in-public-health.html#cb7-8" tabindex="-1"></a></span>
 <span id="cb7-9"><a href="foundations-causal-thinking-in-public-health.html#cb7-9" tabindex="-1"></a><span class="fu">head</span>(data[<span class="fu">c</span>(<span class="st">&quot;ite_estimate&quot;</span>, <span class="st">&quot;y0_hat&quot;</span>, <span class="st">&quot;y1_hat&quot;</span>)])</span></code></pre></div>
 <pre><code>##   ite_estimate   y0_hat   y1_hat
-## 1    -23.61246 164.0641 140.4516
-## 2    -20.63065 168.3699 147.7392
-## 3    -22.34677 163.0752 140.7284
-## 4    -40.33530 155.7348 115.3995
-## 5    -15.36540 169.6805 154.3151
-## 6    -35.69845 158.0090 122.3106</code></pre>
+## 1    -25.41802 166.5499 141.1319
+## 2    -25.72317 163.5420 137.8188
+## 3    -23.97957 166.0386 142.0590
+## 4    -23.89081 166.6978 142.8070
+## 5    -23.52922 166.3454 142.8161
+## 6    -33.97553 160.1456 126.1701</code></pre>
 <p>Now, I plotted the true ITE vs the estimated ITE. Here, each point is a patient, and the red dashed line represents the ideal estimation. If the point fits well with the line, then the model is accurate.</p>
 <p>Visualizing the Estimated ITE</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="foundations-causal-thinking-in-public-health.html#cb9-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -433,16 +440,16 @@ The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="foundations-causal-thinking-in-public-health.html#cb11-1" tabindex="-1"></a>top_beneficiaries <span class="ot">&lt;-</span> data[<span class="fu">order</span>(data<span class="sc">$</span>ite_estimate), ][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span>
 <span id="cb11-2"><a href="foundations-causal-thinking-in-public-health.html#cb11-2" tabindex="-1"></a>top_beneficiaries[, <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;bmi&quot;</span>, <span class="st">&quot;cholesterol&quot;</span>, <span class="st">&quot;ite_estimate&quot;</span>)]</span></code></pre></div>
 <pre><code>##           age      bmi cholesterol ite_estimate
-## 503  76.08682 29.44838   115.51611    -79.13280
-## 624  80.02817 25.74004   155.94451    -71.80656
-## 28   63.91343 22.33610   108.33122    -70.11687
-## 1026 74.92663 29.05861   148.53623    -68.52919
-## 981  75.60352 22.74169   157.96775    -67.24466
-## 1969 58.75731 29.22002    98.12248    -67.15922
-## 570  64.63396 19.00818   122.50977    -67.14435
-## 951  64.15793 32.30773   115.95430    -66.94871
-## 1780 64.30288 18.39665   122.48490    -66.90084
-## 1043 71.51110 23.67405   146.54607    -66.40413</code></pre>
+## 1240 65.00713 25.02465    101.4485    -74.94138
+## 726  65.35309 29.68059    103.4183    -74.55372
+## 680  75.27396 22.72280    144.7721    -71.96043
+## 1126 79.07081 21.35815    165.9355    -69.30217
+## 930  75.42591 17.56058    155.4707    -68.98750
+## 901  67.26341 25.09973    132.1902    -67.78991
+## 780  70.84387 25.87663    145.1291    -67.36905
+## 1122 65.87628 28.29475    129.7189    -67.07979
+## 1981 73.99855 26.09616    161.2096    -65.58196
+## 703  72.13846 24.84895    156.1582    -65.31390</code></pre>
 </div>
 <div id="causal-estimands-and-identification" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> 1.3 Causal Estimands and Identification<a href="foundations-causal-thinking-in-public-health.html#causal-estimands-and-identification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -471,8 +478,8 @@ The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)</p>
 <span id="cb14-5"><a href="foundations-causal-thinking-in-public-health.html#cb14-5" tabindex="-1"></a></span>
 <span id="cb14-6"><a href="foundations-causal-thinking-in-public-health.html#cb14-6" tabindex="-1"></a><span class="fu">print</span>(results)</span></code></pre></div>
 <pre><code>##     age_group cate_estimate
-## 1  &lt; 40 years     -21.94617
-## 2 &gt;= 40 years     -37.54751</code></pre>
+## 1  &lt; 40 years     -22.22674
+## 2 &gt;= 40 years     -37.84248</code></pre>
 <p>From the table, we can see that the CATE is more negative for older individuals, meaning that the treatment appears to be more effective for people older than 40. Because the CATE for younger individuals is lower, this means that the treatment is less effective for young people. This shows that age influences the effectiveness of the treatment. Here is a visualization of the CATE estimates.</p>
 <p>Visualization of the CATE Effects Based on Age</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="foundations-causal-thinking-in-public-health.html#cb16-1" tabindex="-1"></a>cate_young_se <span class="ot">&lt;-</span> <span class="fu">sd</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>age <span class="sc">&lt;</span> threshold]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span>age <span class="sc">&lt;</span> threshold))</span>
@@ -500,7 +507,7 @@ The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="foundations-causal-thinking-in-public-health.html#cb17-1" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>ite_estimate)</span>
 <span id="cb17-2"><a href="foundations-causal-thinking-in-public-health.html#cb17-2" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="foundations-causal-thinking-in-public-health.html#cb17-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The Average Treatment Effect (ATE) is&quot;</span>, <span class="fu">round</span>(ate, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The Average Treatment Effect (ATE) is -30.1&quot;</code></pre>
+<pre><code>## [1] &quot;The Average Treatment Effect (ATE) is -29.82&quot;</code></pre>
 <p>Here is a visualization for the <strong>Average Treatment Effect (ATE)</strong>. I created a simple bar chart comparing the health outcome for treated and non-treated individuals. The bar chart shows a higher blood pressure for non-treated individuals and a lower blood pressure for treated individuals, showing the positive impacts of the treatment The height difference between the two bars represents the ATE.</p>
 <p>ATE Visualization</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="foundations-causal-thinking-in-public-health.html#cb19-1" tabindex="-1"></a>control_se <span class="ot">&lt;-</span> <span class="fu">sd</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>))</span>
@@ -532,7 +539,7 @@ The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="foundations-causal-thinking-in-public-health.html#cb20-1" tabindex="-1"></a>att <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>])</span>
 <span id="cb20-2"><a href="foundations-causal-thinking-in-public-health.html#cb20-2" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="foundations-causal-thinking-in-public-health.html#cb20-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The Average Treatment Effect on the Treated (ATT) is&quot;</span>, <span class="fu">round</span>(att, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The Average Treatment Effect on the Treated (ATT) is -30.23&quot;</code></pre>
+<pre><code>## [1] &quot;The Average Treatment Effect on the Treated (ATT) is -29.96&quot;</code></pre>
 <p>Average Treatment Effect on the Control (ATC)</p>
 <p>The <strong>Average Treatment Effect on the Control (ATC)</strong> measures the effect of a treatment on individuals who were not actually exposed to the treatment or exposure. Unlike the <strong>Average Treatment Effect on the Treated (ATT)</strong>, which estimates the impact for those who received the treatment, ATC explains how the control group would have been affected if they have been treated. ATC is expressed as E[Y(1) - Y(0)|T=0] where Y(1) represents the potential outcome with treatment, Y(0) represents the potential outcome without treatment, and T=0 represents people who did not receive treatment. ATC is useful when analyzing policies or medical treatments to understand how untreated individuals would have been affected by the intervention.</p>
 <p>In this scenario, ATC answers the question: How much would the treatment have affected individuals who were not exposed to it? To calculate ATC, I took the average treatment effect of the subset of the population that were not exposed to the treatment. If ATC is negative, it means that the treatment would have harmed the control group if they were exposed. By comparing the ATT and the ATC, it helps us determine if the treatment has differential effects across subgroups.</p>
@@ -540,7 +547,7 @@ The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="foundations-causal-thinking-in-public-health.html#cb22-1" tabindex="-1"></a>atc <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>])</span>
 <span id="cb22-2"><a href="foundations-causal-thinking-in-public-health.html#cb22-2" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="foundations-causal-thinking-in-public-health.html#cb22-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The Average Treatment Effect on the Control (ATC) is&quot;</span>, <span class="fu">round</span>(atc, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The Average Treatment Effect on the Control (ATC) is -28.64&quot;</code></pre>
+<pre><code>## [1] &quot;The Average Treatment Effect on the Control (ATC) is -28.38&quot;</code></pre>
 <p>Now, I’ve created a visualization comparing how the treatment effect differs for treated and control groups.</p>
 <p>ATT vs. ATC Visualization</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="foundations-causal-thinking-in-public-health.html#cb24-1" tabindex="-1"></a>att_se <span class="ot">&lt;-</span> <span class="fu">sd</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>))</span>
