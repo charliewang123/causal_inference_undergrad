@@ -172,7 +172,7 @@ As shown in the Simpson’s Paradox example above, failing to account for confou
 
 While the average treatment effect (ATE) helps summarize the overall impact of a treatment, it often masks important variation across individuals. In practice, not everyone responds to treatment the same way — some benefit more than others, and some may even be harmed. This brings us to the concept of the Individual Treatment Effect (ITE), which asks: what was the treatment effect for this specific person? Although we can never observe both potential outcomes for a single individual, we can use modeling techniques to estimate ITEs and explore treatment effect heterogeneity. The following example demonstrates how this was done using simulated data.
 
-Section 1: Individual Treatment Effect (ITE)
+Individual Treatment Effect (ITE)
 
 In causal inference, the **Individual Treatment Effect** (ITE) measures how much one specific patient benefits from a treatment. ITE focuses on personalized benefits - how much an intervention would change the outcome for each person at the same time. The formula for the ITE is Yi(1) - Yi(0), where Yi(1) is the outcome if the person receives the treatment while Yi(0) is the outcome if the person does not receive the treatment.
 
@@ -184,7 +184,7 @@ To do this, I first simulated healthcare data, including patient characteristics
 
 First up, I simulated the patient data. I created potential outcomes Y(0) and Y(1) for blood pressure. I intentionally assigned older people who have high cholesterol levels. Then, I computed the true ITE for each patient.
 
-Step 1: Simulating the Patient Data
+Simulating the Patient Data
 
 ```{r}
 
@@ -217,7 +217,7 @@ head(data)
 
 Next, I estimated treatment effects using regression. Since I can't observe both Y(0) and Y(1) for any individual, I used separate regressions for treatment and control groups. I used the models to predict counter factual outcomes for all patients and to compute the estimated ITE as the difference between Y(1) and Y(0).
 
-Step 2: Estimate Treatment Effects Using Regression
+Estimate Treatment Effects Using Regression
 
 ```{r}
 
@@ -235,7 +235,7 @@ head(data[c("ite_estimate", "y0_hat", "y1_hat")])
 
 Now, I plotted the true ITE vs the estimated ITE. Here, each point is a patient, and the red dashed line represents the ideal estimation. If the point fits well with the line, then the model is accurate.
 
-Step 3: Visualizing the Estimated ITE
+Visualizing the Estimated ITE
 
 ```{r}
 
@@ -274,7 +274,7 @@ ggplot(data, aes(x = true_ite, y = ite_estimate_simple)) +
 
 Here are the top 10 patients who benefited the most from the treatment. This helps me identify patients who are most likely to benefit, as well as focus on individuals with high predicted response.
 
-Step 4: Patients Who Benefit Most
+Patients Who Benefit Most
 
 ```{r}
 
@@ -282,3 +282,181 @@ top_beneficiaries <- data[order(data$ite_estimate), ][1:10, ]
 top_beneficiaries[, c("age", "bmi", "cholesterol", "ite_estimate")]
 
 ```
+
+1.3 Causal Estimands and Identification
+
+Causal estimands are the quantities we aim to estimate to understand the effect of a treatment or intervention. The most common estimands include:
+- Average Treatment Effect (ATE): Measures the average difference in outcomes if everyone received the treatment versus if no one did.
+- Average Treatment Effect on the Treated (ATT): Measures the effect of treatment for those who actually received the treatment.
+- Average Treatment Effect on the Controls (ATC): Measures the effect for those who did not receive the treatment.
+- Conditional Average Treatment Effect (CATE): Measures the treatment effect for subgroups defined by observed characteristics (e.g., older vs. younger patients).
+
+Identification is the process of linking a causal estimand (like ATE) to observable data. Without valid identification, any estimates we produce may be biased or incorrect. One major challenge in causal inference is that we can never observe both potential outcomes for the same person — only the outcome under the actual treatment they received. This is the Fundamental Problem of Causal Inference.
+
+To overcome this, we make assumptions (like unconfoundedness or selection on observables) and use statistical models to estimate the missing potential outcome.
+
+Conditional Average Treatment Effect (CATE)
+
+The Conditional Average Treatment Effect (CATE) represents the expected treatment effect for a specific subgroup of patients with a particular characteristic. Unlike the Average Treatment Effect (ATE), which measures the treatment's effect on the entire population, CATE understands that the population is not homogeneous and conditions on certain variables (e.g. age, BMI, cholesterol). CATE can be described as E[Y(1) - Y(0) \| X], where X is the observed characteristics. This allows researchers to see which groups benefit more or less from a treatment, which can in-turn affect future decisions.
+
+For example, in clinical trials, a drug may work more effectively for older patients than younger ones. Another example would be a job program working more effectively on people with college degrees than people without college degrees. Estimating CATE allows business owners, researchers, and policymakers to make effective decisions that optimize outcomes for all groups.
+
+To estimate CATE from observational data, I must fit separate predictive models for the treated and control groups and then compute the expected difference in outcomes for different subgroups. I can estimate the CATE for age groups by splitting the data into younger individuals (age \< 40 years) and older individuals (age \>= 40 years) and then computing the average Individual Treatment Effect (ITE) within each group. I used the patient data from the above simulation and I estimated the individual treatment effect (ITE). Then, I computed the conditional average treatment effect (CATE) for age groups (young and old).
+
+Computing the Conditional Average Treatment Effect (CATE) for Age Groups
+
+```{r}
+
+threshold <- 50
+
+cate_young <- mean(data$ite_estimate[data$age < threshold])
+cate_old <- mean(data$ite_estimate[data$age >= threshold])
+
+```
+
+Finally, I stored and display the CATE results.
+
+Store and Display CATE Results
+
+```{r}
+
+results <- data.frame(
+  age_group = c("< 40 years", ">= 40 years"),
+  cate_estimate = c(cate_young, cate_old)
+)
+
+print(results)
+
+```
+
+From the table, we can see that the CATE is more negative for older individuals, meaning that the treatment appears to be more effective for people older than 40. Because the CATE for younger individuals is lower, this means that the treatment is less effective for young people. This shows that age influences the effectiveness of the treatment. Here is a visualization of the CATE estimates.
+
+Visualization of the CATE Effects Based on Age
+
+```{r}
+
+cate_young_se <- sd(data$ite_estimate[data$age < threshold]) / sqrt(sum(data$age < threshold))
+cate_old_se <- sd(data$ite_estimate[data$age >= threshold]) / sqrt(sum(data$age >= threshold))
+
+results <- data.frame(
+  age_group = c("< 50 years", ">= 50 years"),
+  cate_estimate = c(cate_young, cate_old),
+  lower = c(cate_young - 1.96 * cate_young_se, cate_old - 1.96 * cate_old_se),
+  upper = c(cate_young + 1.96 * cate_young_se, cate_old + 1.96 * cate_old_se)
+)
+
+ggplot(results, aes(y = age_group, x = cate_estimate)) +
+  geom_point(color = "red", size = 2) +  
+  geom_errorbar(aes(xmin = lower, xmax = upper), width = 0.4, color = "blue") + 
+  geom_vline(xintercept = 0, linetype = "dashed", color = "black") + 
+  labs(title = "Subgroup Analysis of Treatment Effect",
+       x = "Conditional Average Treatment Effect (CATE)",
+       y = "Age Group") +
+  theme_minimal()
+
+```
+
+Average Treatment Effect (ATE)
+
+The **Average Treatment Effect (ATE)** represents the impact of a treatment or exposure across an entire population. It is the difference between the average outcome with treatment and the average outcome without treatment. ATE is expressed as E[Y(1)] - E[Y(0)] where Y(1) is the potential outcome if treated and Y(0) is the potential outcome if not treated. ATE measures the treatment's effectiveness but it also assumes homogeneity between the two groups, meaning it doesn't account for differences within the groups. In real-life, treatment effects can be mitigated or enhanced because of characteristics like age, income or gender, which is why the Conditional Average Treatment Effect (CATE) are used to study heterogeneity, or differences between the treated and non-treated groups.
+
+Computing the Average Treatment Effect
+
+```{r}
+
+ate <- mean(data$ite_estimate)
+
+print(paste("The Average Treatment Effect (ATE) is", round(ate, 2)))
+
+```
+
+Here is a visualization for the **Average Treatment Effect (ATE)**. I created a simple bar chart comparing the health outcome for treated and non-treated individuals. The bar chart shows a higher blood pressure for non-treated individuals and a lower blood pressure for treated individuals, showing the positive impacts of the treatment The height difference between the two bars represents the ATE.
+
+ATE Visualization
+
+```{r}
+
+control_se <- sd(data$ite_estimate[data$treatment == 0]) / sqrt(sum(data$treatment == 0))
+treated_se <- sd(data$ite_estimate[data$treatment == 1]) / sqrt(sum(data$treatment == 1))
+
+control_mean <- mean(data$y0_hat[data$treatment == 0])
+treated_mean <- mean(data$y1_hat[data$treatment == 1])
+
+results <- data.frame(
+  group = c("Control (Y0)", "Treated (Y1)"),
+  ate_estimate = c(control_mean, treated_mean),
+  lower = c(control_mean - 1.96 * control_se, treated_mean - 1.96 * treated_se),
+  upper = c(control_mean + 1.96 * control_se, treated_mean + 1.96 * treated_se)
+)
+
+ggplot(results, aes(y = group, x = ate_estimate)) +
+  geom_point(color = "red", size = 2) +  
+  geom_errorbar(aes(xmin = lower, xmax = upper), width = 0.4, color = "blue") + 
+  geom_vline(xintercept = 0, linetype = "dashed", color = "black") + 
+  labs(title = "Estimated Average Treatment Effect",
+       x = "Estimated Average Treatment Effect",
+       y = "Control vs. Treated") +
+  theme_minimal()
+
+```
+
+Average Treatment Effect on the Treated (ATT)
+
+The **Average Treatment Effect on the Treated (ATT)** measures the impact of a treatment or exposure only among people who received it. Unlike the **Average Treatment Effect (ATE)**, which looks at the effect across the entire population, ATT focuses on those that were actually exposed or treated. ATT is expressed as E[Y(1) - Y(0)\|T=1] where Y(1) is the potential outcome with treatment and Y(0) is the potential outcome without treatment, and T=1 indicates only those people who were actually exposed or treated.
+
+ATT helps determine whether the intervention is effective or not for the treated population. It is particularly useful for analyzing policies or medical treatments when the treatment is not randomly assigned. In the case of looking at treatments and blood pressure changes, ATT helps answer the question: How much does the treatment impact the blood pressure of individuals who were actually treated?
+
+Average Treatment Effect on the Treated (ATT) Calculated
+
+```{r}
+
+att <- mean(data$ite_estimate[data$treatment == 1])
+
+print(paste("The Average Treatment Effect on the Treated (ATT) is", round(att, 2)))
+
+```
+
+Average Treatment Effect on the Control (ATC)
+
+The **Average Treatment Effect on the Control (ATC)** measures the effect of a treatment on individuals who were not actually exposed to the treatment or exposure. Unlike the **Average Treatment Effect on the Treated (ATT)**, which estimates the impact for those who received the treatment, ATC explains how the control group would have been affected if they have been treated. ATC is expressed as E[Y(1) - Y(0)\|T=0] where Y(1) represents the potential outcome with treatment, Y(0) represents the potential outcome without treatment, and T=0 represents people who did not receive treatment. ATC is useful when analyzing policies or medical treatments to understand how untreated individuals would have been affected by the intervention.
+
+In this scenario, ATC answers the question: How much would the treatment have affected individuals who were not exposed to it? To calculate ATC, I took the average treatment effect of the subset of the population that were not exposed to the treatment. If ATC is negative, it means that the treatment would have harmed the control group if they were exposed. By comparing the ATT and the ATC, it helps us determine if the treatment has differential effects across subgroups.
+
+Average Treatment Effect on the Control (ATC) Calculated
+
+```{r}
+
+atc <- mean(data$ite_estimate[data$treatment == 0])
+
+print(paste("The Average Treatment Effect on the Control (ATC) is", round(atc, 2)))
+
+```
+
+Now, I've created a visualization comparing how the treatment effect differs for treated and control groups.
+
+ATT vs. ATC Visualization
+
+```{r}
+
+att_se <- sd(data$ite_estimate[data$treatment == 1]) / sqrt(sum(data$treatment == 1))
+atc_se <- sd(data$ite_estimate[data$treatment == 0]) / sqrt(sum(data$treatment == 0))
+
+results <- data.frame(
+  group = c("ATT (Treated)", "ATC (Control)"),
+  estimate = c(att, atc),
+  lower = c(att - 1.96 * att_se, atc - 1.96 * atc_se),
+  upper = c(att + 1.96 * att_se, atc + 1.96 * atc_se)
+)
+
+ggplot(results, aes(y = group, x = estimate)) +
+  geom_point(color = "red", size = 2) +  
+  geom_errorbar(aes(xmin = lower, xmax = upper), width = 0.4, color = "blue") + 
+  geom_vline(xintercept = 0, linetype = "dashed", color = "black") + 
+  labs(title = "Estimated ATT vs. ATC",
+       x = "Estimated Treatment Effect",
+       y = "Group") +
+  theme_minimal()
+
+```
+
+Since the ATT is more negative than to ATC, it indicates that the treatment is more effective on the treated group. One potential explanation is that age and cholesterol are confounding variables. There are more older people and people with higher cholesterol levels in the treated group than the non-treated, meaning that this could skew the results as the groups are not homogenous.
