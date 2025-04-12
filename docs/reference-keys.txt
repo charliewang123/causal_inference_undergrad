@@ -2,6 +2,13 @@ foundations-causal-thinking-in-public-health
 association-vs.-causation
 brief-discussion
 explanation-of-simpsons-paradox
+introduction-to-counterfactuals-and-potential-outcomes
+section-1-individual-treatment-effect-ite
+step-1-simulating-the-patient-data
+step-2-estimate-treatment-effects-using-regression
+step-3-visualizing-the-estimated-ite
+visualizing-the-esimated-ite-without-looking-at-confounding
+step-4-patients-who-benefit-most
 explanation-of-simpsons-paradox-1
 foundations-ii-causal-graphs-study-designs
 bias-and-identification

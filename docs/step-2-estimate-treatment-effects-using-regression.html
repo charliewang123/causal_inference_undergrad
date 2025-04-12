@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit</title>
+  <title>6 Step 2: Estimate Treatment Effects Using Regression | Causal-Inference-Graduate.knit</title>
   <meta name="description" content="An undergraduate course on causal inference" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit" />
+  <meta property="og:title" content="6 Step 2: Estimate Treatment Effects Using Regression | Causal-Inference-Graduate.knit" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An undergraduate course on causal inference" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit" />
+  <meta name="twitter:title" content="6 Step 2: Estimate Treatment Effects Using Regression | Causal-Inference-Graduate.knit" />
   
   <meta name="twitter:description" content="An undergraduate course on causal inference" />
   
@@ -28,8 +28,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="effect-modification-and-interaction.html"/>
-<link rel="next" href="sensitivity-analysis.html"/>
+<link rel="prev" href="step-1-simulating-the-patient-data.html"/>
+<link rel="next" href="step-3-visualizing-the-estimated-ite.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -196,42 +196,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="measurement-missing-data-and-selection-bias" class="section level1 hasAnchor" number="15">
-<h1><span class="header-section-number">15</span> Measurement, Missing Data, and Selection Bias<a href="measurement-missing-data-and-selection-bias.html#measurement-missing-data-and-selection-bias" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<blockquote>
-<h2 id="class-materials-6" class="hasAnchor">Class materials<a href="measurement-missing-data-and-selection-bias.html#class-materials-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Slides: <a href="https://your-slide-link.com"><strong>Module 7</strong></a></p>
-<p>Recording: <a href="https://your-recording-link.com"><strong>Module 7, Part 1</strong></a></p>
-<p>Recording: <a href="https://your-recording-link.com"><strong>Module 7, Part 2</strong></a></p>
-</blockquote>
-<blockquote>
-<h2 id="textbook-reading-6" class="hasAnchor">Textbook reading<a href="measurement-missing-data-and-selection-bias.html#textbook-reading-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf"><strong>Hernán &amp; Robins, Causal Inference: What If – Chapters 12–13</strong></a></p>
-</blockquote>
-<blockquote>
-<h2 id="supplementary-reading-6" class="hasAnchor">Supplementary reading<a href="measurement-missing-data-and-selection-bias.html#supplementary-reading-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://academic.oup.com/aje/article/175/3/210/155666"><strong>Groenwold, R. H., et al. (2012). Dealing with missing outcome data in randomized trials and observational studies. American Journal of Epidemiology, 175(3), 210–217.</strong></a><br />
-Examples of misclassification and selection bias in public health research</p>
-</blockquote>
-<blockquote>
-<h2 id="topics-covered-6" class="hasAnchor">Topics covered<a href="measurement-missing-data-and-selection-bias.html#topics-covered-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Measurement error and misclassification</li>
-<li>Missing data: types, sources, and consequences</li>
-<li>Mechanisms of missingness (MCAR, MAR, MNAR)</li>
-<li>Introduction to selection bias and non-random loss to follow-up</li>
-<li>Strategies to address missing data and bias</li>
-</ul>
-</blockquote>
-
+<div id="step-2-estimate-treatment-effects-using-regression" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Step 2: Estimate Treatment Effects Using Regression<a href="step-2-estimate-treatment-effects-using-regression.html#step-2-estimate-treatment-effects-using-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="step-2-estimate-treatment-effects-using-regression.html#cb7-1" tabindex="-1"></a>control_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> age <span class="sc">+</span> bmi <span class="sc">+</span> cholesterol, <span class="at">data =</span> data, <span class="at">subset =</span> (treatment <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb7-2"><a href="step-2-estimate-treatment-effects-using-regression.html#cb7-2" tabindex="-1"></a>treatment_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> age <span class="sc">+</span> bmi <span class="sc">+</span> cholesterol, <span class="at">data =</span> data, <span class="at">subset =</span> (treatment <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb7-3"><a href="step-2-estimate-treatment-effects-using-regression.html#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="step-2-estimate-treatment-effects-using-regression.html#cb7-4" tabindex="-1"></a>data<span class="sc">$</span>y0_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(control_model, <span class="at">newdata =</span> data) </span>
+<span id="cb7-5"><a href="step-2-estimate-treatment-effects-using-regression.html#cb7-5" tabindex="-1"></a>data<span class="sc">$</span>y1_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(treatment_model, <span class="at">newdata =</span> data)  </span>
+<span id="cb7-6"><a href="step-2-estimate-treatment-effects-using-regression.html#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="step-2-estimate-treatment-effects-using-regression.html#cb7-7" tabindex="-1"></a>data<span class="sc">$</span>ite_estimate <span class="ot">&lt;-</span> data<span class="sc">$</span>y1_hat <span class="sc">-</span> data<span class="sc">$</span>y0_hat</span>
+<span id="cb7-8"><a href="step-2-estimate-treatment-effects-using-regression.html#cb7-8" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="step-2-estimate-treatment-effects-using-regression.html#cb7-9" tabindex="-1"></a><span class="fu">head</span>(data[<span class="fu">c</span>(<span class="st">&quot;ite_estimate&quot;</span>, <span class="st">&quot;y0_hat&quot;</span>, <span class="st">&quot;y1_hat&quot;</span>)])</span></code></pre></div>
+<pre><code>##   ite_estimate   y0_hat   y1_hat
+## 1    -9.750942 172.9902 163.2392
+## 2   -44.847942 155.9336 111.0857
+## 3    -8.607295 179.0821 170.4748
+## 4   -31.329882 161.8837 130.5538
+## 5   -29.909466 161.8117 131.9023
+## 6   -40.525084 157.4048 116.8797</code></pre>
+<p>Now, I plotted the true ITE vs the estimated ITE. Here, each point is a patient, and the red dashed line represents the ideal estimation. If the point fits well with the line, then the model is accurate.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="effect-modification-and-interaction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sensitivity-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="step-1-simulating-the-patient-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="step-3-visualizing-the-estimated-ite.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -262,7 +253,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/07_missing_data.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/01_potential_outcomes.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -270,7 +261,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/07_missing_data.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/01_potential_outcomes.Rmd",
     "text": null
   },
   "download": null,

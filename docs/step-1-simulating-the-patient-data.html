@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit</title>
+  <title>5 Step 1: Simulating the Patient Data | Causal-Inference-Graduate.knit</title>
   <meta name="description" content="An undergraduate course on causal inference" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit" />
+  <meta property="og:title" content="5 Step 1: Simulating the Patient Data | Causal-Inference-Graduate.knit" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An undergraduate course on causal inference" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit" />
+  <meta name="twitter:title" content="5 Step 1: Simulating the Patient Data | Causal-Inference-Graduate.knit" />
   
   <meta name="twitter:description" content="An undergraduate course on causal inference" />
   
@@ -28,8 +28,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="effect-modification-and-interaction.html"/>
-<link rel="next" href="sensitivity-analysis.html"/>
+<link rel="prev" href="section-1-individual-treatment-effect-ite.html"/>
+<link rel="next" href="step-2-estimate-treatment-effects-using-regression.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -196,42 +196,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="measurement-missing-data-and-selection-bias" class="section level1 hasAnchor" number="15">
-<h1><span class="header-section-number">15</span> Measurement, Missing Data, and Selection Bias<a href="measurement-missing-data-and-selection-bias.html#measurement-missing-data-and-selection-bias" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<blockquote>
-<h2 id="class-materials-6" class="hasAnchor">Class materials<a href="measurement-missing-data-and-selection-bias.html#class-materials-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Slides: <a href="https://your-slide-link.com"><strong>Module 7</strong></a></p>
-<p>Recording: <a href="https://your-recording-link.com"><strong>Module 7, Part 1</strong></a></p>
-<p>Recording: <a href="https://your-recording-link.com"><strong>Module 7, Part 2</strong></a></p>
-</blockquote>
-<blockquote>
-<h2 id="textbook-reading-6" class="hasAnchor">Textbook reading<a href="measurement-missing-data-and-selection-bias.html#textbook-reading-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf"><strong>Hernán &amp; Robins, Causal Inference: What If – Chapters 12–13</strong></a></p>
-</blockquote>
-<blockquote>
-<h2 id="supplementary-reading-6" class="hasAnchor">Supplementary reading<a href="measurement-missing-data-and-selection-bias.html#supplementary-reading-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://academic.oup.com/aje/article/175/3/210/155666"><strong>Groenwold, R. H., et al. (2012). Dealing with missing outcome data in randomized trials and observational studies. American Journal of Epidemiology, 175(3), 210–217.</strong></a><br />
-Examples of misclassification and selection bias in public health research</p>
-</blockquote>
-<blockquote>
-<h2 id="topics-covered-6" class="hasAnchor">Topics covered<a href="measurement-missing-data-and-selection-bias.html#topics-covered-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Measurement error and misclassification</li>
-<li>Missing data: types, sources, and consequences</li>
-<li>Mechanisms of missingness (MCAR, MAR, MNAR)</li>
-<li>Introduction to selection bias and non-random loss to follow-up</li>
-<li>Strategies to address missing data and bias</li>
-</ul>
-</blockquote>
-
+<div id="step-1-simulating-the-patient-data" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Step 1: Simulating the Patient Data<a href="step-1-simulating-the-patient-data.html#step-1-simulating-the-patient-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="step-1-simulating-the-patient-data.html#cb5-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb5-2"><a href="step-1-simulating-the-patient-data.html#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="step-1-simulating-the-patient-data.html#cb5-3" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb5-4"><a href="step-1-simulating-the-patient-data.html#cb5-4" tabindex="-1"></a>bmi <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">25</span>, <span class="at">sd =</span> <span class="dv">4</span>)</span>
+<span id="cb5-5"><a href="step-1-simulating-the-patient-data.html#cb5-5" tabindex="-1"></a>cholesterol <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">200</span>, <span class="at">sd =</span> <span class="dv">30</span>)</span>
+<span id="cb5-6"><a href="step-1-simulating-the-patient-data.html#cb5-6" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="step-1-simulating-the-patient-data.html#cb5-7" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">plogis</span>(<span class="fl">0.05</span> <span class="sc">*</span> age <span class="sc">+</span> <span class="fl">0.01</span> <span class="sc">*</span> cholesterol <span class="sc">-</span> <span class="dv">2</span>)) <span class="do">## Older people more likely to get treatment</span></span>
+<span id="cb5-8"><a href="step-1-simulating-the-patient-data.html#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="step-1-simulating-the-patient-data.html#cb5-9" tabindex="-1"></a>y_0 <span class="ot">&lt;-</span> <span class="dv">140</span> <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> age <span class="sc">+</span> <span class="fl">0.3</span> <span class="sc">*</span> bmi <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> cholesterol <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb5-10"><a href="step-1-simulating-the-patient-data.html#cb5-10" tabindex="-1"></a>y_1 <span class="ot">&lt;-</span> y_0 <span class="sc">-</span> (<span class="dv">40</span> <span class="sc">+</span> <span class="fl">1.0</span> <span class="sc">*</span> age <span class="sc">-</span> <span class="fl">0.3</span> <span class="sc">*</span> cholesterol) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb5-11"><a href="step-1-simulating-the-patient-data.html#cb5-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(treatment <span class="sc">==</span> <span class="dv">1</span>, y_1, y_0)</span>
+<span id="cb5-12"><a href="step-1-simulating-the-patient-data.html#cb5-12" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="step-1-simulating-the-patient-data.html#cb5-13" tabindex="-1"></a>true_ite <span class="ot">&lt;-</span> y_1 <span class="sc">-</span> y_0</span>
+<span id="cb5-14"><a href="step-1-simulating-the-patient-data.html#cb5-14" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="step-1-simulating-the-patient-data.html#cb5-15" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-16"><a href="step-1-simulating-the-patient-data.html#cb5-16" tabindex="-1"></a>  age,</span>
+<span id="cb5-17"><a href="step-1-simulating-the-patient-data.html#cb5-17" tabindex="-1"></a>  bmi,</span>
+<span id="cb5-18"><a href="step-1-simulating-the-patient-data.html#cb5-18" tabindex="-1"></a>  cholesterol,</span>
+<span id="cb5-19"><a href="step-1-simulating-the-patient-data.html#cb5-19" tabindex="-1"></a>  treatment,</span>
+<span id="cb5-20"><a href="step-1-simulating-the-patient-data.html#cb5-20" tabindex="-1"></a>  y,</span>
+<span id="cb5-21"><a href="step-1-simulating-the-patient-data.html#cb5-21" tabindex="-1"></a>  true_ite</span>
+<span id="cb5-22"><a href="step-1-simulating-the-patient-data.html#cb5-22" tabindex="-1"></a>)</span>
+<span id="cb5-23"><a href="step-1-simulating-the-patient-data.html#cb5-23" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="step-1-simulating-the-patient-data.html#cb5-24" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##        age      bmi cholesterol treatment        y   true_ite
+## 1 27.79913 21.08359    196.7386         0 171.3027  -4.501344
+## 2 64.49886 28.82798    199.4085         1 119.6670 -43.772408
+## 3 43.15832 31.46654    252.1183         1 160.1532  -7.578537
+## 4 54.40227 19.95723    212.5914         1 137.6802 -29.739861
+## 5 51.26578 17.67842    207.0235         1 140.8901 -25.679836
+## 6 59.48266 25.55861    197.5780         1 115.6723 -44.641540</code></pre>
+<p>Next, I estimated treatment effects using regression. Since I can’t observe both Y(0) and Y(1) for any individual, I used separate regressions for treatment and control groups. I used the models to predict counter factual outcomes for all patients and to compute the estimated ITE as the difference between Y(1) and Y(0).</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="effect-modification-and-interaction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sensitivity-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="section-1-individual-treatment-effect-ite.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="step-2-estimate-treatment-effects-using-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -262,7 +268,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/07_missing_data.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/01_potential_outcomes.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -270,7 +276,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/07_missing_data.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/01_potential_outcomes.Rmd",
     "text": null
   },
   "download": null,

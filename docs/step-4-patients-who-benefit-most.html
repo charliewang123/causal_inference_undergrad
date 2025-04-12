@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 Step 4: Patients Who Benefit Most | Causal-Inference-Graduate.knit</title>
+  <meta name="description" content="An undergraduate course on causal inference" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9 Step 4: Patients Who Benefit Most | Causal-Inference-Graduate.knit" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="An undergraduate course on causal inference" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9 Step 4: Patients Who Benefit Most | Causal-Inference-Graduate.knit" />
+  
+  <meta name="twitter:description" content="An undergraduate course on causal inference" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="visualizing-the-esimated-ite-without-looking-at-confounding.html"/>
+<link rel="next" href="foundations-ii-causal-graphs-study-designs.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Causal Inference</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course Description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#instructor"><i class="fa fa-check"></i>Instructor</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#teaching-assistants"><i class="fa fa-check"></i>Teaching Assistants</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-logistics"><i class="fa fa-check"></i>Course Logistics</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#required-materials"><i class="fa fa-check"></i>Required Materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-objectives"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#upon-successful-completion-of-this-course-students-will-be-able-to"><i class="fa fa-check"></i>Upon successful completion of this course, students will be able to:</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#tools"><i class="fa fa-check"></i>Tools</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#useful-links"><i class="fa fa-check"></i>Useful Links</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html"><i class="fa fa-check"></i><b>1</b> Foundations: Causal Thinking in Public Health</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html#association-vs.-causation"><i class="fa fa-check"></i><b>1.1</b> 1.1 Association vs. Causation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="brief-discussion.html"><a href="brief-discussion.html"><i class="fa fa-check"></i><b>2</b> Brief Discussion:</a></li>
+<li class="chapter" data-level="3" data-path="explanation-of-simpsons-paradox.html"><a href="explanation-of-simpsons-paradox.html"><i class="fa fa-check"></i><b>3</b> Explanation of Simpson’s paradox</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="explanation-of-simpsons-paradox.html"><a href="explanation-of-simpsons-paradox.html#introduction-to-counterfactuals-and-potential-outcomes"><i class="fa fa-check"></i><b>3.1</b> 1.2 Introduction to Counterfactuals and Potential Outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-1-individual-treatment-effect-ite.html"><a href="section-1-individual-treatment-effect-ite.html"><i class="fa fa-check"></i><b>4</b> Section 1: Individual Treatment Effect (ITE)</a></li>
+<li class="chapter" data-level="5" data-path="step-1-simulating-the-patient-data.html"><a href="step-1-simulating-the-patient-data.html"><i class="fa fa-check"></i><b>5</b> Step 1: Simulating the Patient Data</a></li>
+<li class="chapter" data-level="6" data-path="step-2-estimate-treatment-effects-using-regression.html"><a href="step-2-estimate-treatment-effects-using-regression.html"><i class="fa fa-check"></i><b>6</b> Step 2: Estimate Treatment Effects Using Regression</a></li>
+<li class="chapter" data-level="7" data-path="step-3-visualizing-the-estimated-ite.html"><a href="step-3-visualizing-the-estimated-ite.html"><i class="fa fa-check"></i><b>7</b> Step 3: Visualizing the Estimated ITE</a></li>
+<li class="chapter" data-level="8" data-path="visualizing-the-esimated-ite-without-looking-at-confounding.html"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html"><i class="fa fa-check"></i><b>8</b> Visualizing the Esimated ITE Without Looking at Confounding</a></li>
+<li class="chapter" data-level="9" data-path="step-4-patients-who-benefit-most.html"><a href="step-4-patients-who-benefit-most.html"><i class="fa fa-check"></i><b>9</b> Step 4: Patients Who Benefit Most</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="step-4-patients-who-benefit-most.html"><a href="step-4-patients-who-benefit-most.html#explanation-of-simpsons-paradox-1"><i class="fa fa-check"></i><b>9.1</b> Explanation of Simpson’s paradox</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="foundations-ii-causal-graphs-study-designs.html"><a href="foundations-ii-causal-graphs-study-designs.html"><i class="fa fa-check"></i><b>10</b> Foundations II: Causal Graphs &amp; Study Designs</a></li>
+<li class="chapter" data-level="11" data-path="bias-and-identification.html"><a href="bias-and-identification.html"><i class="fa fa-check"></i><b>11</b> Bias and Identification</a></li>
+<li class="chapter" data-level="12" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html"><i class="fa fa-check"></i><b>12</b> Randomized Controlled Trials (RCTs) and Quasi-Experiments</a></li>
+<li class="chapter" data-level="13" data-path="observational-studies-and-bias-adjustment.html"><a href="observational-studies-and-bias-adjustment.html"><i class="fa fa-check"></i><b>13</b> Observational Studies and Bias Adjustment</a></li>
+<li class="chapter" data-level="14" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html"><i class="fa fa-check"></i><b>14</b> Effect Modification and Interaction</a></li>
+<li class="chapter" data-level="15" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html"><i class="fa fa-check"></i><b>15</b> Measurement, Missing Data, and Selection Bias</a></li>
+<li class="chapter" data-level="16" data-path="sensitivity-analysis.html"><a href="sensitivity-analysis.html"><i class="fa fa-check"></i><b>16</b> Sensitivity Analysis</a></li>
+<li class="chapter" data-level="17" data-path="systems-thinking-and-policy-translation.html"><a href="systems-thinking-and-policy-translation.html"><i class="fa fa-check"></i><b>17</b> Systems Thinking and Policy Translation</a></li>
+<li class="chapter" data-level="18" data-path="final-project-presentations.html"><a href="final-project-presentations.html"><i class="fa fa-check"></i><b>18</b> Final Project Presentations</a></li>
+<li class="divider"></li>
+<li><a href="https://www.falcobargaglistoffi.com/" target="blank">Instructor: Falco J. Bargagli-Stoffi</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="step-4-patients-who-benefit-most" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">9</span> Step 4: Patients Who Benefit Most<a href="step-4-patients-who-benefit-most.html#step-4-patients-who-benefit-most" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="step-4-patients-who-benefit-most.html#cb11-1" tabindex="-1"></a>top_beneficiaries <span class="ot">&lt;-</span> data[<span class="fu">order</span>(data<span class="sc">$</span>ite_estimate), ][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span>
+<span id="cb11-2"><a href="step-4-patients-who-benefit-most.html#cb11-2" tabindex="-1"></a>top_beneficiaries[, <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;bmi&quot;</span>, <span class="st">&quot;cholesterol&quot;</span>, <span class="st">&quot;ite_estimate&quot;</span>)]</span></code></pre></div>
+<pre><code>##           age      bmi cholesterol ite_estimate
+## 1555 76.37728 20.51302    127.1688    -77.56485
+## 1508 80.78369 16.67729    146.6654    -76.35245
+## 100  70.19573 27.63411    123.6492    -72.34472
+## 1776 75.48114 22.68249    158.4594    -67.60009
+## 1690 69.63065 29.21457    139.1923    -67.26547
+## 442  67.13147 18.51519    131.7753    -67.19966
+## 1317 73.94146 31.67962    154.6649    -66.97528
+## 569  60.17433 29.75284    111.9373    -65.83409
+## 1523 74.01398 34.02351    163.0765    -64.56364
+## 1433 57.23621 23.16994    111.2967    -63.28543</code></pre>
+
+<div id="explanation-of-simpsons-paradox-1" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Explanation of Simpson’s paradox<a href="step-4-patients-who-benefit-most.html#explanation-of-simpsons-paradox-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Simpson’s Paradox</strong> is a concept in statistics where a trend or pattern observed within several groups is reversed when the groups are combined. This paradox occurs due to <strong>confounding variables</strong>. It highlights how the way data is aggregated can significantly alter the interpretation of the results.</p>
+<p>Within each group, there is a clear trend. However, when these groups are combined, the trend reverses because of the difference in weights and/or proportions within each group. A confounding variable is an unaccounted factor that has a direct effect on the relationship between the treatment and the effect. In Simpson’s Paradox, the confounding variable skews the results because it creates an imbalance between the two treatments.</p>
+<p>Simpson’s Paradox shows the importance of looking at data closely within groups rather than only looking at the aggregated data. It underscores the importance of considering context and tells a cautionary tale of how misinterpretations of data can lead to consequences. Before drawing conclusions, we must analyze data at the most specific level and consider all possible confounding variables.</p>
+<p>Here is a real-world example to consider. Imagine a hospital testing two treatments for pneumonia. Treatment A is given to mostly patients with mild cases of pneumonia, while treatment B is given to mostly given to patients with severe cases of pneumonia. When you examine each vaccine’s efficacy for each severity group (mild or severe), it seems that treatment B is slightly more effective than treatment A. However, when you look at treatment A and B as a whole without regarding the severity of the cases, then vaccine A looks to be more effective because the majority of patients who receive it have mild cases of pneumonia, bringing down the average death rate. I simulated the study 2000 times. In the end, I produced a 2 by 3 table with the average death rate in each matrix. This helped show that while there are variations between different studies, the overall average of 2000 studies is pretty similar to the expected values for each group.</p>
+<p>Next, I created two graphs demonstrating the effects of Simpson’s Paradox. The first graph illustrates the overall effects of Treatment A and Treatment B without considering disease severity as a confounding factor. Each treatment contains 2,000 data points, where each point represents the death rate for that treatment in a single simulation. The x-axis distinguishes between the two treatments, while the y-axis represents the risk of death. A linear model was then fitted to connect the two treatments, showing the overall trend in death risk between Treatment A and Treatment B. However, this graph does not account for the severity of the disease.</p>
+<p>The second graph accounts for disease severity, revealing the true relationship between treatment and death risk. I separated data into four groups: Mild and Treatment A, Mild and Treatment B, Severe and Treatment A, and Severe and Treatment B, with each group containing 2,000 data points representing death rates from individual simulations. Instead of a single linear model, two separate models are fitted; one for Mild cases and one for Severe cases. In the end, it is clear that Treatment B results in lower death risk than Treatment A within each severity group. This demonstrates Simpson’s Paradox, where the overall trend in the first graph is misleading because it fails to account for the confounding effect of disease severity.</p>
+<p>Lastly, this regression model quantifies the relationship between treatment, disease severity, and their influence on death risk. The dependent variable (response variable) is death risk, while the independent variables include treatment type (0 = Treatment A, 1 = Treatment B), disease severity (0 = Mild, 1 = Severe), and an interaction term (Treatment × Severity). The model estimates how switching treatments and increasing severity affect death risk, as well as whether the effectiveness of a treatment changes depending on severity. If the interaction term (between the treatment and the severity) is significant, it indicates that the effect of treatment differs for mild and severe cases, further confirming the presence of Simpson’s Paradox in the dataset.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="step-4-patients-who-benefit-most.html#cb13-1" tabindex="-1"></a>  <span class="fu">suppressWarnings</span>({</span>
+<span id="cb13-2"><a href="step-4-patients-who-benefit-most.html#cb13-2" tabindex="-1"></a>  <span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-3"><a href="step-4-patients-who-benefit-most.html#cb13-3" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb13-4"><a href="step-4-patients-who-benefit-most.html#cb13-4" tabindex="-1"></a>  <span class="fu">library</span>(gridExtra)</span>
+<span id="cb13-5"><a href="step-4-patients-who-benefit-most.html#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="step-4-patients-who-benefit-most.html#cb13-6" tabindex="-1"></a>  n_simulations <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb13-7"><a href="step-4-patients-who-benefit-most.html#cb13-7" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="step-4-patients-who-benefit-most.html#cb13-8" tabindex="-1"></a>  rate11 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Mild and Treatment A</span></span>
+<span id="cb13-9"><a href="step-4-patients-who-benefit-most.html#cb13-9" tabindex="-1"></a>  rate12 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Mild and Treatment B</span></span>
+<span id="cb13-10"><a href="step-4-patients-who-benefit-most.html#cb13-10" tabindex="-1"></a>  rate21 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Severe and Treatment A</span></span>
+<span id="cb13-11"><a href="step-4-patients-who-benefit-most.html#cb13-11" tabindex="-1"></a>  rate22 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Severe and Treatment B</span></span>
+<span id="cb13-12"><a href="step-4-patients-who-benefit-most.html#cb13-12" tabindex="-1"></a>  rate1  <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Total for Treatment A</span></span>
+<span id="cb13-13"><a href="step-4-patients-who-benefit-most.html#cb13-13" tabindex="-1"></a>  rate2  <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Total for Treatment B</span></span>
+<span id="cb13-14"><a href="step-4-patients-who-benefit-most.html#cb13-14" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="step-4-patients-who-benefit-most.html#cb13-15" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_simulations) {</span>
+<span id="cb13-16"><a href="step-4-patients-who-benefit-most.html#cb13-16" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="step-4-patients-who-benefit-most.html#cb13-17" tabindex="-1"></a>  severity <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Severe&quot;</span>), <span class="at">each =</span> <span class="dv">700</span>)</span>
+<span id="cb13-18"><a href="step-4-patients-who-benefit-most.html#cb13-18" tabindex="-1"></a>  treatment <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Treatment A&quot;</span>, <span class="dv">600</span>), <span class="fu">rep</span>(<span class="st">&quot;Treatment B&quot;</span>, <span class="dv">100</span>), <span class="fu">rep</span>(<span class="st">&quot;Treatment A&quot;</span>, <span class="dv">100</span>), <span class="fu">rep</span>(<span class="st">&quot;Treatment B&quot;</span>, <span class="dv">600</span>))</span>
+<span id="cb13-19"><a href="step-4-patients-who-benefit-most.html#cb13-19" tabindex="-1"></a>  outcome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rbinom</span>(<span class="dv">600</span>, <span class="dv">1</span>, <span class="fl">0.15</span>), <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="fl">0.1</span>), <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="fl">0.3</span>), <span class="fu">rbinom</span>(<span class="dv">600</span>, <span class="dv">1</span>, <span class="fl">0.2</span>))</span>
+<span id="cb13-20"><a href="step-4-patients-who-benefit-most.html#cb13-20" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="step-4-patients-who-benefit-most.html#cb13-21" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Severity =</span> severity, <span class="at">Treatment =</span> treatment, <span class="at">Outcome =</span> outcome)</span>
+<span id="cb13-22"><a href="step-4-patients-who-benefit-most.html#cb13-22" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="step-4-patients-who-benefit-most.html#cb13-23" tabindex="-1"></a>  death_counts <span class="ot">&lt;-</span> <span class="fu">tapply</span>(data<span class="sc">$</span>Outcome, <span class="fu">list</span>(data<span class="sc">$</span>Severity, data<span class="sc">$</span>Treatment), sum)</span>
+<span id="cb13-24"><a href="step-4-patients-who-benefit-most.html#cb13-24" tabindex="-1"></a>  total_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(data<span class="sc">$</span>Severity, data<span class="sc">$</span>Treatment)</span>
+<span id="cb13-25"><a href="step-4-patients-who-benefit-most.html#cb13-25" tabindex="-1"></a>  proportions <span class="ot">&lt;-</span> death_counts <span class="sc">/</span> total_counts</span>
+<span id="cb13-26"><a href="step-4-patients-who-benefit-most.html#cb13-26" tabindex="-1"></a>  </span>
+<span id="cb13-27"><a href="step-4-patients-who-benefit-most.html#cb13-27" tabindex="-1"></a>  rate11[i] <span class="ot">&lt;-</span> proportions[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>]  </span>
+<span id="cb13-28"><a href="step-4-patients-who-benefit-most.html#cb13-28" tabindex="-1"></a>  rate12[i] <span class="ot">&lt;-</span> proportions[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>]  </span>
+<span id="cb13-29"><a href="step-4-patients-who-benefit-most.html#cb13-29" tabindex="-1"></a>  rate21[i] <span class="ot">&lt;-</span> proportions[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>]  </span>
+<span id="cb13-30"><a href="step-4-patients-who-benefit-most.html#cb13-30" tabindex="-1"></a>  rate22[i] <span class="ot">&lt;-</span> proportions[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>]  </span>
+<span id="cb13-31"><a href="step-4-patients-who-benefit-most.html#cb13-31" tabindex="-1"></a>  rate1[i]  <span class="ot">&lt;-</span> <span class="fu">sum</span>(death_counts[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>], death_counts[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>]) <span class="sc">/</span> </span>
+<span id="cb13-32"><a href="step-4-patients-who-benefit-most.html#cb13-32" tabindex="-1"></a>               <span class="fu">sum</span>(total_counts[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>], total_counts[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>]) </span>
+<span id="cb13-33"><a href="step-4-patients-who-benefit-most.html#cb13-33" tabindex="-1"></a>  rate2[i]  <span class="ot">&lt;-</span> <span class="fu">sum</span>(death_counts[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>], death_counts[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>]) <span class="sc">/</span> </span>
+<span id="cb13-34"><a href="step-4-patients-who-benefit-most.html#cb13-34" tabindex="-1"></a>               <span class="fu">sum</span>(total_counts[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>], total_counts[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>])</span>
+<span id="cb13-35"><a href="step-4-patients-who-benefit-most.html#cb13-35" tabindex="-1"></a>  }</span>
+<span id="cb13-36"><a href="step-4-patients-who-benefit-most.html#cb13-36" tabindex="-1"></a></span>
+<span id="cb13-37"><a href="step-4-patients-who-benefit-most.html#cb13-37" tabindex="-1"></a>  avg_rate11 <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate11) <span class="sc">*</span> <span class="dv">100</span>  </span>
+<span id="cb13-38"><a href="step-4-patients-who-benefit-most.html#cb13-38" tabindex="-1"></a>  avg_rate12 <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate12) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb13-39"><a href="step-4-patients-who-benefit-most.html#cb13-39" tabindex="-1"></a>  avg_rate21 <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate21) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb13-40"><a href="step-4-patients-who-benefit-most.html#cb13-40" tabindex="-1"></a>  avg_rate22 <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate22) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb13-41"><a href="step-4-patients-who-benefit-most.html#cb13-41" tabindex="-1"></a>  avg_rate1  <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate1) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb13-42"><a href="step-4-patients-who-benefit-most.html#cb13-42" tabindex="-1"></a>  avg_rate2  <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate2) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb13-43"><a href="step-4-patients-who-benefit-most.html#cb13-43" tabindex="-1"></a></span>
+<span id="cb13-44"><a href="step-4-patients-who-benefit-most.html#cb13-44" tabindex="-1"></a>  final_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb13-45"><a href="step-4-patients-who-benefit-most.html#cb13-45" tabindex="-1"></a>    <span class="at">Treatment =</span> <span class="fu">c</span>(<span class="st">&quot;Treatment A&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>),</span>
+<span id="cb13-46"><a href="step-4-patients-who-benefit-most.html#cb13-46" tabindex="-1"></a>    <span class="at">Mild_Avg =</span> <span class="fu">paste</span>(<span class="fu">round</span>(<span class="fu">c</span>(avg_rate11, avg_rate12), <span class="dv">1</span>), <span class="st">&quot;%&quot;</span>),</span>
+<span id="cb13-47"><a href="step-4-patients-who-benefit-most.html#cb13-47" tabindex="-1"></a>    <span class="at">Severe_Avg =</span> <span class="fu">paste</span>(<span class="fu">round</span>(<span class="fu">c</span>(avg_rate21, avg_rate22), <span class="dv">1</span>), <span class="st">&quot;%&quot;</span>),</span>
+<span id="cb13-48"><a href="step-4-patients-who-benefit-most.html#cb13-48" tabindex="-1"></a>    <span class="at">Total_Avg =</span> <span class="fu">paste</span>(<span class="fu">round</span>(<span class="fu">c</span>(avg_rate1, avg_rate2), <span class="dv">1</span>), <span class="st">&quot;%&quot;</span>)</span>
+<span id="cb13-49"><a href="step-4-patients-who-benefit-most.html#cb13-49" tabindex="-1"></a>  )</span>
+<span id="cb13-50"><a href="step-4-patients-who-benefit-most.html#cb13-50" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="step-4-patients-who-benefit-most.html#cb13-51" tabindex="-1"></a>  <span class="fu">print</span>(final_table)</span>
+<span id="cb13-52"><a href="step-4-patients-who-benefit-most.html#cb13-52" tabindex="-1"></a></span>
+<span id="cb13-53"><a href="step-4-patients-who-benefit-most.html#cb13-53" tabindex="-1"></a>  overall_plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb13-54"><a href="step-4-patients-who-benefit-most.html#cb13-54" tabindex="-1"></a>    <span class="at">X_Pos =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">each =</span> n_simulations), </span>
+<span id="cb13-55"><a href="step-4-patients-who-benefit-most.html#cb13-55" tabindex="-1"></a>    <span class="at">Death_rate =</span> <span class="fu">c</span>(rate1, rate2),  </span>
+<span id="cb13-56"><a href="step-4-patients-who-benefit-most.html#cb13-56" tabindex="-1"></a>    <span class="at">Treatment =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Treatment A&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>), <span class="at">each =</span> n_simulations)  </span>
+<span id="cb13-57"><a href="step-4-patients-who-benefit-most.html#cb13-57" tabindex="-1"></a>  )</span>
+<span id="cb13-58"><a href="step-4-patients-who-benefit-most.html#cb13-58" tabindex="-1"></a></span>
+<span id="cb13-59"><a href="step-4-patients-who-benefit-most.html#cb13-59" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(overall_plot_data, <span class="fu">aes</span>(<span class="at">x =</span> X_Pos, <span class="at">y =</span> Death_rate, <span class="at">color =</span> Treatment)) <span class="sc">+</span></span>
+<span id="cb13-60"><a href="step-4-patients-who-benefit-most.html#cb13-60" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.05</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-61"><a href="step-4-patients-who-benefit-most.html#cb13-61" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">xend =</span> <span class="dv">1</span>, <span class="at">y =</span> <span class="fu">min</span>(Death_rate), <span class="at">yend =</span> <span class="fu">max</span>(Death_rate)), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb13-62"><a href="step-4-patients-who-benefit-most.html#cb13-62" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="fu">min</span>(Death_rate), <span class="at">yend =</span> <span class="fu">max</span>(Death_rate)), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb13-63"><a href="step-4-patients-who-benefit-most.html#cb13-63" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> avg_rate1 <span class="sc">/</span> <span class="dv">100</span>, <span class="at">xend =</span> <span class="dv">2</span>, <span class="at">yend =</span> avg_rate2 <span class="sc">/</span> <span class="dv">100</span>), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb13-64"><a href="step-4-patients-who-benefit-most.html#cb13-64" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Treatment A&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>)) <span class="sc">+</span>  </span>
+<span id="cb13-65"><a href="step-4-patients-who-benefit-most.html#cb13-65" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Treatment A&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;Treatment B&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>)) <span class="sc">+</span>  </span>
+<span id="cb13-66"><a href="step-4-patients-who-benefit-most.html#cb13-66" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Risk of Death&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Overall Trend (Simpson&#39;s Paradox)&quot;</span>)</span>
+<span id="cb13-67"><a href="step-4-patients-who-benefit-most.html#cb13-67" tabindex="-1"></a></span>
+<span id="cb13-68"><a href="step-4-patients-who-benefit-most.html#cb13-68" tabindex="-1"></a>  plot_data_p2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb13-69"><a href="step-4-patients-who-benefit-most.html#cb13-69" tabindex="-1"></a>    <span class="at">X_Pos =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">each =</span> n_simulations), </span>
+<span id="cb13-70"><a href="step-4-patients-who-benefit-most.html#cb13-70" tabindex="-1"></a>    <span class="at">Death_rate =</span> <span class="fu">c</span>(rate11, rate12, rate21, rate22),  </span>
+<span id="cb13-71"><a href="step-4-patients-who-benefit-most.html#cb13-71" tabindex="-1"></a>    <span class="at">Group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Mild - Treatment A&quot;</span>, <span class="st">&quot;Mild - Treatment B&quot;</span>, <span class="st">&quot;Severe - Treatment A&quot;</span>, <span class="st">&quot;Severe - Treatment B&quot;</span>), <span class="at">each =</span> n_simulations),</span>
+<span id="cb13-72"><a href="step-4-patients-who-benefit-most.html#cb13-72" tabindex="-1"></a>    <span class="at">Severity =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Severe&quot;</span>), <span class="at">each =</span> n_simulations)  </span>
+<span id="cb13-73"><a href="step-4-patients-who-benefit-most.html#cb13-73" tabindex="-1"></a>  )</span>
+<span id="cb13-74"><a href="step-4-patients-who-benefit-most.html#cb13-74" tabindex="-1"></a></span>
+<span id="cb13-75"><a href="step-4-patients-who-benefit-most.html#cb13-75" tabindex="-1"></a>  p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(plot_data_p2, <span class="fu">aes</span>(<span class="at">x =</span> X_Pos, <span class="at">y =</span> Death_rate, <span class="at">color =</span> Group)) <span class="sc">+</span></span>
+<span id="cb13-76"><a href="step-4-patients-who-benefit-most.html#cb13-76" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.05</span>, <span class="at">height =</span> <span class="dv">0</span>)) <span class="sc">+</span>  </span>
+<span id="cb13-77"><a href="step-4-patients-who-benefit-most.html#cb13-77" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">xend =</span> <span class="dv">1</span>, <span class="at">y =</span> <span class="fu">min</span>(Death_rate), <span class="at">yend =</span> <span class="fu">max</span>(Death_rate)), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb13-78"><a href="step-4-patients-who-benefit-most.html#cb13-78" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="fu">min</span>(Death_rate), <span class="at">yend =</span> <span class="fu">max</span>(Death_rate)), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb13-79"><a href="step-4-patients-who-benefit-most.html#cb13-79" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">xend =</span> <span class="dv">3</span>, <span class="at">y =</span> <span class="fu">min</span>(Death_rate), <span class="at">yend =</span> <span class="fu">max</span>(Death_rate)), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb13-80"><a href="step-4-patients-who-benefit-most.html#cb13-80" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">4</span>, <span class="at">xend =</span> <span class="dv">4</span>, <span class="at">y =</span> <span class="fu">min</span>(Death_rate), <span class="at">yend =</span> <span class="fu">max</span>(Death_rate)), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb13-81"><a href="step-4-patients-who-benefit-most.html#cb13-81" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">data =</span> <span class="fu">subset</span>(plot_data_p2, Severity <span class="sc">==</span> <span class="st">&quot;Mild&quot;</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb13-82"><a href="step-4-patients-who-benefit-most.html#cb13-82" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">data =</span> <span class="fu">subset</span>(plot_data_p2, Severity <span class="sc">==</span> <span class="st">&quot;Severe&quot;</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb13-83"><a href="step-4-patients-who-benefit-most.html#cb13-83" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Mild - A&quot;</span>, <span class="st">&quot;Mild - B&quot;</span>, <span class="st">&quot;Severe - A&quot;</span>, <span class="st">&quot;Severe - B&quot;</span>)) <span class="sc">+</span>  </span>
+<span id="cb13-84"><a href="step-4-patients-who-benefit-most.html#cb13-84" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Mild - Treatment A&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;Mild - Treatment B&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb13-85"><a href="step-4-patients-who-benefit-most.html#cb13-85" tabindex="-1"></a>                                  <span class="st">&quot;Severe - Treatment A&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkred&quot;</span>, <span class="st">&quot;Severe - Treatment B&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkblue&quot;</span>)) <span class="sc">+</span>  </span>
+<span id="cb13-86"><a href="step-4-patients-who-benefit-most.html#cb13-86" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb13-87"><a href="step-4-patients-who-benefit-most.html#cb13-87" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Risk of Death&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Risk by Severity (Mild vs. Severe)&quot;</span>)</span>
+<span id="cb13-88"><a href="step-4-patients-who-benefit-most.html#cb13-88" tabindex="-1"></a></span>
+<span id="cb13-89"><a href="step-4-patients-who-benefit-most.html#cb13-89" tabindex="-1"></a>  <span class="fu">grid.arrange</span>(p1, p2, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb13-90"><a href="step-4-patients-who-benefit-most.html#cb13-90" tabindex="-1"></a> </span>
+<span id="cb13-91"><a href="step-4-patients-who-benefit-most.html#cb13-91" tabindex="-1"></a>  regression_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb13-92"><a href="step-4-patients-who-benefit-most.html#cb13-92" tabindex="-1"></a>    <span class="at">Death_rate =</span> <span class="fu">c</span>(rate11, rate12, rate21, rate22),  </span>
+<span id="cb13-93"><a href="step-4-patients-who-benefit-most.html#cb13-93" tabindex="-1"></a>    <span class="at">Treatment =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">each =</span> n_simulations),  <span class="co"># 0 = Treatment A, 1 = Treatment B</span></span>
+<span id="cb13-94"><a href="step-4-patients-who-benefit-most.html#cb13-94" tabindex="-1"></a>    <span class="at">Severity =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">each =</span> n_simulations)   <span class="co"># 0 = Mild, 1 = Severe</span></span>
+<span id="cb13-95"><a href="step-4-patients-who-benefit-most.html#cb13-95" tabindex="-1"></a>  )</span>
+<span id="cb13-96"><a href="step-4-patients-who-benefit-most.html#cb13-96" tabindex="-1"></a></span>
+<span id="cb13-97"><a href="step-4-patients-who-benefit-most.html#cb13-97" tabindex="-1"></a>  regression_data<span class="sc">$</span>Treatment <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(regression_data<span class="sc">$</span>Treatment)</span>
+<span id="cb13-98"><a href="step-4-patients-who-benefit-most.html#cb13-98" tabindex="-1"></a>  regression_data<span class="sc">$</span>Severity <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(regression_data<span class="sc">$</span>Severity)</span>
+<span id="cb13-99"><a href="step-4-patients-who-benefit-most.html#cb13-99" tabindex="-1"></a></span>
+<span id="cb13-100"><a href="step-4-patients-who-benefit-most.html#cb13-100" tabindex="-1"></a>  regression_data<span class="sc">$</span>Interaction <span class="ot">&lt;-</span> regression_data<span class="sc">$</span>Treatment <span class="sc">*</span> regression_data<span class="sc">$</span>Severity</span>
+<span id="cb13-101"><a href="step-4-patients-who-benefit-most.html#cb13-101" tabindex="-1"></a></span>
+<span id="cb13-102"><a href="step-4-patients-who-benefit-most.html#cb13-102" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Death_rate <span class="sc">~</span> Treatment <span class="sc">+</span> Severity <span class="sc">+</span> Interaction, <span class="at">data =</span> regression_data)</span>
+<span id="cb13-103"><a href="step-4-patients-who-benefit-most.html#cb13-103" tabindex="-1"></a>  </span>
+<span id="cb13-104"><a href="step-4-patients-who-benefit-most.html#cb13-104" tabindex="-1"></a>  <span class="fu">unique</span>(<span class="fu">predict</span>(model))</span>
+<span id="cb13-105"><a href="step-4-patients-who-benefit-most.html#cb13-105" tabindex="-1"></a>  })</span></code></pre></div>
+<pre><code>##     Treatment Mild_Avg Severe_Avg Total_Avg
+## 1 Treatment A     15 %     29.9 %    17.2 %
+## 2 Treatment B     10 %       20 %    18.6 %</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre><code>## [1] 0.1504608 0.1003000 0.2989700 0.2001183</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="visualizing-the-esimated-ite-without-looking-at-confounding.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="foundations-ii-causal-graphs-study-designs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/01_potential_outcomes.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/01_potential_outcomes.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>
