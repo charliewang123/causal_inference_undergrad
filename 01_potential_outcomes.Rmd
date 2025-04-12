@@ -283,7 +283,7 @@ top_beneficiaries[, c("age", "bmi", "cholesterol", "ite_estimate")]
 
 ```
 
-1.3 Causal Estimands and Identification
+## 1.3 Causal Estimands and Identification
 
 Causal estimands are the quantities we aim to estimate to understand the effect of a treatment or intervention. The most common estimands include:
 - Average Treatment Effect (ATE): Measures the average difference in outcomes if everyone received the treatment versus if no one did.
