@@ -3,6 +3,22 @@ output_dir: docs
 delete_merged_file: true
 edit: https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/%s
 view: https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/%s
+
+rmd_files:
+  - index.Rmd
+  - 01_potential_outcomes.Rmd
+  - association_vs_causation.Rmd     # Subpage for Week 1
+  - 02_rcts.Rmd
+  - 03_causal_graphs.Rmd
+  - 04_observational1.Rmd
+  - 05_observational2.Rmd
+  - 06_hte.Rmd
+  - 07_missing_data.Rmd
+  - 08_missing_data.Rmd
+  - 09_missing_data.Rmd
+  - 10_missing_data.Rmd
+
 language:
   ui:
     chapter_name: ""
+
