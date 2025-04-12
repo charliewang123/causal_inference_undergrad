@@ -7,7 +7,6 @@ view: https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/%s
 rmd_files:
   - index.Rmd
   - 01_potential_outcomes.Rmd
-  - association_vs_causation.Rmd     # Subpage for Week 1
   - 02_rcts.Rmd
   - 03_causal_graphs.Rmd
   - 04_observational1.Rmd
