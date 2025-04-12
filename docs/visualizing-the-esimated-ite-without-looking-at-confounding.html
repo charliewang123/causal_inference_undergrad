@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit</title>
+  <title>8 Visualizing the Esimated ITE Without Looking at Confounding | Causal-Inference-Graduate.knit</title>
   <meta name="description" content="An undergraduate course on causal inference" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit" />
+  <meta property="og:title" content="8 Visualizing the Esimated ITE Without Looking at Confounding | Causal-Inference-Graduate.knit" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An undergraduate course on causal inference" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit" />
+  <meta name="twitter:title" content="8 Visualizing the Esimated ITE Without Looking at Confounding | Causal-Inference-Graduate.knit" />
   
   <meta name="twitter:description" content="An undergraduate course on causal inference" />
   
@@ -28,8 +28,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="effect-modification-and-interaction.html"/>
-<link rel="next" href="sensitivity-analysis.html"/>
+<link rel="prev" href="step-3-visualizing-the-estimated-ite.html"/>
+<link rel="next" href="step-4-patients-who-benefit-most.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -196,42 +196,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="measurement-missing-data-and-selection-bias" class="section level1 hasAnchor" number="15">
-<h1><span class="header-section-number">15</span> Measurement, Missing Data, and Selection Bias<a href="measurement-missing-data-and-selection-bias.html#measurement-missing-data-and-selection-bias" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<blockquote>
-<h2 id="class-materials-6" class="hasAnchor">Class materials<a href="measurement-missing-data-and-selection-bias.html#class-materials-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Slides: <a href="https://your-slide-link.com"><strong>Module 7</strong></a></p>
-<p>Recording: <a href="https://your-recording-link.com"><strong>Module 7, Part 1</strong></a></p>
-<p>Recording: <a href="https://your-recording-link.com"><strong>Module 7, Part 2</strong></a></p>
-</blockquote>
-<blockquote>
-<h2 id="textbook-reading-6" class="hasAnchor">Textbook reading<a href="measurement-missing-data-and-selection-bias.html#textbook-reading-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf"><strong>Hernán &amp; Robins, Causal Inference: What If – Chapters 12–13</strong></a></p>
-</blockquote>
-<blockquote>
-<h2 id="supplementary-reading-6" class="hasAnchor">Supplementary reading<a href="measurement-missing-data-and-selection-bias.html#supplementary-reading-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://academic.oup.com/aje/article/175/3/210/155666"><strong>Groenwold, R. H., et al. (2012). Dealing with missing outcome data in randomized trials and observational studies. American Journal of Epidemiology, 175(3), 210–217.</strong></a><br />
-Examples of misclassification and selection bias in public health research</p>
-</blockquote>
-<blockquote>
-<h2 id="topics-covered-6" class="hasAnchor">Topics covered<a href="measurement-missing-data-and-selection-bias.html#topics-covered-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Measurement error and misclassification</li>
-<li>Missing data: types, sources, and consequences</li>
-<li>Mechanisms of missingness (MCAR, MAR, MNAR)</li>
-<li>Introduction to selection bias and non-random loss to follow-up</li>
-<li>Strategies to address missing data and bias</li>
-</ul>
-</blockquote>
-
+<div id="visualizing-the-esimated-ite-without-looking-at-confounding" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Visualizing the Esimated ITE Without Looking at Confounding<a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#visualizing-the-esimated-ite-without-looking-at-confounding" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-1" tabindex="-1"></a>y0_hat_simple <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>y[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>])  </span>
+<span id="cb10-2"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-2" tabindex="-1"></a>y1_hat_simple <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>y[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>])  </span>
+<span id="cb10-3"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-3" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-4" tabindex="-1"></a>data<span class="sc">$</span>y0_hat_simple <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>, y0_hat_simple, data<span class="sc">$</span>y)  </span>
+<span id="cb10-5"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-5" tabindex="-1"></a>data<span class="sc">$</span>y1_hat_simple <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>, y1_hat_simple, data<span class="sc">$</span>y)  </span>
+<span id="cb10-6"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-6" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-7" tabindex="-1"></a>data<span class="sc">$</span>ite_estimate_simple <span class="ot">&lt;-</span> data<span class="sc">$</span>y1_hat_simple <span class="sc">-</span> data<span class="sc">$</span>y0_hat_simple</span>
+<span id="cb10-8"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-8" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-9" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> true_ite, <span class="at">y =</span> ite_estimate_simple)) <span class="sc">+</span> </span>
+<span id="cb10-10"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-10" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb10-11"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-11" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb10-12"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Estimated ITE vs True ITE (No Confounder Adjustment)&quot;</span>,</span>
+<span id="cb10-13"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-13" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;True ITE&quot;</span>,</span>
+<span id="cb10-14"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-14" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Estimated ITE (Unadjusted)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-15"><a href="visualizing-the-esimated-ite-without-looking-at-confounding.html#cb10-15" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Here are the top 10 patients who benefited the most from the treatment. This helps me identify patients who are most likely to benefit, as well as focus on individuals with high predicted response.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="effect-modification-and-interaction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sensitivity-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="step-3-visualizing-the-estimated-ite.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="step-4-patients-who-benefit-most.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -262,7 +253,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/07_missing_data.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/01_potential_outcomes.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -270,7 +261,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/07_missing_data.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/01_potential_outcomes.Rmd",
     "text": null
   },
   "download": null,

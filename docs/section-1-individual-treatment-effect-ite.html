@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit</title>
+  <title>4 Section 1: Individual Treatment Effect (ITE) | Causal-Inference-Graduate.knit</title>
   <meta name="description" content="An undergraduate course on causal inference" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit" />
+  <meta property="og:title" content="4 Section 1: Individual Treatment Effect (ITE) | Causal-Inference-Graduate.knit" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An undergraduate course on causal inference" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="15 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit" />
+  <meta name="twitter:title" content="4 Section 1: Individual Treatment Effect (ITE) | Causal-Inference-Graduate.knit" />
   
   <meta name="twitter:description" content="An undergraduate course on causal inference" />
   
@@ -28,8 +28,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="effect-modification-and-interaction.html"/>
-<link rel="next" href="sensitivity-analysis.html"/>
+<link rel="prev" href="explanation-of-simpsons-paradox.html"/>
+<link rel="next" href="step-1-simulating-the-patient-data.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -196,42 +196,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="measurement-missing-data-and-selection-bias" class="section level1 hasAnchor" number="15">
-<h1><span class="header-section-number">15</span> Measurement, Missing Data, and Selection Bias<a href="measurement-missing-data-and-selection-bias.html#measurement-missing-data-and-selection-bias" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<blockquote>
-<h2 id="class-materials-6" class="hasAnchor">Class materials<a href="measurement-missing-data-and-selection-bias.html#class-materials-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Slides: <a href="https://your-slide-link.com"><strong>Module 7</strong></a></p>
-<p>Recording: <a href="https://your-recording-link.com"><strong>Module 7, Part 1</strong></a></p>
-<p>Recording: <a href="https://your-recording-link.com"><strong>Module 7, Part 2</strong></a></p>
-</blockquote>
-<blockquote>
-<h2 id="textbook-reading-6" class="hasAnchor">Textbook reading<a href="measurement-missing-data-and-selection-bias.html#textbook-reading-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf"><strong>Hernán &amp; Robins, Causal Inference: What If – Chapters 12–13</strong></a></p>
-</blockquote>
-<blockquote>
-<h2 id="supplementary-reading-6" class="hasAnchor">Supplementary reading<a href="measurement-missing-data-and-selection-bias.html#supplementary-reading-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://academic.oup.com/aje/article/175/3/210/155666"><strong>Groenwold, R. H., et al. (2012). Dealing with missing outcome data in randomized trials and observational studies. American Journal of Epidemiology, 175(3), 210–217.</strong></a><br />
-Examples of misclassification and selection bias in public health research</p>
-</blockquote>
-<blockquote>
-<h2 id="topics-covered-6" class="hasAnchor">Topics covered<a href="measurement-missing-data-and-selection-bias.html#topics-covered-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Measurement error and misclassification</li>
-<li>Missing data: types, sources, and consequences</li>
-<li>Mechanisms of missingness (MCAR, MAR, MNAR)</li>
-<li>Introduction to selection bias and non-random loss to follow-up</li>
-<li>Strategies to address missing data and bias</li>
-</ul>
-</blockquote>
-
+<div id="section-1-individual-treatment-effect-ite" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Section 1: Individual Treatment Effect (ITE)<a href="section-1-individual-treatment-effect-ite.html#section-1-individual-treatment-effect-ite" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In causal inference, the <strong>Individual Treatment Effect</strong> (ITE) measures how much one specific patient benefits from a treatment. ITE focuses on personalized benefits - how much an intervention would change the outcome for each person at the same time. The formula for the ITE is Yi(1) - Yi(0), where Yi(1) is the outcome if the person receives the treatment while Yi(0) is the outcome if the person does not receive the treatment.</p>
+<p>A fundamental problem in causal inference is that we can never observe both Yi(1) and Yi(0) for the same person, because each person either receives the treatment or does not, meaning one of the outcomes is missing. This is known as the fundamental problem of causal inference, and because of this, we use statistical methodologies and machine learning techniques to estimate ITE.</p>
+<p>To illustrate this concept, here is a healthcare scenario where I estimated the effect of a new blood pressure drug on patients. I accounted for characteristics in each patient like their age, BMI, and cholesterol levels, which may influence if they get the treatment or not and may influence their response to the treatment. Since I cannot observe each patient’s blood pressure both with and without the drug, I must estimate ITE by using statistical models.</p>
+<p>To do this, I first simulated healthcare data, including patient characteristics (covariates) and potential blood pressure outcomes. Next, I estimated the potential outcomes Y(0) and Y(1) using linear regression models for treated and untreated patients. Finally, I calculated the ITE as the difference between the predicted outcomes for each patient. By following this approach, I observed which patients benefit the most from the treatment.</p>
+<p>First up, I simulated the patient data. I created potential outcomes Y(0) and Y(1) for blood pressure. I intentionally assigned older people who have high cholesterol levels. Then, I computed the true ITE for each patient.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="effect-modification-and-interaction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sensitivity-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="explanation-of-simpsons-paradox.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="step-1-simulating-the-patient-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -262,7 +241,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/07_missing_data.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/01_potential_outcomes.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -270,7 +249,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/07_missing_data.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/01_potential_outcomes.Rmd",
     "text": null
   },
   "download": null,

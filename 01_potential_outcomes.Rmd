@@ -157,3 +157,128 @@ Lastly, this regression model quantifies the relationship between treatment, dis
   })
 
 ```
+
+## 1.2 Introduction to Counterfactuals and Potential Outcomes
+
+At the heart of causal inference lies a simple yet powerful idea: counterfactuals — what would have happened if something else had occurred. To formalize this, the Potential Outcomes Framework defines two outcomes for each individual:
+
+Y(1): The outcome if the individual receives the treatment
+Y(0): The outcome if the individual does not receive the treatment
+The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)
+
+But here's the catch: we can never observe both outcomes for the same person. This is known as the Fundamental Problem of Causal Inference. We only observe the outcome under the condition that actually occurred — everything else is unobserved, or counterfactual.
+
+As shown in the Simpson’s Paradox example above, failing to account for confounding variables can lead to conclusions that completely misrepresent the true causal effect. When we simply compare outcomes between treated and untreated groups without considering differences in their underlying characteristics (like disease severity), we risk attributing differences to the treatment that are actually due to selection bias. By thinking in terms of potential outcomes — what would have happened under treatment vs. no treatment — we can see how causal claims require more than just association. This framework makes clear that understanding the data-generating process is critical, and it motivates the need for methods that can uncover hidden structure in the data.
+
+While the average treatment effect (ATE) helps summarize the overall impact of a treatment, it often masks important variation across individuals. In practice, not everyone responds to treatment the same way — some benefit more than others, and some may even be harmed. This brings us to the concept of the Individual Treatment Effect (ITE), which asks: what was the treatment effect for this specific person? Although we can never observe both potential outcomes for a single individual, we can use modeling techniques to estimate ITEs and explore treatment effect heterogeneity. The following example demonstrates how this was done using simulated data.
+
+# Section 1: Individual Treatment Effect (ITE)
+
+In causal inference, the **Individual Treatment Effect** (ITE) measures how much one specific patient benefits from a treatment. ITE focuses on personalized benefits - how much an intervention would change the outcome for each person at the same time. The formula for the ITE is Yi(1) - Yi(0), where Yi(1) is the outcome if the person receives the treatment while Yi(0) is the outcome if the person does not receive the treatment.
+
+A fundamental problem in causal inference is that we can never observe both Yi(1) and Yi(0) for the same person, because each person either receives the treatment or does not, meaning one of the outcomes is missing. This is known as the fundamental problem of causal inference, and because of this, we use statistical methodologies and machine learning techniques to estimate ITE.
+
+To illustrate this concept, here is a healthcare scenario where I estimated the effect of a new blood pressure drug on patients. I accounted for characteristics in each patient like their age, BMI, and cholesterol levels, which may influence if they get the treatment or not and may influence their response to the treatment. Since I cannot observe each patient's blood pressure both with and without the drug, I must estimate ITE by using statistical models.
+
+To do this, I first simulated healthcare data, including patient characteristics (covariates) and potential blood pressure outcomes. Next, I estimated the potential outcomes Y(0) and Y(1) using linear regression models for treated and untreated patients. Finally, I calculated the ITE as the difference between the predicted outcomes for each patient. By following this approach, I observed which patients benefit the most from the treatment.
+
+First up, I simulated the patient data. I created potential outcomes Y(0) and Y(1) for blood pressure. I intentionally assigned older people who have high cholesterol levels. Then, I computed the true ITE for each patient.
+
+# Step 1: Simulating the Patient Data
+
+```{r}
+
+n <- 2000
+
+age <- rnorm(n, mean = 50, sd = 10)
+bmi <- rnorm(n, mean = 25, sd = 4)
+cholesterol <- rnorm(n, mean = 200, sd = 30)
+
+treatment <- rbinom(n, 1, plogis(0.05 * age + 0.01 * cholesterol - 2)) ## Older people more likely to get treatment
+
+y_0 <- 140 - 0.5 * age + 0.3 * bmi + 0.2 * cholesterol + rnorm(n, sd = 5)
+y_1 <- y_0 - (40 + 1.0 * age - 0.3 * cholesterol) + rnorm(n, sd = 1.5)
+y <- ifelse(treatment == 1, y_1, y_0)
+
+true_ite <- y_1 - y_0
+
+data <- data.frame(
+  age,
+  bmi,
+  cholesterol,
+  treatment,
+  y,
+  true_ite
+)
+
+head(data)
+
+```
+
+Next, I estimated treatment effects using regression. Since I can't observe both Y(0) and Y(1) for any individual, I used separate regressions for treatment and control groups. I used the models to predict counter factual outcomes for all patients and to compute the estimated ITE as the difference between Y(1) and Y(0).
+
+# Step 2: Estimate Treatment Effects Using Regression
+
+```{r}
+
+control_model <- lm(y ~ age + bmi + cholesterol, data = data, subset = (treatment == 0))
+treatment_model <- lm(y ~ age + bmi + cholesterol, data = data, subset = (treatment == 1))
+
+data$y0_hat <- predict(control_model, newdata = data) 
+data$y1_hat <- predict(treatment_model, newdata = data)  
+
+data$ite_estimate <- data$y1_hat - data$y0_hat
+
+head(data[c("ite_estimate", "y0_hat", "y1_hat")])
+
+```
+
+Now, I plotted the true ITE vs the estimated ITE. Here, each point is a patient, and the red dashed line represents the ideal estimation. If the point fits well with the line, then the model is accurate.
+
+# Step 3: Visualizing the Estimated ITE
+
+```{r}
+
+library(ggplot2)
+
+ggplot(data, aes(x = true_ite, y = ite_estimate)) + 
+  geom_point(alpha = 0.5) + 
+  geom_abline(slope = 1, intercept = 0, col = "red", linetype = "dashed") + 
+  labs(title = "Estimated ITE vs True ITE (Blood Pressure Reduction)",
+      x = "True ITE",
+      y = "Estimated ITE")
+
+```
+
+# Visualizing the Esimated ITE Without Looking at Confounding
+
+```{r}
+
+y0_hat_simple <- mean(data$y[data$treatment == 0])  
+y1_hat_simple <- mean(data$y[data$treatment == 1])  
+
+data$y0_hat_simple <- ifelse(data$treatment == 1, y0_hat_simple, data$y)  
+data$y1_hat_simple <- ifelse(data$treatment == 0, y1_hat_simple, data$y)  
+
+data$ite_estimate_simple <- data$y1_hat_simple - data$y0_hat_simple
+
+ggplot(data, aes(x = true_ite, y = ite_estimate_simple)) + 
+  geom_point(alpha = 0.5) + 
+  geom_abline(slope = 1, intercept = 0, col = "red", linetype = "dashed") + 
+  labs(title = "Estimated ITE vs True ITE (No Confounder Adjustment)",
+       x = "True ITE",
+       y = "Estimated ITE (Unadjusted)") +
+  theme_minimal()
+
+```
+
+Here are the top 10 patients who benefited the most from the treatment. This helps me identify patients who are most likely to benefit, as well as focus on individuals with high predicted response.
+
+# Step 4: Patients Who Benefit Most
+
+```{r}
+
+top_beneficiaries <- data[order(data$ite_estimate), ][1:10, ]
+top_beneficiaries[, c("age", "bmi", "cholesterol", "ite_estimate")]
+
+```
