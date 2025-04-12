@@ -222,13 +222,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-22"><a href="step-1-simulating-the-patient-data.html#cb5-22" tabindex="-1"></a>)</span>
 <span id="cb5-23"><a href="step-1-simulating-the-patient-data.html#cb5-23" tabindex="-1"></a></span>
 <span id="cb5-24"><a href="step-1-simulating-the-patient-data.html#cb5-24" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##        age      bmi cholesterol treatment        y   true_ite
-## 1 27.79913 21.08359    196.7386         0 171.3027  -4.501344
-## 2 64.49886 28.82798    199.4085         1 119.6670 -43.772408
-## 3 43.15832 31.46654    252.1183         1 160.1532  -7.578537
-## 4 54.40227 19.95723    212.5914         1 137.6802 -29.739861
-## 5 51.26578 17.67842    207.0235         1 140.8901 -25.679836
-## 6 59.48266 25.55861    197.5780         1 115.6723 -44.641540</code></pre>
+<pre><code>##        age      bmi cholesterol treatment        y  true_ite
+## 1 65.16067 21.93431    213.5078         1 120.3656 -40.52287
+## 2 61.09386 25.43581    181.9000         1 109.1758 -48.60279
+## 3 35.78048 19.35002    170.3532         1 133.7077 -25.67280
+## 4 38.43755 27.59194    190.9766         1 142.4497 -22.54891
+## 5 48.43440 20.16129    234.7707         1 140.8164 -17.48518
+## 6 45.67944 30.67501    220.9603         1 159.5852 -20.01258</code></pre>
 <p>Next, I estimated treatment effects using regression. Since I can’t observe both Y(0) and Y(1) for any individual, I used separate regressions for treatment and control groups. I used the models to predict counter factual outcomes for all patients and to compute the estimated ITE as the difference between Y(1) and Y(0).</p>
 </div>
             </section>
