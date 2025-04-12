@@ -332,7 +332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
 ## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<pre><code>## [1] 0.1500742 0.0995250 0.2982100 0.1999150</code></pre>
+<pre><code>## [1] 0.1501008 0.1001850 0.2984300 0.2000042</code></pre>
 </div>
 <div id="introduction-to-counterfactuals-and-potential-outcomes" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> 1.2 Introduction to Counterfactuals and Potential Outcomes<a href="foundations-causal-thinking-in-public-health.html#introduction-to-counterfactuals-and-potential-outcomes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -374,13 +374,13 @@ The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)</p>
 <span id="cb5-22"><a href="foundations-causal-thinking-in-public-health.html#cb5-22" tabindex="-1"></a>)</span>
 <span id="cb5-23"><a href="foundations-causal-thinking-in-public-health.html#cb5-23" tabindex="-1"></a></span>
 <span id="cb5-24"><a href="foundations-causal-thinking-in-public-health.html#cb5-24" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
-<pre><code>##        age      bmi cholesterol treatment         y  true_ite
-## 1 36.57600 32.36516    141.8756         1 123.51945 -31.13074
-## 2 55.58054 25.50120    142.0610         1  95.27364 -53.85332
-## 3 61.31550 20.94375    166.9792         1  88.21702 -50.83468
-## 4 48.08050 21.23296    181.9293         1 122.71042 -33.82283
-## 5 53.62292 26.89471    242.4462         1 148.73143 -19.82131
-## 6 50.21833 23.62856    208.4931         1 133.39473 -25.39267</code></pre>
+<pre><code>##        age      bmi cholesterol treatment        y   true_ite
+## 1 51.21239 19.32571    199.1355         1 122.0544 -30.593752
+## 2 46.71113 18.38997    220.9961         1 140.2134 -21.167480
+## 3 35.14412 24.18724    269.4651         1 193.1101   6.837494
+## 4 34.57732 21.21429    224.7765         1 160.8229  -4.397648
+## 5 45.31836 32.00460    221.8089         1 147.0220 -18.600656
+## 6 50.34310 20.47678    214.2677         1 140.6280 -24.778958</code></pre>
 <p>Next, I estimated treatment effects using regression. Since I can’t observe both Y(0) and Y(1) for any individual, I used separate regressions for treatment and control groups. I used the models to predict counter factual outcomes for all patients and to compute the estimated ITE as the difference between Y(1) and Y(0).</p>
 <p>Step 2: Estimate Treatment Effects Using Regression</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="foundations-causal-thinking-in-public-health.html#cb7-1" tabindex="-1"></a>control_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> age <span class="sc">+</span> bmi <span class="sc">+</span> cholesterol, <span class="at">data =</span> data, <span class="at">subset =</span> (treatment <span class="sc">==</span> <span class="dv">0</span>))</span>
@@ -392,13 +392,13 @@ The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)</p>
 <span id="cb7-7"><a href="foundations-causal-thinking-in-public-health.html#cb7-7" tabindex="-1"></a>data<span class="sc">$</span>ite_estimate <span class="ot">&lt;-</span> data<span class="sc">$</span>y1_hat <span class="sc">-</span> data<span class="sc">$</span>y0_hat</span>
 <span id="cb7-8"><a href="foundations-causal-thinking-in-public-health.html#cb7-8" tabindex="-1"></a></span>
 <span id="cb7-9"><a href="foundations-causal-thinking-in-public-health.html#cb7-9" tabindex="-1"></a><span class="fu">head</span>(data[<span class="fu">c</span>(<span class="st">&quot;ite_estimate&quot;</span>, <span class="st">&quot;y0_hat&quot;</span>, <span class="st">&quot;y1_hat&quot;</span>)])</span></code></pre></div>
-<pre><code>##   ite_estimate   y0_hat    y1_hat
-## 1    -33.75897 159.3057 125.54677
-## 2    -51.87280 147.1128  95.24001
-## 3    -49.83247 147.6672  97.83470
-## 4    -32.35006 157.4564 125.10632
-## 5    -20.82493 170.0330 149.20810
-## 6    -26.98837 163.0833 136.09490</code></pre>
+<pre><code>##   ite_estimate   y0_hat   y1_hat
+## 1   -29.969201 158.3034 128.3342
+## 2   -19.019231 164.6406 145.6214
+## 3     6.503107 182.2635 188.7666
+## 4    -6.819532 173.2662 166.4467
+## 5   -17.850332 170.1936 152.3433
+## 6   -24.491258 162.0081 137.5169</code></pre>
 <p>Now, I plotted the true ITE vs the estimated ITE. Here, each point is a patient, and the red dashed line represents the ideal estimation. If the point fits well with the line, then the model is accurate.</p>
 <p>Step 3: Visualizing the Estimated ITE</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="foundations-causal-thinking-in-public-health.html#cb9-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -432,16 +432,16 @@ The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="foundations-causal-thinking-in-public-health.html#cb11-1" tabindex="-1"></a>top_beneficiaries <span class="ot">&lt;-</span> data[<span class="fu">order</span>(data<span class="sc">$</span>ite_estimate), ][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span>
 <span id="cb11-2"><a href="foundations-causal-thinking-in-public-health.html#cb11-2" tabindex="-1"></a>top_beneficiaries[, <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;bmi&quot;</span>, <span class="st">&quot;cholesterol&quot;</span>, <span class="st">&quot;ite_estimate&quot;</span>)]</span></code></pre></div>
 <pre><code>##           age      bmi cholesterol ite_estimate
-## 1222 61.54490 29.77373    105.7476    -68.83360
-## 1054 65.86684 26.65806    121.1129    -68.32420
-## 1890 65.90101 23.34187    124.1502    -67.12310
-## 1259 68.95490 30.28159    142.4141    -65.57013
-## 413  86.77534 22.94660    203.3590    -64.75381
-## 283  64.88454 20.08257    128.1823    -64.59370
-## 1748 71.09901 26.65556    155.6790    -63.45385
-## 879  70.69876 25.42459    156.5306    -62.67788
-## 1800 67.69462 23.57400    145.9078    -62.59118
-## 548  69.00992 21.32057    149.7443    -62.54299</code></pre>
+## 890  79.56531 25.25102    132.2227    -76.89534
+## 1085 71.13526 20.28622    136.2727    -67.79399
+## 1671 65.88424 19.01770    123.1142    -67.05699
+## 530  66.57976 24.36929    131.6173    -65.18529
+## 1342 70.36012 28.86483    143.2993    -65.12207
+## 715  60.57192 21.67688    114.3072    -65.01186
+## 650  75.32424 14.62258    157.9358    -64.72851
+## 1893 78.52943 27.31188    169.1796    -64.49124
+## 311  56.74453 32.99274    109.4880    -63.31023
+## 1547 67.78288 27.14410    141.4462    -63.29710</code></pre>
 
 </div>
 </div>
