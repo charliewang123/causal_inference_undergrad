@@ -1,37 +1,3 @@
-# Foundations: Causal Thinking in Public Health
-
-> ## Class materials
->
-> Slides: [**Module 1**](https://drive.google.com/file/d/1ujOsEenrQy1sjIX4Zt_CfAqeF0o-KfY-/view?usp=sharing)
->
-> Recording: [**Module 1, Part 1.1**](https://drive.google.com/file/d/14yxdT8so1w2LQV2pwoGm1ys3Ek5yuLET/view?usp=sharing)
->
-> Recording: [**Module 1, Part 2.1**](https://drive.google.com/file/d/1rUQnbOTkVk5DPu8Ghbu2W80NJ008Auyt/view?usp=sharing)
->
-> Recording: [**Module 1, Part 2.2**](https://drive.google.com/file/d/1hsA1CZ0jpVycsNmuH0A7C5AHmlvBpOvM/view?usp=sharing)
-
-> ## Textbook reading
->
-> [**Hernán & Robins, Causal Inference: What If – Chapters 1–2**](https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf)
-
-> ## Supplementary reading
->
-> [**Pearl, J. and Mackenzie, D. (2018) The Book of Why: The New Science of Cause and Effect. Basic Books.**](https://bayes.cs.ucla.edu/WHY/why-ch1.pdf) Selected public health news articles (provided on the course site).
-
-> ## Topics covered
->
-> -   Association vs. Causation
-> -   Introduction to Counterfactuals and Potential Outcomes
-> -   Causal Estimands and Identification
-
-## 1.1 Association vs. Causation
-
-## Brief Discussion: 
-
-**Association** refers to a statistical relationship or correlation between two variables, where changes in one variable are linked to changes in another. For example, there might be an association between ice cream sales and drowning incidents—both tend to increase during the summer. However, this does not mean one causes the other; rather, they are both influenced by a third factor: temperature. Association simply tells us that two variables move together in some way, but it does not imply that one variable directly affects or determines the other. These relationships are often observed in observational studies, where researchers record data without manipulating any variables.
-
-**Causation**, on the other hand, implies a direct cause-and-effect relationship between two variables. If variable A causes variable B, then changes in A will produce changes in B. Establishing causation requires much stronger evidence than association and often involves controlled experiments, like randomized controlled trials, where researchers actively intervene and isolate variables to rule out confounding factors. In the ice cream example, just because two variables are associated doesn’t mean one causes the other—causation would only be claimed if rigorous testing shows that changes in one variable consistently lead to changes in the other, and alternative explanations have been ruled out.
-
 ## Explanation of Simpson's paradox
 
 **Simpson's Paradox** is a concept in statistics where a trend or pattern observed within several groups is reversed when the groups are combined. This paradox occurs due to **confounding variables**. It highlights how the way data is aggregated can significantly alter the interpretation of the results.

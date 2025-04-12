@@ -1,4 +1,8 @@
 foundations-causal-thinking-in-public-health
+association-vs.-causation
+brief-discussion
+explanation-of-simpsons-paradox
+explanation-of-simpsons-paradox-1
 foundations-ii-causal-graphs-study-designs
 bias-and-identification
 randomized-controlled-trials-rcts-and-quasi-experiments
