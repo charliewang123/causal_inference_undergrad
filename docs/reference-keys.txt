@@ -1,6 +1,7 @@
 foundations-causal-thinking-in-public-health
 association-vs.-causation
 introduction-to-counterfactuals-and-potential-outcomes
+causal-estimands-and-identification
 foundations-ii-causal-graphs-study-designs
 bias-and-identification
 randomized-controlled-trials-rcts-and-quasi-experiments
