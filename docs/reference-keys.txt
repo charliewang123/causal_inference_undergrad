@@ -4,6 +4,11 @@ introduction-to-counterfactuals-and-potential-outcomes
 causal-estimands-and-identification
 foundations-ii-causal-graphs-study-designs
 bias-and-identification
+confounding-bias-and-how-it-arises
+collider-bias-and-overcontrol
+selection-bias-and-missing-data
+identifiability-of-causal-effects
+using-dags-to-reason-about-sources-of-bias
 randomized-controlled-trials-rcts-and-quasi-experiments
 observational-studies-and-bias-adjustment
 effect-modification-and-interaction
