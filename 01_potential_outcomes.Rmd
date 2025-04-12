@@ -26,13 +26,13 @@
 
 ## 1.1 Association vs. Causation
 
-# Brief Discussion: 
+Brief Discussion: 
 
 **Association** refers to a statistical relationship or correlation between two variables, where changes in one variable are linked to changes in another. For example, there might be an association between ice cream sales and drowning incidents—both tend to increase during the summer. However, this does not mean one causes the other; rather, they are both influenced by a third factor: temperature. Association simply tells us that two variables move together in some way, but it does not imply that one variable directly affects or determines the other. These relationships are often observed in observational studies, where researchers record data without manipulating any variables.
 
 **Causation**, on the other hand, implies a direct cause-and-effect relationship between two variables. If variable A causes variable B, then changes in A will produce changes in B. Establishing causation requires much stronger evidence than association and often involves controlled experiments, like randomized controlled trials, where researchers actively intervene and isolate variables to rule out confounding factors. In the ice cream example, just because two variables are associated doesn’t mean one causes the other—causation would only be claimed if rigorous testing shows that changes in one variable consistently lead to changes in the other, and alternative explanations have been ruled out.
 
-# Explanation of Simpson's paradox
+Explanation of Simpson's paradox
 
 **Simpson's Paradox** is a concept in statistics where a trend or pattern observed within several groups is reversed when the groups are combined. This paradox occurs due to **confounding variables**. It highlights how the way data is aggregated can significantly alter the interpretation of the results.
 
@@ -172,7 +172,7 @@ As shown in the Simpson’s Paradox example above, failing to account for confou
 
 While the average treatment effect (ATE) helps summarize the overall impact of a treatment, it often masks important variation across individuals. In practice, not everyone responds to treatment the same way — some benefit more than others, and some may even be harmed. This brings us to the concept of the Individual Treatment Effect (ITE), which asks: what was the treatment effect for this specific person? Although we can never observe both potential outcomes for a single individual, we can use modeling techniques to estimate ITEs and explore treatment effect heterogeneity. The following example demonstrates how this was done using simulated data.
 
-# Section 1: Individual Treatment Effect (ITE)
+Section 1: Individual Treatment Effect (ITE)
 
 In causal inference, the **Individual Treatment Effect** (ITE) measures how much one specific patient benefits from a treatment. ITE focuses on personalized benefits - how much an intervention would change the outcome for each person at the same time. The formula for the ITE is Yi(1) - Yi(0), where Yi(1) is the outcome if the person receives the treatment while Yi(0) is the outcome if the person does not receive the treatment.
 
@@ -184,7 +184,7 @@ To do this, I first simulated healthcare data, including patient characteristics
 
 First up, I simulated the patient data. I created potential outcomes Y(0) and Y(1) for blood pressure. I intentionally assigned older people who have high cholesterol levels. Then, I computed the true ITE for each patient.
 
-# Step 1: Simulating the Patient Data
+Step 1: Simulating the Patient Data
 
 ```{r}
 
@@ -217,7 +217,7 @@ head(data)
 
 Next, I estimated treatment effects using regression. Since I can't observe both Y(0) and Y(1) for any individual, I used separate regressions for treatment and control groups. I used the models to predict counter factual outcomes for all patients and to compute the estimated ITE as the difference between Y(1) and Y(0).
 
-# Step 2: Estimate Treatment Effects Using Regression
+Step 2: Estimate Treatment Effects Using Regression
 
 ```{r}
 
@@ -235,7 +235,7 @@ head(data[c("ite_estimate", "y0_hat", "y1_hat")])
 
 Now, I plotted the true ITE vs the estimated ITE. Here, each point is a patient, and the red dashed line represents the ideal estimation. If the point fits well with the line, then the model is accurate.
 
-# Step 3: Visualizing the Estimated ITE
+Step 3: Visualizing the Estimated ITE
 
 ```{r}
 
@@ -250,7 +250,7 @@ ggplot(data, aes(x = true_ite, y = ite_estimate)) +
 
 ```
 
-# Visualizing the Esimated ITE Without Looking at Confounding
+Visualizing the Esimated ITE Without Looking at Confounding
 
 ```{r}
 
@@ -274,7 +274,7 @@ ggplot(data, aes(x = true_ite, y = ite_estimate_simple)) +
 
 Here are the top 10 patients who benefited the most from the treatment. This helps me identify patients who are most likely to benefit, as well as focus on individuals with high predicted response.
 
-# Step 4: Patients Who Benefit Most
+Step 4: Patients Who Benefit Most
 
 ```{r}
 
