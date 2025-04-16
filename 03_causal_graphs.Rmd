@@ -25,15 +25,15 @@
 > -   Identifiability of causal effects
 > -   Using DAGs to reason about sources of bias
 
-## 3.1 Confounding Bias and How It Arises
+## Confounding Bias and How It Arises
 
 One of the most common challenges in causal inference is confounding bias — a distortion in the estimated treatment effect caused by a third variable that influences both the treatment and the outcome. Confounders create a false association between the treatment and the outcome, leading us to attribute effects to the treatment that are actually due to other underlying factors.
 
 A compelling illustration of this is presented in the Simpson’s Paradox example from Week 1 (see Section 1.1), where patients with different levels of pneumonia severity were not equally distributed across treatment groups. While Treatment B was more effective within both the mild and severe subgroups, the overall data misleadingly suggested the opposite due to the imbalance in case severity. This paradox arises precisely because disease severity confounds the relationship between treatment and outcome — it influences both who gets which treatment and what their likely outcome is. This highlights the necessity of accounting for confounding variables when making causal claims and demonstrates how failing to do so can lead to entirely incorrect conclusions, even when the data appears clear at first glance.
 
-## 3.2 Collider Bias and Overcontrol
+## Collider Bias and Overcontrol
 
-## 3.3 Selection Bias and Missing Data
+## Selection Bias and Missing Data
 
 In addition to confounding, another major obstacle in causal inference is selection bias — which occurs when individuals self-select into treatment in a way that’s related to the outcome. This bias often arises in observational studies where treatment isn’t randomly assigned. For example, older or sicker individuals may be more likely to receive a treatment, and also more likely to have worse outcomes, regardless of the treatment’s effect. If we fail to account for these kinds of observable characteristics, our treatment effect estimates can be misleading.
 
@@ -45,7 +45,7 @@ In a typical scenario, you are trying to estimate the casual effect of a treatme
 
 The central assumption for selection on observables is that all relevant variables influencing the exposure and the outcome are measured and accounted for. Therefore, you can adjust for the selection bias and get an unbiased estimate of the casual treatment effect. To start, we need to isolate the effect of the treatment while adjusting for differences in the observable variables. If you include all of the relevant observables in the model, the treatment is basically assigned randomly within the variable groups. Then, the treatment effect can be measured without bias.
 
-In the example below, you are trying to study the impact of pollution exposure on health. If we only observe the outcome, then the estimate might be skewed because the group of people who suffered from pollution is not similar to the group of people who did not suffer from pollution. Instead, because it is a simulation, I randomly assigned people into the pollution group or the non-pollution group, while taking into consideration their age group (young or old). Therefore, I was able to control for these differences between the two groups (exposed vs non-exposed). This allowed me to estimate the casual effect of the pollution exposure on health while adjusting for the age discrepancy, as we know that pollution will affect older people more than younger people.
+In the example below, we are trying to study the impact of pollution exposure on health. If we only observe the outcome, then the estimate might be skewed because the group of people who suffered from pollution is not similar to the group of people who did not suffer from pollution. Instead, because it is a simulation, I randomly assigned people into the pollution group or the non-pollution group, while taking into consideration their age group (young or old). Therefore, I was able to control for these differences between the two groups (exposed vs non-exposed). This allowed me to estimate the casual effect of the pollution exposure on health while adjusting for the age discrepancy, as we know that pollution will affect older people more than younger people.
 
 After that, I pulled a sample of 1000 people out of the study and assigned 500 of them to be exposed to pollution and 500 of them not to be exposed. Within each treatment group, exactly half of them were in the young age group and the other half were in the old age group. Therefore, when I created the linear model, I did not need to confound on age because it was already accounted for. When I computed the average treatment effect, it was very similar to the average treatment effect from my first simulation.
 
