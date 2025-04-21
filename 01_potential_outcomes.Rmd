@@ -48,113 +48,161 @@ The second graph accounts for disease severity, revealing the true relationship 
 
 Lastly, this regression model quantifies the relationship between treatment, disease severity, and their influence on death risk. The dependent variable (response variable) is death risk, while the independent variables include treatment type (0 = Treatment A, 1 = Treatment B), disease severity (0 = Mild, 1 = Severe), and an interaction term (Treatment × Severity). The model estimates how switching treatments and increasing severity affect death risk, as well as whether the effectiveness of a treatment changes depending on severity. If the interaction term (between the treatment and the severity) is significant, it indicates that the effect of treatment differs for mild and severe cases, further confirming the presence of Simpson’s Paradox in the dataset.
 
+**Step 1: Simulate Data and Compute Death Rates Across Groups**
+
 ```{r}
 
-  suppressWarnings({
-  library(ggplot2)
-  library(dplyr)
-  library(gridExtra)
+# Simulates data for 2,000 trials of patients by severity and treatment.
+# Calculates average death rates for each subgroup and for Treatment A vs B.
 
-  n_simulations <- 2000
+library(ggplot2)
+library(dplyr)
 
-  rate11 <- numeric(n_simulations)  # Mild and Treatment A
-  rate12 <- numeric(n_simulations)  # Mild and Treatment B
-  rate21 <- numeric(n_simulations)  # Severe and Treatment A
-  rate22 <- numeric(n_simulations)  # Severe and Treatment B
-  rate1  <- numeric(n_simulations)  # Total for Treatment A
-  rate2  <- numeric(n_simulations)  # Total for Treatment B
+n_simulations <- 2000
 
-  for (i in 1:n_simulations) {
+rate11 <- numeric(n_simulations)  # Mild & Treatment A
+rate12 <- numeric(n_simulations)  # Mild & Treatment B
+rate21 <- numeric(n_simulations)  # Severe & Treatment A
+rate22 <- numeric(n_simulations)  # Severe & Treatment B
+rate1  <- numeric(n_simulations)  # Overall Treatment A
+rate2  <- numeric(n_simulations)  # Overall Treatment B
 
+for (i in 1:n_simulations) {
   severity <- rep(c("Mild", "Severe"), each = 700)
-  treatment <- c(rep("Treatment A", 600), rep("Treatment B", 100), rep("Treatment A", 100), rep("Treatment B", 600))
-  outcome <- c(rbinom(600, 1, 0.15), rbinom(100, 1, 0.1), rbinom(100, 1, 0.3), rbinom(600, 1, 0.2))
+  treatment <- c(rep("Treatment A", 600), rep("Treatment B", 100), 
+                 rep("Treatment A", 100), rep("Treatment B", 600))
+  outcome <- c(rbinom(600, 1, 0.15), rbinom(100, 1, 0.1), rbinom(100, 1, 0.3), 
+               rbinom(600, 1, 0.2))
 
-  data <- data.frame(Severity = severity, Treatment = treatment, Outcome = outcome)
+  data <- data.frame(Severity = severity, Treatment = treatment, 
+                     Outcome = outcome)
 
-  death_counts <- tapply(data$Outcome, list(data$Severity, data$Treatment), sum)
+  death_counts <- tapply(data$Outcome, list(data$Severity, data$Treatment), 
+                         sum)
   total_counts <- table(data$Severity, data$Treatment)
   proportions <- death_counts / total_counts
   
-  rate11[i] <- proportions["Mild", "Treatment A"]  
-  rate12[i] <- proportions["Mild", "Treatment B"]  
-  rate21[i] <- proportions["Severe", "Treatment A"]  
-  rate22[i] <- proportions["Severe", "Treatment B"]  
-  rate1[i]  <- sum(death_counts["Mild", "Treatment A"], death_counts["Severe", "Treatment A"]) / 
-               sum(total_counts["Mild", "Treatment A"], total_counts["Severe", "Treatment A"]) 
-  rate2[i]  <- sum(death_counts["Mild", "Treatment B"], death_counts["Severe", "Treatment B"]) / 
-               sum(total_counts["Mild", "Treatment B"], total_counts["Severe", "Treatment B"])
-  }
+  rate11[i] <- proportions["Mild", "Treatment A"]
+  rate12[i] <- proportions["Mild", "Treatment B"]
+  rate21[i] <- proportions["Severe", "Treatment A"]
+  rate22[i] <- proportions["Severe", "Treatment B"]
+  
+  rate1[i] <- sum(death_counts["Mild", "Treatment A"], 
+                  death_counts["Severe", "Treatment A"]) / 
+              sum(total_counts["Mild", "Treatment A"], 
+                  total_counts["Severe", "Treatment A"]) 
+  rate2[i] <- sum(death_counts["Mild", "Treatment B"], 
+                  death_counts["Severe", "Treatment B"]) / 
+              sum(total_counts["Mild", "Treatment B"], 
+                  total_counts["Severe", "Treatment B"])
+}
 
-  avg_rate11 <- mean(rate11) * 100  
-  avg_rate12 <- mean(rate12) * 100
-  avg_rate21 <- mean(rate21) * 100
-  avg_rate22 <- mean(rate22) * 100
-  avg_rate1  <- mean(rate1) * 100
-  avg_rate2  <- mean(rate2) * 100
+```
 
-  final_table <- data.frame(
-    Treatment = c("Treatment A", "Treatment B"),
-    Mild_Avg = paste(round(c(avg_rate11, avg_rate12), 1), "%"),
-    Severe_Avg = paste(round(c(avg_rate21, avg_rate22), 1), "%"),
-    Total_Avg = paste(round(c(avg_rate1, avg_rate2), 1), "%")
-  )
+**Step 2: Summary Table of Death Rates**
 
-  print(final_table)
+```{r}
 
+# Calculates average death rates for each group and prints a summary table.
+
+avg_rate11 <- mean(rate11) * 100  
+avg_rate12 <- mean(rate12) * 100
+avg_rate21 <- mean(rate21) * 100
+avg_rate22 <- mean(rate22) * 100
+avg_rate1  <- mean(rate1) * 100
+avg_rate2  <- mean(rate2) * 100
+
+final_table <- data.frame(
+  Treatment = c("Treatment A", "Treatment B"),
+  Mild_Avg = paste(round(c(avg_rate11, avg_rate12), 1), "%"),
+  Severe_Avg = paste(round(c(avg_rate21, avg_rate22), 1), "%"),
+  Total_Avg = paste(round(c(avg_rate1, avg_rate2), 1), "%")
+)
+
+final_table
+
+```
+
+**Step 3: Visualizing Simpson's Paradox**
+
+```{r}
+
+# This chunk creates two plots:
+# 1. Overall trend ignoring severity (showing the paradox)
+# 2. Subgroup trends by severity (revealing the truth)
+# Warnings are suppressed for a cleaner output
+
+suppressWarnings({
+  library(gridExtra)
+
+  # Plot 1: Overall treatment death risk comparison
   overall_plot_data <- data.frame(
     X_Pos = rep(c(1, 2), each = n_simulations), 
     Death_rate = c(rate1, rate2),  
-    Treatment = rep(c("Treatment A", "Treatment B"), each = n_simulations)  
+    Treatment = rep(c("Treatment A", "Treatment B"), each = n_simulations)
   )
 
-  p1 <- ggplot(overall_plot_data, aes(x = X_Pos, y = Death_rate, color = Treatment)) +
-    geom_point(alpha = 0.1, position = position_jitter(width = 0.05, height = 0), show.legend = FALSE) +
-    geom_segment(aes(x = 1, xend = 1, y = min(Death_rate), yend = max(Death_rate)), color = "black") +  
-    geom_segment(aes(x = 2, xend = 2, y = min(Death_rate), yend = max(Death_rate)), color = "black") + 
-    geom_segment(aes(x = 1, y = avg_rate1 / 100, xend = 2, yend = avg_rate2 / 100), color = "black") + 
-    scale_x_continuous(breaks = c(1, 2), labels = c("Treatment A", "Treatment B")) +  
-    scale_color_manual(values = c("Treatment A" = "red", "Treatment B" = "blue")) +  
-    labs(x = "", y = "Risk of Death", title = "Overall Trend (Simpson's Paradox)")
+  p1 <- ggplot(overall_plot_data, aes(x = X_Pos, y = Death_rate, 
+                                      color = Treatment)) +
+    geom_point(alpha = 0.1, position = position_jitter(width = 0.05), 
+               show.legend = FALSE) +
+    geom_segment(aes(x = 1, xend = 2, y = avg_rate1 / 100, 
+                     yend = avg_rate2 / 100), color = "black") +
+    scale_x_continuous(breaks = c(1, 2), 
+                       labels = c("Treatment A", "Treatment B")) +
+    scale_color_manual(values = c("Treatment A" = "red", 
+                                  "Treatment B" = "blue")) +
+    labs(title = "Overall Trend (Simpson's Paradox)", x = "", 
+         y = "Risk of Death")
 
+  # Plot 2: By severity
   plot_data_p2 <- data.frame(
-    X_Pos = rep(c(1, 2, 3, 4), each = n_simulations), 
-    Death_rate = c(rate11, rate12, rate21, rate22),  
-    Group = rep(c("Mild - Treatment A", "Mild - Treatment B", "Severe - Treatment A", "Severe - Treatment B"), each = n_simulations),
-    Severity = rep(c("Mild", "Mild", "Severe", "Severe"), each = n_simulations)  
+    X_Pos = rep(1:4, each = n_simulations),
+    Death_rate = c(rate11, rate12, rate21, rate22),
+    Group = rep(c("Mild - A", "Mild - B", "Severe - A", "Severe - B"), 
+                each = n_simulations),
+    Severity = rep(c("Mild", "Mild", "Severe", "Severe"), each = n_simulations)
   )
 
   p2 <- ggplot(plot_data_p2, aes(x = X_Pos, y = Death_rate, color = Group)) +
-    geom_point(alpha = 0.1, position = position_jitter(width = 0.05, height = 0)) +  
-    geom_segment(aes(x = 1, xend = 1, y = min(Death_rate), yend = max(Death_rate)), color = "black") +  
-    geom_segment(aes(x = 2, xend = 2, y = min(Death_rate), yend = max(Death_rate)), color = "black") +  
-    geom_segment(aes(x = 3, xend = 3, y = min(Death_rate), yend = max(Death_rate)), color = "black") +  
-    geom_segment(aes(x = 4, xend = 4, y = min(Death_rate), yend = max(Death_rate)), color = "black") +  
-    geom_smooth(data = subset(plot_data_p2, Severity == "Mild"), method = "lm", se = FALSE, color = "black") +  
-    geom_smooth(data = subset(plot_data_p2, Severity == "Severe"), method = "lm", se = FALSE, color = "black") +  
-    scale_x_continuous(breaks = c(1, 2, 3, 4), labels = c("Mild - A", "Mild - B", "Severe - A", "Severe - B")) +  
-    scale_color_manual(values = c("Mild - Treatment A" = "red", "Mild - Treatment B" = "blue", 
-                                  "Severe - Treatment A" = "darkred", "Severe - Treatment B" = "darkblue")) +  
-    guides(color = "none") +  
-    labs(x = "", y = "Risk of Death", title = "Risk by Severity (Mild vs. Severe)")
+    geom_point(alpha = 0.1, position = position_jitter(width = 0.05)) +
+    geom_smooth(data = subset(plot_data_p2, Severity == "Mild"), method = "lm", 
+                se = FALSE, color = "black") +
+    geom_smooth(data = subset(plot_data_p2, Severity == "Severe"), 
+                method = "lm", se = FALSE, color = "black") +
+    scale_x_continuous(breaks = 1:4, 
+              labels = c("Mild - A", "Mild - B", "Severe - A", "Severe - B")) +
+    scale_color_manual(values = c("Mild - A" = "red", "Mild - B" = "blue", 
+                                  "Severe - A" = "darkred", 
+                                  "Severe - B" = "darkblue")) +
+    labs(title = "Risk by Severity (Mild vs. Severe)", x = "", 
+         y = "Risk of Death") +
+    guides(color = "none")
 
   grid.arrange(p1, p2, nrow = 2)
- 
-  regression_data <- data.frame(
-    Death_rate = c(rate11, rate12, rate21, rate22),  
-    Treatment = rep(c(0, 1, 0, 1), each = n_simulations),  # 0 = Treatment A, 1 = Treatment B
-    Severity = rep(c(0, 0, 1, 1), each = n_simulations)   # 0 = Mild, 1 = Severe
-  )
+})
 
-  regression_data$Treatment <- as.numeric(regression_data$Treatment)
-  regression_data$Severity <- as.numeric(regression_data$Severity)
+```
 
-  regression_data$Interaction <- regression_data$Treatment * regression_data$Severity
+**Step 4: Fit Regression Model to Test for Interaction**
 
-  model <- lm(Death_rate ~ Treatment + Severity + Interaction, data = regression_data)
-  
-  unique(predict(model))
-  })
+```{r}
+
+# Fits a linear model to estimate how treatment and severity affect death risk
+# Displays if there's an interaction between them
+
+regression_data <- data.frame(
+  Death_rate = c(rate11, rate12, rate21, rate22),
+  Treatment = rep(c(0, 1, 0, 1), each = n_simulations),
+  Severity = rep(c(0, 0, 1, 1), each = n_simulations)
+)
+
+regression_data$Interaction <- regression_data$Treatment * 
+  regression_data$Severity
+
+model <- lm(Death_rate ~ Treatment + Severity + Interaction, 
+            data = regression_data)
+summary(model)
 
 ```
 
@@ -188,29 +236,46 @@ First up, I simulated the patient data. I created potential outcomes Y(0) and Y(
 
 ```{r}
 
+# Simulate data for 2,000 individuals
 n <- 2000
 
-age <- rnorm(n, mean = 50, sd = 10)
-bmi <- rnorm(n, mean = 25, sd = 4)
-cholesterol <- rnorm(n, mean = 200, sd = 30)
+# Generate baseline covariates (age, BMI, cholesterol)
+age <- rnorm(n, mean = 50, sd = 10)           
+# Normally distributed age centered around 50
+bmi <- rnorm(n, mean = 25, sd = 4)            
+# BMI centered around 25
+cholesterol <- rnorm(n, mean = 200, sd = 30)  
+# Cholesterol centered around 200
 
-treatment <- rbinom(n, 1, plogis(0.05 * age + 0.01 * cholesterol - 2)) ## Older people more likely to get treatment
+# Simulate treatment assignment using logistic regression:
+# Older individuals with higher cholesterol are more likely to be treated
+treatment <- rbinom(n, 1, plogis(0.05 * age + 0.01 * cholesterol - 2))
 
+# Simulate potential outcome without treatment (Y(0))
+# Outcome depends on age, BMI, and cholesterol plus random noise
 y_0 <- 140 - 0.5 * age + 0.3 * bmi + 0.2 * cholesterol + rnorm(n, sd = 5)
+
+# Simulate potential outcome with treatment (Y(1))
+# Treatment effect varies with age and cholesterol and adds its own noise
 y_1 <- y_0 - (40 + 1.0 * age - 0.3 * cholesterol) + rnorm(n, sd = 1.5)
+
+# Observed outcome: if treated, observe Y(1); otherwise, observe Y(0)
 y <- ifelse(treatment == 1, y_1, y_0)
 
-true_ite <- y_1 - y_0
+# Calculate the true Individual Treatment Effect (ITE)
+true_ite <- y_1 - y_0  # Difference between potential outcomes for each person
 
+# Combine into a data frame for analysis
 data <- data.frame(
   age,
   bmi,
   cholesterol,
   treatment,
-  y,
-  true_ite
+  y,           # observed outcome
+  true_ite     # the true (unobserved) individual causal effect
 )
 
+# Preview the first few rows of the dataset
 head(data)
 
 ```
@@ -221,14 +286,20 @@ Next, I estimated treatment effects using regression. Since I can't observe both
 
 ```{r}
 
-control_model <- lm(y ~ age + bmi + cholesterol, data = data, subset = (treatment == 0))
-treatment_model <- lm(y ~ age + bmi + cholesterol, data = data, subset = (treatment == 1))
+# Fit separate linear models for control and treatment groups
+control_model <- lm(y ~ age + bmi + cholesterol, data = data, 
+                    subset = (treatment == 0))
+treatment_model <- lm(y ~ age + bmi + cholesterol, data = data, 
+                      subset = (treatment == 1))
 
-data$y0_hat <- predict(control_model, newdata = data) 
-data$y1_hat <- predict(treatment_model, newdata = data)  
+# Predict outcomes under control and treatment for everyone
+data$y0_hat <- predict(control_model, newdata = data)  # predicted Y(0)
+data$y1_hat <- predict(treatment_model, newdata = data)  # predicted Y(1)
 
+# Estimate ITE as the difference between predicted outcomes
 data$ite_estimate <- data$y1_hat - data$y0_hat
 
+# Show predicted potential outcomes and estimated ITEs
 head(data[c("ite_estimate", "y0_hat", "y1_hat")])
 
 ```
@@ -254,11 +325,17 @@ ggplot(data, aes(x = true_ite, y = ite_estimate)) +
 
 ```{r}
 
+# Estimate average potential outcomes without adjusting for covariates
 y0_hat_simple <- mean(data$y[data$treatment == 0])  
 y1_hat_simple <- mean(data$y[data$treatment == 1])  
 
+# Fill in predicted values based on group averages
 data$y0_hat_simple <- ifelse(data$treatment == 1, y0_hat_simple, data$y)  
 data$y1_hat_simple <- ifelse(data$treatment == 0, y1_hat_simple, data$y)  
+
+```
+
+```{r}
 
 data$ite_estimate_simple <- data$y1_hat_simple - data$y0_hat_simple
 
@@ -335,6 +412,7 @@ From the table, we can see that the CATE is more negative for older individuals,
 
 ```{r}
 
+# Compute standard errors for ITE estimates in younger and older subgroups
 cate_young_se <- sd(data$ite_estimate[data$age < threshold]) / sqrt(sum(data$age < threshold))
 cate_old_se <- sd(data$ite_estimate[data$age >= threshold]) / sqrt(sum(data$age >= threshold))
 
@@ -376,9 +454,13 @@ Here is a visualization for the **Average Treatment Effect (ATE)**. I created a 
 
 ```{r}
 
-control_se <- sd(data$ite_estimate[data$treatment == 0]) / sqrt(sum(data$treatment == 0))
-treated_se <- sd(data$ite_estimate[data$treatment == 1]) / sqrt(sum(data$treatment == 1))
+# Compute standard errors for ITE estimates in control and treated groups
+control_se <- 
+  sd(data$ite_estimate[data$treatment == 0]) / sqrt(sum(data$treatment == 0))
+treated_se <- 
+  sd(data$ite_estimate[data$treatment == 1]) / sqrt(sum(data$treatment == 1))
 
+# Get mean predicted potential outcomes for each group
 control_mean <- mean(data$y0_hat[data$treatment == 0])
 treated_mean <- mean(data$y1_hat[data$treatment == 1])
 
@@ -412,7 +494,8 @@ ATT helps determine whether the intervention is effective or not for the treated
 
 att <- mean(data$ite_estimate[data$treatment == 1])
 
-print(paste("The Average Treatment Effect on the Treated (ATT) is", round(att, 2)))
+print(paste("The Average Treatment Effect on the Treated (ATT) is", 
+            round(att, 2)))
 
 ```
 
@@ -428,7 +511,8 @@ In this scenario, ATC answers the question: How much would the treatment have af
 
 atc <- mean(data$ite_estimate[data$treatment == 0])
 
-print(paste("The Average Treatment Effect on the Control (ATC) is", round(atc, 2)))
+print(paste("The Average Treatment Effect on the Control (ATC) is", 
+            round(atc, 2)))
 
 ```
 
@@ -438,8 +522,13 @@ Now, I've created a visualization comparing how the treatment effect differs for
 
 ```{r}
 
-att_se <- sd(data$ite_estimate[data$treatment == 1]) / sqrt(sum(data$treatment == 1))
-atc_se <- sd(data$ite_estimate[data$treatment == 0]) / sqrt(sum(data$treatment == 0))
+# Standard error for ATT: variability among treated individuals
+att_se <- sd(data$ite_estimate[data$treatment == 1]) / 
+  sqrt(sum(data$treatment == 1))
+
+# Standard error for ATC: variability among control individuals
+atc_se <- sd(data$ite_estimate[data$treatment == 0]) / 
+  sqrt(sum(data$treatment == 0))
 
 results <- data.frame(
   group = c("ATT (Treated)", "ATC (Control)"),
