@@ -1,4 +1,4 @@
-# Setup
+# Setup {.unnumbered}
 
 ## **Installing and Using Required Packages**
 Throughout this tutorial, we’ll use a few essential R packages to manipulate data, run models, and create plots. 
