@@ -4,24 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Bias and Identification | Causal-Inference-Graduate.knit</title>
+  <title>3 Bias and Identification | install_packages.Rmd</title>
   <meta name="description" content="An undergraduate course on causal inference" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Bias and Identification | Causal-Inference-Graduate.knit" />
+  <meta property="og:title" content="3 Bias and Identification | install_packages.Rmd" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An undergraduate course on causal inference" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Bias and Identification | Causal-Inference-Graduate.knit" />
+  <meta name="twitter:title" content="3 Bias and Identification | install_packages.Rmd" />
   
   <meta name="twitter:description" content="An undergraduate course on causal inference" />
   
 
+<meta name="author" content="Charlie Wang" />
 
 
+<meta name="date" content="2025-04-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -149,6 +151,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#upon-successful-completion-of-this-course-students-will-be-able-to"><i class="fa fa-check"></i>Upon successful completion of this course, students will be able to:</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#tools"><i class="fa fa-check"></i>Tools</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#useful-links"><i class="fa fa-check"></i>Useful Links</a></li>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#installing-and-using-required-packages"><i class="fa fa-check"></i><b>0.1</b> <strong>Installing and Using Required Packages</strong></a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#loading-packages"><i class="fa fa-check"></i><b>0.2</b> Loading Packages</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#difference-between-install.packages-and-library"><i class="fa fa-check"></i><b>0.3</b> Difference Between install.packages() and library()</a></li>
+<li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#session-information"><i class="fa fa-check"></i><b>0.4</b> Session Information</a></li>
+<li class="chapter" data-level="0.5" data-path="index.html"><a href="index.html#why-include-this"><i class="fa fa-check"></i><b>0.5</b> Why include this?</a></li>
+<li class="chapter" data-level="0.6" data-path="index.html"><a href="index.html#base-r-version-simple"><i class="fa fa-check"></i><b>0.6</b> Base R version (simple)</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html"><i class="fa fa-check"></i><b>1</b> Foundations: Causal Thinking in Public Health</a>
 <ul>
@@ -183,7 +191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">install_packages.Rmd</a>
           </h1>
         </div>
 
@@ -237,59 +245,59 @@ Additional DAG exercises provided in class</p>
 <p>After that, I pulled a sample of 1000 people out of the study and assigned 500 of them to be exposed to pollution and 500 of them not to be exposed. Within each treatment group, exactly half of them were in the young age group and the other half were in the old age group. Therefore, when I created the linear model, I did not need to confound on age because it was already accounted for. When I computed the average treatment effect, it was very similar to the average treatment effect from my first simulation.</p>
 <p>I then decided to do something similar to the second sample. I pulled out 1000 people and half of them were exposed. This time, I did not confound on the age group (young or old). When I computed the average treatment effect, this time it was off from the average treatment effect from my first simulation. This shows that age is a confounding variable and that we must take it into consideration before computing for the average treatment effect, because the variability in age can affect the results.</p>
 <p><strong>Step 1: Simulate the Full Population Dataset</strong></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="bias-and-identification.html#cb37-1" tabindex="-1"></a><span class="co"># Simulate data for 2,000 individuals, each with age group and pollution exposure</span></span>
-<span id="cb37-2"><a href="bias-and-identification.html#cb37-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
-<span id="cb37-3"><a href="bias-and-identification.html#cb37-3" tabindex="-1"></a></span>
-<span id="cb37-4"><a href="bias-and-identification.html#cb37-4" tabindex="-1"></a>age_group <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.6</span>)  <span class="co"># 60% are older adults</span></span>
-<span id="cb37-5"><a href="bias-and-identification.html#cb37-5" tabindex="-1"></a>pollution <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">ifelse</span>(age_group <span class="sc">==</span> <span class="dv">1</span>, <span class="fl">0.8</span>, <span class="fl">0.2</span>))  <span class="co"># Older adults more likely to be exposed to pollution</span></span>
-<span id="cb37-6"><a href="bias-and-identification.html#cb37-6" tabindex="-1"></a></span>
-<span id="cb37-7"><a href="bias-and-identification.html#cb37-7" tabindex="-1"></a><span class="co"># Health outcome depends on both age and pollution, with some noise</span></span>
-<span id="cb37-8"><a href="bias-and-identification.html#cb37-8" tabindex="-1"></a>health <span class="ot">&lt;-</span> <span class="dv">80</span> <span class="sc">-</span> <span class="dv">15</span> <span class="sc">*</span> pollution <span class="sc">-</span> <span class="dv">25</span> <span class="sc">*</span> age_group <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
-<span id="cb37-9"><a href="bias-and-identification.html#cb37-9" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="bias-and-identification.html#cb37-10" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(age_group, pollution, health)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="bias-and-identification.html#cb43-1" tabindex="-1"></a><span class="co"># Simulate data for 2,000 individuals, each with age group and pollution exposure</span></span>
+<span id="cb43-2"><a href="bias-and-identification.html#cb43-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb43-3"><a href="bias-and-identification.html#cb43-3" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="bias-and-identification.html#cb43-4" tabindex="-1"></a>age_group <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.6</span>)  <span class="co"># 60% are older adults</span></span>
+<span id="cb43-5"><a href="bias-and-identification.html#cb43-5" tabindex="-1"></a>pollution <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">ifelse</span>(age_group <span class="sc">==</span> <span class="dv">1</span>, <span class="fl">0.8</span>, <span class="fl">0.2</span>))  <span class="co"># Older adults more likely to be exposed to pollution</span></span>
+<span id="cb43-6"><a href="bias-and-identification.html#cb43-6" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="bias-and-identification.html#cb43-7" tabindex="-1"></a><span class="co"># Health outcome depends on both age and pollution, with some noise</span></span>
+<span id="cb43-8"><a href="bias-and-identification.html#cb43-8" tabindex="-1"></a>health <span class="ot">&lt;-</span> <span class="dv">80</span> <span class="sc">-</span> <span class="dv">15</span> <span class="sc">*</span> pollution <span class="sc">-</span> <span class="dv">25</span> <span class="sc">*</span> age_group <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb43-9"><a href="bias-and-identification.html#cb43-9" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="bias-and-identification.html#cb43-10" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(age_group, pollution, health)</span></code></pre></div>
 <p><strong>Step 2: Estimate ATE Using the Full Data (Adjusted)</strong></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="bias-and-identification.html#cb38-1" tabindex="-1"></a><span class="co"># Linear regression adjusting for age group</span></span>
-<span id="cb38-2"><a href="bias-and-identification.html#cb38-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution <span class="sc">+</span> age_group, <span class="at">data =</span> data)</span>
-<span id="cb38-3"><a href="bias-and-identification.html#cb38-3" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
-<span id="cb38-4"><a href="bias-and-identification.html#cb38-4" tabindex="-1"></a></span>
-<span id="cb38-5"><a href="bias-and-identification.html#cb38-5" tabindex="-1"></a><span class="co"># Print true ATE from the full population</span></span>
-<span id="cb38-6"><a href="bias-and-identification.html#cb38-6" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 2000 observation units is&quot;</span>, <span class="fu">round</span>(ate, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The average treatment effect for the 2000 observation units is -15.2&quot;</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="bias-and-identification.html#cb44-1" tabindex="-1"></a><span class="co"># Linear regression adjusting for age group</span></span>
+<span id="cb44-2"><a href="bias-and-identification.html#cb44-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution <span class="sc">+</span> age_group, <span class="at">data =</span> data)</span>
+<span id="cb44-3"><a href="bias-and-identification.html#cb44-3" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
+<span id="cb44-4"><a href="bias-and-identification.html#cb44-4" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="bias-and-identification.html#cb44-5" tabindex="-1"></a><span class="co"># Print true ATE from the full population</span></span>
+<span id="cb44-6"><a href="bias-and-identification.html#cb44-6" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 2000 observation units is&quot;</span>, <span class="fu">round</span>(ate, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;The average treatment effect for the 2000 observation units is -15.46&quot;</code></pre>
 <p><strong>Step 3: Biased Subsample with Confounding</strong></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="bias-and-identification.html#cb40-1" tabindex="-1"></a><span class="co"># Create unequal distribution: more older people in polluted group, more younger in non-polluted group</span></span>
-<span id="cb40-2"><a href="bias-and-identification.html#cb40-2" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="bias-and-identification.html#cb40-3" tabindex="-1"></a><span class="co"># Sample 100 young and 400 older from polluted group</span></span>
-<span id="cb40-4"><a href="bias-and-identification.html#cb40-4" tabindex="-1"></a>polluted_young <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">0</span>, ]</span>
-<span id="cb40-5"><a href="bias-and-identification.html#cb40-5" tabindex="-1"></a>polluted_young <span class="ot">&lt;-</span> polluted_young[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(polluted_young), <span class="dv">100</span>), ]</span>
-<span id="cb40-6"><a href="bias-and-identification.html#cb40-6" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="bias-and-identification.html#cb40-7" tabindex="-1"></a>polluted_old <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">1</span>, ]</span>
-<span id="cb40-8"><a href="bias-and-identification.html#cb40-8" tabindex="-1"></a>polluted_old <span class="ot">&lt;-</span> polluted_old[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(polluted_old), <span class="dv">400</span>), ]</span>
-<span id="cb40-9"><a href="bias-and-identification.html#cb40-9" tabindex="-1"></a>polluted_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(polluted_young, polluted_old)</span>
-<span id="cb40-10"><a href="bias-and-identification.html#cb40-10" tabindex="-1"></a></span>
-<span id="cb40-11"><a href="bias-and-identification.html#cb40-11" tabindex="-1"></a><span class="co"># Sample 400 young and 100 older from non-polluted group</span></span>
-<span id="cb40-12"><a href="bias-and-identification.html#cb40-12" tabindex="-1"></a>non_polluted_young <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">0</span>, ]</span>
-<span id="cb40-13"><a href="bias-and-identification.html#cb40-13" tabindex="-1"></a>non_polluted_young <span class="ot">&lt;-</span> non_polluted_young[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(non_polluted_young), <span class="dv">400</span>), ]</span>
-<span id="cb40-14"><a href="bias-and-identification.html#cb40-14" tabindex="-1"></a></span>
-<span id="cb40-15"><a href="bias-and-identification.html#cb40-15" tabindex="-1"></a>non_polluted_old <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">1</span>, ]</span>
-<span id="cb40-16"><a href="bias-and-identification.html#cb40-16" tabindex="-1"></a>non_polluted_old <span class="ot">&lt;-</span> non_polluted_old[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(non_polluted_old), <span class="dv">100</span>), ]</span>
-<span id="cb40-17"><a href="bias-and-identification.html#cb40-17" tabindex="-1"></a>non_polluted_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(non_polluted_young, non_polluted_old)</span>
-<span id="cb40-18"><a href="bias-and-identification.html#cb40-18" tabindex="-1"></a></span>
-<span id="cb40-19"><a href="bias-and-identification.html#cb40-19" tabindex="-1"></a><span class="co"># Combine the two biased groups</span></span>
-<span id="cb40-20"><a href="bias-and-identification.html#cb40-20" tabindex="-1"></a>combined_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(polluted_sample, non_polluted_sample)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="bias-and-identification.html#cb46-1" tabindex="-1"></a><span class="co"># Create unequal distribution: more older people in polluted group, more younger in non-polluted group</span></span>
+<span id="cb46-2"><a href="bias-and-identification.html#cb46-2" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="bias-and-identification.html#cb46-3" tabindex="-1"></a><span class="co"># Sample 100 young and 400 older from polluted group</span></span>
+<span id="cb46-4"><a href="bias-and-identification.html#cb46-4" tabindex="-1"></a>polluted_young <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">0</span>, ]</span>
+<span id="cb46-5"><a href="bias-and-identification.html#cb46-5" tabindex="-1"></a>polluted_young <span class="ot">&lt;-</span> polluted_young[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(polluted_young), <span class="dv">100</span>), ]</span>
+<span id="cb46-6"><a href="bias-and-identification.html#cb46-6" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="bias-and-identification.html#cb46-7" tabindex="-1"></a>polluted_old <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">1</span>, ]</span>
+<span id="cb46-8"><a href="bias-and-identification.html#cb46-8" tabindex="-1"></a>polluted_old <span class="ot">&lt;-</span> polluted_old[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(polluted_old), <span class="dv">400</span>), ]</span>
+<span id="cb46-9"><a href="bias-and-identification.html#cb46-9" tabindex="-1"></a>polluted_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(polluted_young, polluted_old)</span>
+<span id="cb46-10"><a href="bias-and-identification.html#cb46-10" tabindex="-1"></a></span>
+<span id="cb46-11"><a href="bias-and-identification.html#cb46-11" tabindex="-1"></a><span class="co"># Sample 400 young and 100 older from non-polluted group</span></span>
+<span id="cb46-12"><a href="bias-and-identification.html#cb46-12" tabindex="-1"></a>non_polluted_young <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">0</span>, ]</span>
+<span id="cb46-13"><a href="bias-and-identification.html#cb46-13" tabindex="-1"></a>non_polluted_young <span class="ot">&lt;-</span> non_polluted_young[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(non_polluted_young), <span class="dv">400</span>), ]</span>
+<span id="cb46-14"><a href="bias-and-identification.html#cb46-14" tabindex="-1"></a></span>
+<span id="cb46-15"><a href="bias-and-identification.html#cb46-15" tabindex="-1"></a>non_polluted_old <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">1</span>, ]</span>
+<span id="cb46-16"><a href="bias-and-identification.html#cb46-16" tabindex="-1"></a>non_polluted_old <span class="ot">&lt;-</span> non_polluted_old[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(non_polluted_old), <span class="dv">100</span>), ]</span>
+<span id="cb46-17"><a href="bias-and-identification.html#cb46-17" tabindex="-1"></a>non_polluted_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(non_polluted_young, non_polluted_old)</span>
+<span id="cb46-18"><a href="bias-and-identification.html#cb46-18" tabindex="-1"></a></span>
+<span id="cb46-19"><a href="bias-and-identification.html#cb46-19" tabindex="-1"></a><span class="co"># Combine the two biased groups</span></span>
+<span id="cb46-20"><a href="bias-and-identification.html#cb46-20" tabindex="-1"></a>combined_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(polluted_sample, non_polluted_sample)</span></code></pre></div>
 <p><strong>Step 4: ATE Estimation Without Adjusting for Confounding</strong></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="bias-and-identification.html#cb41-1" tabindex="-1"></a><span class="co"># Model that ignores age group (confounder)</span></span>
-<span id="cb41-2"><a href="bias-and-identification.html#cb41-2" tabindex="-1"></a>model_sample_bias <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution, <span class="at">data =</span> combined_sample)</span>
-<span id="cb41-3"><a href="bias-and-identification.html#cb41-3" tabindex="-1"></a>ate_sample_bias <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_sample_bias)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
-<span id="cb41-4"><a href="bias-and-identification.html#cb41-4" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="bias-and-identification.html#cb41-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 1000 observation units is&quot;</span>, <span class="fu">round</span>(ate_sample_bias, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -30.62&quot;</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="bias-and-identification.html#cb47-1" tabindex="-1"></a><span class="co"># Model that ignores age group (confounder)</span></span>
+<span id="cb47-2"><a href="bias-and-identification.html#cb47-2" tabindex="-1"></a>model_sample_bias <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution, <span class="at">data =</span> combined_sample)</span>
+<span id="cb47-3"><a href="bias-and-identification.html#cb47-3" tabindex="-1"></a>ate_sample_bias <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_sample_bias)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
+<span id="cb47-4"><a href="bias-and-identification.html#cb47-4" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="bias-and-identification.html#cb47-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 1000 observation units is&quot;</span>, <span class="fu">round</span>(ate_sample_bias, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -30.42&quot;</code></pre>
 <p><strong>Step 5: ATE Estimation Adjusted for Confounding</strong></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="bias-and-identification.html#cb43-1" tabindex="-1"></a><span class="co"># Model that includes age group to adjust for confounding</span></span>
-<span id="cb43-2"><a href="bias-and-identification.html#cb43-2" tabindex="-1"></a>model_sample <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution <span class="sc">+</span> age_group, <span class="at">data =</span> combined_sample)</span>
-<span id="cb43-3"><a href="bias-and-identification.html#cb43-3" tabindex="-1"></a>ate_sample <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_sample)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
-<span id="cb43-4"><a href="bias-and-identification.html#cb43-4" tabindex="-1"></a></span>
-<span id="cb43-5"><a href="bias-and-identification.html#cb43-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 1000 observation units is&quot;</span>, <span class="fu">round</span>(ate_sample, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -15.63&quot;</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="bias-and-identification.html#cb49-1" tabindex="-1"></a><span class="co"># Model that includes age group to adjust for confounding</span></span>
+<span id="cb49-2"><a href="bias-and-identification.html#cb49-2" tabindex="-1"></a>model_sample <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution <span class="sc">+</span> age_group, <span class="at">data =</span> combined_sample)</span>
+<span id="cb49-3"><a href="bias-and-identification.html#cb49-3" tabindex="-1"></a>ate_sample <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_sample)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
+<span id="cb49-4"><a href="bias-and-identification.html#cb49-4" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="bias-and-identification.html#cb49-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 1000 observation units is&quot;</span>, <span class="fu">round</span>(ate_sample, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -15.72&quot;</code></pre>
 </div>
 <div id="identifiability-of-causal-effects" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> Identifiability of Causal Effects<a href="bias-and-identification.html#identifiability-of-causal-effects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
