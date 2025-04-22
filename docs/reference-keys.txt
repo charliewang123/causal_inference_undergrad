@@ -1,9 +1,3 @@
-installing-and-using-required-packages
-loading-packages
-difference-between-install.packages-and-library
-session-information
-why-include-this
-base-r-version-simple
 foundations-causal-thinking-in-public-health
 association-vs.-causation
 introduction-to-counterfactuals-and-potential-outcomes

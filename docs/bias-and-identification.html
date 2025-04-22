@@ -152,12 +152,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i>Setup</a>
 <ul>
-<li class="chapter" data-level="0.1" data-path="setup.html"><a href="setup.html#installing-and-using-required-packages"><i class="fa fa-check"></i><b>0.1</b> <strong>Installing and Using Required Packages</strong></a></li>
-<li class="chapter" data-level="0.2" data-path="setup.html"><a href="setup.html#loading-packages"><i class="fa fa-check"></i><b>0.2</b> Loading Packages</a></li>
-<li class="chapter" data-level="0.3" data-path="setup.html"><a href="setup.html#difference-between-install.packages-and-library"><i class="fa fa-check"></i><b>0.3</b> Difference Between install.packages() and library()</a></li>
-<li class="chapter" data-level="0.4" data-path="setup.html"><a href="setup.html#session-information"><i class="fa fa-check"></i><b>0.4</b> Session Information</a></li>
-<li class="chapter" data-level="0.5" data-path="setup.html"><a href="setup.html#why-include-this"><i class="fa fa-check"></i><b>0.5</b> Why include this?</a></li>
-<li class="chapter" data-level="0.6" data-path="setup.html"><a href="setup.html#base-r-version-simple"><i class="fa fa-check"></i><b>0.6</b> Base R version (simple)</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#installing-and-using-required-packages"><i class="fa fa-check"></i><strong>Installing and Using Required Packages</strong></a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#loading-packages"><i class="fa fa-check"></i>Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#difference-between-install.packages-and-library"><i class="fa fa-check"></i>Difference Between install.packages() and library()</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#session-information"><i class="fa fa-check"></i>Session Information</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#why-include-this"><i class="fa fa-check"></i>Why include this?</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#base-r-version-simple"><i class="fa fa-check"></i>Base R version (simple)</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html"><i class="fa fa-check"></i><b>1</b> Foundations: Causal Thinking in Public Health</a>
 <ul>
@@ -263,7 +263,7 @@ Additional DAG exercises provided in class</p>
 <span id="cb37-4"><a href="bias-and-identification.html#cb37-4" tabindex="-1"></a></span>
 <span id="cb37-5"><a href="bias-and-identification.html#cb37-5" tabindex="-1"></a><span class="co"># Print true ATE from the full population</span></span>
 <span id="cb37-6"><a href="bias-and-identification.html#cb37-6" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 2000 observation units is&quot;</span>, <span class="fu">round</span>(ate, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The average treatment effect for the 2000 observation units is -14.94&quot;</code></pre>
+<pre><code>## [1] &quot;The average treatment effect for the 2000 observation units is -14.93&quot;</code></pre>
 <p><strong>Step 3: Biased Subsample with Confounding</strong></p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="bias-and-identification.html#cb39-1" tabindex="-1"></a><span class="co"># Create unequal distribution: more older people in polluted group, more younger in non-polluted group</span></span>
 <span id="cb39-2"><a href="bias-and-identification.html#cb39-2" tabindex="-1"></a></span>
@@ -291,14 +291,14 @@ Additional DAG exercises provided in class</p>
 <span id="cb40-3"><a href="bias-and-identification.html#cb40-3" tabindex="-1"></a>ate_sample_bias <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_sample_bias)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
 <span id="cb40-4"><a href="bias-and-identification.html#cb40-4" tabindex="-1"></a></span>
 <span id="cb40-5"><a href="bias-and-identification.html#cb40-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 1000 observation units is&quot;</span>, <span class="fu">round</span>(ate_sample_bias, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -29.8&quot;</code></pre>
+<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -30.15&quot;</code></pre>
 <p><strong>Step 5: ATE Estimation Adjusted for Confounding</strong></p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="bias-and-identification.html#cb42-1" tabindex="-1"></a><span class="co"># Model that includes age group to adjust for confounding</span></span>
 <span id="cb42-2"><a href="bias-and-identification.html#cb42-2" tabindex="-1"></a>model_sample <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution <span class="sc">+</span> age_group, <span class="at">data =</span> combined_sample)</span>
 <span id="cb42-3"><a href="bias-and-identification.html#cb42-3" tabindex="-1"></a>ate_sample <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_sample)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
 <span id="cb42-4"><a href="bias-and-identification.html#cb42-4" tabindex="-1"></a></span>
 <span id="cb42-5"><a href="bias-and-identification.html#cb42-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 1000 observation units is&quot;</span>, <span class="fu">round</span>(ate_sample, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -14.72&quot;</code></pre>
+<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -14.75&quot;</code></pre>
 </div>
 <div id="identifiability-of-causal-effects" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> Identifiability of Causal Effects<a href="bias-and-identification.html#identifiability-of-causal-effects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
