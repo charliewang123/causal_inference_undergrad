@@ -1,0 +1,49 @@
+---
+title: "install_packages.Rmd"
+author: "Charlie Wang"
+date: "2025-04-22"
+output: pdf_document
+---
+
+## **Installing and Using Required Packages**
+Throughout this tutorial, we’ll use a few essential R packages to manipulate data, run models, and create plots. 
+Below are the core packages, what they do, and how to install them.
+
+Packages we’ll use:
+
+**ggplot2** – For plotting (e.g., scatterplots, regression lines)
+**dplyr** – For data wrangling (filtering, mutating, summarizing, etc.)
+**gridExtra** – To combine multiple plots into one figure
+**stats** – Comes with base R and used for regression (lm())
+**broom (optional)** – Makes model summaries easier to work with
+
+```{r}
+
+install.packages(c("ggplot2", "dplyr", "gridExtra"))
+
+# Optional: for tidying model output
+install.packages("broom")
+
+```
+
+## Loading Packages
+
+```{r}
+
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+
+# Optional if using tidy model outputs:
+# library(broom)
+
+```
+
+
+
+
+
+
+
+
+
