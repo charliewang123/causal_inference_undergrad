@@ -39,10 +39,37 @@ library(gridExtra)
 
 ```
 
+## Difference Between install.packages() and library()
 
+- install.packages("dplyr") downloads and installs the package — you only need to do this once per computer.
+- library(dplyr) loads the package into your R session — you need to run this each time you use it.
 
+## Session Information
 
+It's always good practice to include your session info at the end of your analysis. This gives a snapshot of:
 
+- Your R version and system details
+- All the packages that were loaded
+- The versions of those packages
+
+This is especially useful when:
+- You're debugging errors
+- You're submitting assignments
+- You're collaborating with others
+
+## Why include this?
+
+Sometimes code behaves differently depending on the version of a package or even the version of R itself. Including your session info makes your work **reproducible and easier to troubleshoot**.
+
+## Base R version (simple)
+
+This function comes with R and gives you basic session details.
+
+```{r}
+
+sessionInfo()
+
+```
 
 
 
