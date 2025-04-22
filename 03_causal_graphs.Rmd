@@ -19,17 +19,17 @@
 
 > ## Topics covered
 >
-> -   Confounding bias and how it arises
-> -   Collider bias and overcontrol
-> -   Selection bias and missing data
-> -   Identifiability of causal effects
-> -   Using DAGs to reason about sources of bias
+> -   Confounding bias and how it arises  
+> -   Collider bias and overcontrol  
+> -   Selection bias and missing data  
+> -   Identifiability of causal effects  
+> -   Using DAGs to reason about sources of bias  
 
 ## Confounding Bias and How It Arises
 
-One of the most common challenges in causal inference is confounding bias — a distortion in the estimated treatment effect caused by a third variable that influences both the treatment and the outcome. Confounders create a false association between the treatment and the outcome, leading us to attribute effects to the treatment that are actually due to other underlying factors.
+One of the most common challenges in causal inference is confounding bias — a distortion in the estimated treatment effect caused by a third variable that influences both the treatment and the outcome. Confounders create a false association between the treatment and the outcome, leading us to attribute effects to the treatment that are actually due to other underlying factors.  
 
-A compelling illustration of this is presented in the Simpson’s Paradox example from Week 1 (see Section 1.1), where patients with different levels of pneumonia severity were not equally distributed across treatment groups. While Treatment B was more effective within both the mild and severe subgroups, the overall data misleadingly suggested the opposite due to the imbalance in case severity. This paradox arises precisely because disease severity confounds the relationship between treatment and outcome — it influences both who gets which treatment and what their likely outcome is. This highlights the necessity of accounting for confounding variables when making causal claims and demonstrates how failing to do so can lead to entirely incorrect conclusions, even when the data appears clear at first glance.
+A compelling illustration of this is presented in the Simpson’s Paradox example from Week 1 (see Section 1.1), where patients with different levels of pneumonia severity were not equally distributed across treatment groups. While Treatment B was more effective within both the mild and severe subgroups, the overall data misleadingly suggested the opposite due to the imbalance in case severity. This paradox arises precisely because disease severity confounds the relationship between treatment and outcome — it influences both who gets which treatment and what their likely outcome is. This highlights the necessity of accounting for confounding variables when making causal claims and demonstrates how failing to do so can lead to entirely incorrect conclusions, even when the data appears clear at first glance.  
 
 ## Collider Bias and Overcontrol
 
