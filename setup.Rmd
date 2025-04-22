@@ -1,9 +1,4 @@
----
-title: "install_packages.Rmd"
-author: "Charlie Wang"
-date: "2025-04-22"
-output: pdf_document
----
+# Setup
 
 ## **Installing and Using Required Packages**
 Throughout this tutorial, we’ll use a few essential R packages to manipulate data, run models, and create plots. 
