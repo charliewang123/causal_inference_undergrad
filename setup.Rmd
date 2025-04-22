@@ -10,11 +10,12 @@ Packages we’ll use:
 **dplyr** – For data wrangling (filtering, mutating, summarizing, etc.)     
 **gridExtra** – To combine multiple plots into one figure    
 **stats** – Comes with base R and used for regression (lm())    
+**pacman** – Simplifies package management in R
 **broom (optional)** – Makes model summaries easier to work with    
 
 ```{r}
 
-install.packages(c("ggplot2", "dplyr", "gridExtra"))
+install.packages(c("ggplot2", "dplyr", "gridExtra", "pacman"))
 
 # Optional: for tidying model output
 install.packages("broom")
@@ -65,7 +66,3 @@ This function comes with R and gives you basic session details.
 sessionInfo()
 
 ```
-
-
-
-

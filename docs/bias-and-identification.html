@@ -238,6 +238,8 @@ Additional DAG exercises provided in class</p>
 </div>
 <div id="collider-bias-and-overcontrol" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Collider Bias and Overcontrol<a href="bias-and-identification.html#collider-bias-and-overcontrol" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Collider bias</strong> arises when we control for a variable that is caused by two (or more) other variables in our model — in other words, a collider. Unlike confounders, which distort causal relationships when not adjusted for, colliders create bias when we do adjust for them. By conditioning on a collider, we unintentionally open a backdoor path that allows non-causal associations to flow through the model. This can lead to misleading estimates and spurious relationships, even when the original variables were unrelated.</p>
+<p><strong>Overcontrol</strong> refers to the broader mistake of adjusting for variables that should not be adjusted for, including colliders and mediators (variables that lie on the causal path from treatment to outcome). While it may seem intuitive to include as many variables as possible in a regression model “just to be safe,” doing so without a clear causal understanding can introduce rather than reduce bias. For example, in a study of smoking and lung cancer, adjusting for a variable like shortness of breath — which can be influenced by both — may induce a collider bias and distort the relationship. These pitfalls emphasize the importance of using causal diagrams (DAGs) to think carefully about which variables to control for, and which to leave out.</p>
 </div>
 <div id="selection-bias-and-missing-data" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Selection Bias and Missing Data<a href="bias-and-identification.html#selection-bias-and-missing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -250,68 +252,162 @@ Additional DAG exercises provided in class</p>
 <p>After that, I pulled a sample of 1000 people out of the study and assigned 500 of them to be exposed to pollution and 500 of them not to be exposed. Within each treatment group, exactly half of them were in the young age group and the other half were in the old age group. Therefore, when I created the linear model, I did not need to confound on age because it was already accounted for. When I computed the average treatment effect, it was very similar to the average treatment effect from my first simulation.</p>
 <p>I then decided to do something similar to the second sample. I pulled out 1000 people and half of them were exposed. This time, I did not confound on the age group (young or old). When I computed the average treatment effect, this time it was off from the average treatment effect from my first simulation. This shows that age is a confounding variable and that we must take it into consideration before computing for the average treatment effect, because the variability in age can affect the results.</p>
 <p><strong>Step 1: Simulate the Full Population Dataset</strong></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="bias-and-identification.html#cb43-1" tabindex="-1"></a><span class="co"># Simulate data for 2,000 individuals, each with age group and pollution exposure</span></span>
-<span id="cb43-2"><a href="bias-and-identification.html#cb43-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
-<span id="cb43-3"><a href="bias-and-identification.html#cb43-3" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="bias-and-identification.html#cb43-4" tabindex="-1"></a>age_group <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.6</span>)  <span class="co"># 60% are older adults</span></span>
-<span id="cb43-5"><a href="bias-and-identification.html#cb43-5" tabindex="-1"></a>pollution <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">ifelse</span>(age_group <span class="sc">==</span> <span class="dv">1</span>, <span class="fl">0.8</span>, <span class="fl">0.2</span>))  <span class="co"># Older adults more likely to be exposed to pollution</span></span>
-<span id="cb43-6"><a href="bias-and-identification.html#cb43-6" tabindex="-1"></a></span>
-<span id="cb43-7"><a href="bias-and-identification.html#cb43-7" tabindex="-1"></a><span class="co"># Health outcome depends on both age and pollution, with some noise</span></span>
-<span id="cb43-8"><a href="bias-and-identification.html#cb43-8" tabindex="-1"></a>health <span class="ot">&lt;-</span> <span class="dv">80</span> <span class="sc">-</span> <span class="dv">15</span> <span class="sc">*</span> pollution <span class="sc">-</span> <span class="dv">25</span> <span class="sc">*</span> age_group <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
-<span id="cb43-9"><a href="bias-and-identification.html#cb43-9" tabindex="-1"></a></span>
-<span id="cb43-10"><a href="bias-and-identification.html#cb43-10" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(age_group, pollution, health)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="bias-and-identification.html#cb36-1" tabindex="-1"></a><span class="co"># Simulate data for 2,000 individuals, each with age group and pollution exposure</span></span>
+<span id="cb36-2"><a href="bias-and-identification.html#cb36-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb36-3"><a href="bias-and-identification.html#cb36-3" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="bias-and-identification.html#cb36-4" tabindex="-1"></a>age_group <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.6</span>)  <span class="co"># 60% are older adults</span></span>
+<span id="cb36-5"><a href="bias-and-identification.html#cb36-5" tabindex="-1"></a>pollution <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">ifelse</span>(age_group <span class="sc">==</span> <span class="dv">1</span>, <span class="fl">0.8</span>, <span class="fl">0.2</span>))  <span class="co"># Older adults more likely to be exposed to pollution</span></span>
+<span id="cb36-6"><a href="bias-and-identification.html#cb36-6" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="bias-and-identification.html#cb36-7" tabindex="-1"></a><span class="co"># Health outcome depends on both age and pollution, with some noise</span></span>
+<span id="cb36-8"><a href="bias-and-identification.html#cb36-8" tabindex="-1"></a>health <span class="ot">&lt;-</span> <span class="dv">80</span> <span class="sc">-</span> <span class="dv">15</span> <span class="sc">*</span> pollution <span class="sc">-</span> <span class="dv">25</span> <span class="sc">*</span> age_group <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb36-9"><a href="bias-and-identification.html#cb36-9" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="bias-and-identification.html#cb36-10" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(age_group, pollution, health)</span></code></pre></div>
 <p><strong>Step 2: Estimate ATE Using the Full Data (Adjusted)</strong></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="bias-and-identification.html#cb44-1" tabindex="-1"></a><span class="co"># Linear regression adjusting for age group</span></span>
-<span id="cb44-2"><a href="bias-and-identification.html#cb44-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution <span class="sc">+</span> age_group, <span class="at">data =</span> data)</span>
-<span id="cb44-3"><a href="bias-and-identification.html#cb44-3" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
-<span id="cb44-4"><a href="bias-and-identification.html#cb44-4" tabindex="-1"></a></span>
-<span id="cb44-5"><a href="bias-and-identification.html#cb44-5" tabindex="-1"></a><span class="co"># Print true ATE from the full population</span></span>
-<span id="cb44-6"><a href="bias-and-identification.html#cb44-6" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 2000 observation units is&quot;</span>, <span class="fu">round</span>(ate, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The average treatment effect for the 2000 observation units is -15.27&quot;</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="bias-and-identification.html#cb37-1" tabindex="-1"></a><span class="co"># Linear regression adjusting for age group</span></span>
+<span id="cb37-2"><a href="bias-and-identification.html#cb37-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution <span class="sc">+</span> age_group, <span class="at">data =</span> data)</span>
+<span id="cb37-3"><a href="bias-and-identification.html#cb37-3" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
+<span id="cb37-4"><a href="bias-and-identification.html#cb37-4" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="bias-and-identification.html#cb37-5" tabindex="-1"></a><span class="co"># Print true ATE from the full population</span></span>
+<span id="cb37-6"><a href="bias-and-identification.html#cb37-6" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 2000 observation units is&quot;</span>, <span class="fu">round</span>(ate, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;The average treatment effect for the 2000 observation units is -14.81&quot;</code></pre>
 <p><strong>Step 3: Biased Subsample with Confounding</strong></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="bias-and-identification.html#cb46-1" tabindex="-1"></a><span class="co"># Create unequal distribution: more older people in polluted group, more younger in non-polluted group</span></span>
-<span id="cb46-2"><a href="bias-and-identification.html#cb46-2" tabindex="-1"></a></span>
-<span id="cb46-3"><a href="bias-and-identification.html#cb46-3" tabindex="-1"></a><span class="co"># Sample 100 young and 400 older from polluted group</span></span>
-<span id="cb46-4"><a href="bias-and-identification.html#cb46-4" tabindex="-1"></a>polluted_young <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">0</span>, ]</span>
-<span id="cb46-5"><a href="bias-and-identification.html#cb46-5" tabindex="-1"></a>polluted_young <span class="ot">&lt;-</span> polluted_young[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(polluted_young), <span class="dv">100</span>), ]</span>
-<span id="cb46-6"><a href="bias-and-identification.html#cb46-6" tabindex="-1"></a></span>
-<span id="cb46-7"><a href="bias-and-identification.html#cb46-7" tabindex="-1"></a>polluted_old <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">1</span>, ]</span>
-<span id="cb46-8"><a href="bias-and-identification.html#cb46-8" tabindex="-1"></a>polluted_old <span class="ot">&lt;-</span> polluted_old[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(polluted_old), <span class="dv">400</span>), ]</span>
-<span id="cb46-9"><a href="bias-and-identification.html#cb46-9" tabindex="-1"></a>polluted_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(polluted_young, polluted_old)</span>
-<span id="cb46-10"><a href="bias-and-identification.html#cb46-10" tabindex="-1"></a></span>
-<span id="cb46-11"><a href="bias-and-identification.html#cb46-11" tabindex="-1"></a><span class="co"># Sample 400 young and 100 older from non-polluted group</span></span>
-<span id="cb46-12"><a href="bias-and-identification.html#cb46-12" tabindex="-1"></a>non_polluted_young <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">0</span>, ]</span>
-<span id="cb46-13"><a href="bias-and-identification.html#cb46-13" tabindex="-1"></a>non_polluted_young <span class="ot">&lt;-</span> non_polluted_young[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(non_polluted_young), <span class="dv">400</span>), ]</span>
-<span id="cb46-14"><a href="bias-and-identification.html#cb46-14" tabindex="-1"></a></span>
-<span id="cb46-15"><a href="bias-and-identification.html#cb46-15" tabindex="-1"></a>non_polluted_old <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">1</span>, ]</span>
-<span id="cb46-16"><a href="bias-and-identification.html#cb46-16" tabindex="-1"></a>non_polluted_old <span class="ot">&lt;-</span> non_polluted_old[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(non_polluted_old), <span class="dv">100</span>), ]</span>
-<span id="cb46-17"><a href="bias-and-identification.html#cb46-17" tabindex="-1"></a>non_polluted_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(non_polluted_young, non_polluted_old)</span>
-<span id="cb46-18"><a href="bias-and-identification.html#cb46-18" tabindex="-1"></a></span>
-<span id="cb46-19"><a href="bias-and-identification.html#cb46-19" tabindex="-1"></a><span class="co"># Combine the two biased groups</span></span>
-<span id="cb46-20"><a href="bias-and-identification.html#cb46-20" tabindex="-1"></a>combined_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(polluted_sample, non_polluted_sample)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="bias-and-identification.html#cb39-1" tabindex="-1"></a><span class="co"># Create unequal distribution: more older people in polluted group, more younger in non-polluted group</span></span>
+<span id="cb39-2"><a href="bias-and-identification.html#cb39-2" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="bias-and-identification.html#cb39-3" tabindex="-1"></a><span class="co"># Sample 100 young and 400 older from polluted group</span></span>
+<span id="cb39-4"><a href="bias-and-identification.html#cb39-4" tabindex="-1"></a>polluted_young <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">0</span>, ]</span>
+<span id="cb39-5"><a href="bias-and-identification.html#cb39-5" tabindex="-1"></a>polluted_young <span class="ot">&lt;-</span> polluted_young[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(polluted_young), <span class="dv">100</span>), ]</span>
+<span id="cb39-6"><a href="bias-and-identification.html#cb39-6" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="bias-and-identification.html#cb39-7" tabindex="-1"></a>polluted_old <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">1</span>, ]</span>
+<span id="cb39-8"><a href="bias-and-identification.html#cb39-8" tabindex="-1"></a>polluted_old <span class="ot">&lt;-</span> polluted_old[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(polluted_old), <span class="dv">400</span>), ]</span>
+<span id="cb39-9"><a href="bias-and-identification.html#cb39-9" tabindex="-1"></a>polluted_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(polluted_young, polluted_old)</span>
+<span id="cb39-10"><a href="bias-and-identification.html#cb39-10" tabindex="-1"></a></span>
+<span id="cb39-11"><a href="bias-and-identification.html#cb39-11" tabindex="-1"></a><span class="co"># Sample 400 young and 100 older from non-polluted group</span></span>
+<span id="cb39-12"><a href="bias-and-identification.html#cb39-12" tabindex="-1"></a>non_polluted_young <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">0</span>, ]</span>
+<span id="cb39-13"><a href="bias-and-identification.html#cb39-13" tabindex="-1"></a>non_polluted_young <span class="ot">&lt;-</span> non_polluted_young[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(non_polluted_young), <span class="dv">400</span>), ]</span>
+<span id="cb39-14"><a href="bias-and-identification.html#cb39-14" tabindex="-1"></a></span>
+<span id="cb39-15"><a href="bias-and-identification.html#cb39-15" tabindex="-1"></a>non_polluted_old <span class="ot">&lt;-</span> data[data<span class="sc">$</span>pollution <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> data<span class="sc">$</span>age_group <span class="sc">==</span> <span class="dv">1</span>, ]</span>
+<span id="cb39-16"><a href="bias-and-identification.html#cb39-16" tabindex="-1"></a>non_polluted_old <span class="ot">&lt;-</span> non_polluted_old[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(non_polluted_old), <span class="dv">100</span>), ]</span>
+<span id="cb39-17"><a href="bias-and-identification.html#cb39-17" tabindex="-1"></a>non_polluted_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(non_polluted_young, non_polluted_old)</span>
+<span id="cb39-18"><a href="bias-and-identification.html#cb39-18" tabindex="-1"></a></span>
+<span id="cb39-19"><a href="bias-and-identification.html#cb39-19" tabindex="-1"></a><span class="co"># Combine the two biased groups</span></span>
+<span id="cb39-20"><a href="bias-and-identification.html#cb39-20" tabindex="-1"></a>combined_sample <span class="ot">&lt;-</span> <span class="fu">rbind</span>(polluted_sample, non_polluted_sample)</span></code></pre></div>
 <p><strong>Step 4: ATE Estimation Without Adjusting for Confounding</strong></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="bias-and-identification.html#cb47-1" tabindex="-1"></a><span class="co"># Model that ignores age group (confounder)</span></span>
-<span id="cb47-2"><a href="bias-and-identification.html#cb47-2" tabindex="-1"></a>model_sample_bias <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution, <span class="at">data =</span> combined_sample)</span>
-<span id="cb47-3"><a href="bias-and-identification.html#cb47-3" tabindex="-1"></a>ate_sample_bias <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_sample_bias)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
-<span id="cb47-4"><a href="bias-and-identification.html#cb47-4" tabindex="-1"></a></span>
-<span id="cb47-5"><a href="bias-and-identification.html#cb47-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 1000 observation units is&quot;</span>, <span class="fu">round</span>(ate_sample_bias, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -30&quot;</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="bias-and-identification.html#cb40-1" tabindex="-1"></a><span class="co"># Model that ignores age group (confounder)</span></span>
+<span id="cb40-2"><a href="bias-and-identification.html#cb40-2" tabindex="-1"></a>model_sample_bias <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution, <span class="at">data =</span> combined_sample)</span>
+<span id="cb40-3"><a href="bias-and-identification.html#cb40-3" tabindex="-1"></a>ate_sample_bias <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_sample_bias)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
+<span id="cb40-4"><a href="bias-and-identification.html#cb40-4" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="bias-and-identification.html#cb40-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 1000 observation units is&quot;</span>, <span class="fu">round</span>(ate_sample_bias, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -29.55&quot;</code></pre>
 <p><strong>Step 5: ATE Estimation Adjusted for Confounding</strong></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="bias-and-identification.html#cb49-1" tabindex="-1"></a><span class="co"># Model that includes age group to adjust for confounding</span></span>
-<span id="cb49-2"><a href="bias-and-identification.html#cb49-2" tabindex="-1"></a>model_sample <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution <span class="sc">+</span> age_group, <span class="at">data =</span> combined_sample)</span>
-<span id="cb49-3"><a href="bias-and-identification.html#cb49-3" tabindex="-1"></a>ate_sample <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_sample)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
-<span id="cb49-4"><a href="bias-and-identification.html#cb49-4" tabindex="-1"></a></span>
-<span id="cb49-5"><a href="bias-and-identification.html#cb49-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 1000 observation units is&quot;</span>, <span class="fu">round</span>(ate_sample, <span class="dv">2</span>)))</span></code></pre></div>
-<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -15.07&quot;</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="bias-and-identification.html#cb42-1" tabindex="-1"></a><span class="co"># Model that includes age group to adjust for confounding</span></span>
+<span id="cb42-2"><a href="bias-and-identification.html#cb42-2" tabindex="-1"></a>model_sample <span class="ot">&lt;-</span> <span class="fu">lm</span>(health <span class="sc">~</span> pollution <span class="sc">+</span> age_group, <span class="at">data =</span> combined_sample)</span>
+<span id="cb42-3"><a href="bias-and-identification.html#cb42-3" tabindex="-1"></a>ate_sample <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_sample)<span class="sc">$</span>coefficients[<span class="st">&quot;pollution&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
+<span id="cb42-4"><a href="bias-and-identification.html#cb42-4" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="bias-and-identification.html#cb42-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The average treatment effect for the 1000 observation units is&quot;</span>, <span class="fu">round</span>(ate_sample, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;The average treatment effect for the 1000 observation units is -14.36&quot;</code></pre>
 </div>
 <div id="identifiability-of-causal-effects" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> Identifiability of Causal Effects<a href="bias-and-identification.html#identifiability-of-causal-effects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Identifiability of Causal Effects
-Even when we define causal estimands like ATE, ATT, or ATC, the next critical question is: can we identify them from the data we observe? The concept of identifiability refers to whether a causal effect can be uniquely estimated from the observed data, given our assumptions. In randomized experiments, identification is straightforward because treatment assignment is independent of potential outcomes. But in observational studies, identifiability hinges on assumptions like no unmeasured confounding, consistency, and positivity.</p>
+<p>Identifiability of Causal Effects Even when we define causal estimands like ATE, ATT, or ATC, the next critical question is: can we identify them from the data we observe? The concept of identifiability refers to whether a causal effect can be uniquely estimated from the observed data, given our assumptions. In randomized experiments, identification is straightforward because treatment assignment is independent of potential outcomes. But in observational studies, identifiability hinges on assumptions like no unmeasured confounding, consistency, and positivity.</p>
 <p>If these assumptions don’t hold, even well-defined estimands can’t be reliably estimated. This issue becomes especially clear in the simulations shown back in the Week 1 tutorials, where identification of ATT or ATC depends heavily on how treatment is assigned and whether confounders are adjusted for. For a deeper dive into these estimands and how they’re calculated in practice, refer back to Week 1, Section 1.3.</p>
 </div>
 <div id="using-dags-to-reason-about-sources-of-bias" class="section level2 hasAnchor" number="3.5">
 <h2><span class="header-section-number">3.5</span> Using DAGs to Reason About Sources of Bias<a href="bias-and-identification.html#using-dags-to-reason-about-sources-of-bias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Directed Acyclic Graphs (DAGs)</strong> are powerful tools for visually representing assumptions about causal relationships. Rather than relying solely on statistical intuition, DAGs let us map out how variables relate to each other and help determine what needs to be controlled for and what shouldn’t be. By drawing arrows to indicate direct causal paths, we can detect backdoor paths, colliders, and mediators. This makes DAGs especially useful for identifying potential sources of bias like confounding and overcontrol.</p>
+<p>DAGs don’t just help with visualizing relationships; they allow us to apply formal rules, like the backdoor criterion, to determine which variables need to be adjusted for in order to estimate causal effects correctly. For instance, a confounder opens a backdoor path and should be blocked by adjustment, while a collider opens a path when conditioned on and should be left alone. Once we’ve identified the appropriate adjustment set, we can estimate causal effects with greater confidence in their validity. We’ll use DAGs both to plan our analyses and to explain potential errors in real-world scenarios.</p>
+<p><strong>Example Setup</strong> Let’s say we want to study the effect of Exercise (X) on Heart Health (Y), but there’s a Genetic Factor (Z) that causes both Exercise and Heart Health. In this case, Z is a confounder, and we should adjust for it.</p>
+<p>Now imagine we introduce a Health App Usage (C) variable, which is influenced by both Exercise and Heart Health. Here, C is a collider, and conditioning on it would create a spurious association between X and Y — even if none existed.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="bias-and-identification.html#cb44-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">&quot;ggdag&quot;</span>)</span>
+<span id="cb44-2"><a href="bias-and-identification.html#cb44-2" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="bias-and-identification.html#cb44-3" tabindex="-1"></a>health_dagified <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb44-4"><a href="bias-and-identification.html#cb44-4" tabindex="-1"></a>  heart_health <span class="sc">~</span> genetics,</span>
+<span id="cb44-5"><a href="bias-and-identification.html#cb44-5" tabindex="-1"></a>  heart_health <span class="sc">~</span> exercise,</span>
+<span id="cb44-6"><a href="bias-and-identification.html#cb44-6" tabindex="-1"></a>  exercise <span class="sc">~</span> genetics,</span>
+<span id="cb44-7"><a href="bias-and-identification.html#cb44-7" tabindex="-1"></a>  health_app_usage <span class="sc">~</span> exercise,</span>
+<span id="cb44-8"><a href="bias-and-identification.html#cb44-8" tabindex="-1"></a>  health_app_usage <span class="sc">~</span> heart_health</span>
+<span id="cb44-9"><a href="bias-and-identification.html#cb44-9" tabindex="-1"></a>)</span>
+<span id="cb44-10"><a href="bias-and-identification.html#cb44-10" tabindex="-1"></a></span>
+<span id="cb44-11"><a href="bias-and-identification.html#cb44-11" tabindex="-1"></a><span class="fu">ggdag</span>(health_dagified)</span></code></pre></div>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><strong>1. Confounding Bias (Path: exercise ← genetics → heart_health)</strong><br />
+- Genetics is a confounder because it influences both the treatment (exercise) and the outcome (heart_health)<br />
+- If we don’t adjust for genetics, we may mistakenly attribute the effect of genetics to exercise — leading to biased estimation of the causal effect of exercise on heart health<br />
+Solution: Adjust for genetics to block the backdoor path.</p>
+<p>Here’s a quick code snippet:<br />
+This shows the bias with and without adjusting for the confounder (genetics).</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="bias-and-identification.html#cb45-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb45-2"><a href="bias-and-identification.html#cb45-2" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="bias-and-identification.html#cb45-3" tabindex="-1"></a><span class="co"># Simulate data</span></span>
+<span id="cb45-4"><a href="bias-and-identification.html#cb45-4" tabindex="-1"></a>genetics <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb45-5"><a href="bias-and-identification.html#cb45-5" tabindex="-1"></a>exercise <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="sc">*</span> genetics <span class="sc">+</span> <span class="fu">rnorm</span>(n) </span>
+<span id="cb45-6"><a href="bias-and-identification.html#cb45-6" tabindex="-1"></a>heart_health <span class="ot">&lt;-</span> <span class="fl">0.8</span> <span class="sc">*</span> exercise <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> genetics <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb45-7"><a href="bias-and-identification.html#cb45-7" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="bias-and-identification.html#cb45-8" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(heart_health, exercise, genetics)</span>
+<span id="cb45-9"><a href="bias-and-identification.html#cb45-9" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="bias-and-identification.html#cb45-10" tabindex="-1"></a><span class="co"># Model 1: No adjustment for genetics</span></span>
+<span id="cb45-11"><a href="bias-and-identification.html#cb45-11" tabindex="-1"></a>model_naive <span class="ot">&lt;-</span> <span class="fu">lm</span>(heart_health <span class="sc">~</span> exercise, <span class="at">data =</span> df)</span>
+<span id="cb45-12"><a href="bias-and-identification.html#cb45-12" tabindex="-1"></a><span class="fu">summary</span>(model_naive)<span class="sc">$</span>coefficients[<span class="st">&quot;exercise&quot;</span>, ]</span></code></pre></div>
+<pre><code>##    Estimate  Std. Error     t value    Pr(&gt;|t|) 
+##  1.01641738  0.02049673 49.58923639  0.00000000</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="bias-and-identification.html#cb47-1" tabindex="-1"></a><span class="co"># Model 2: Adjusted regression for genetics</span></span>
+<span id="cb47-2"><a href="bias-and-identification.html#cb47-2" tabindex="-1"></a>model_adjusted <span class="ot">&lt;-</span> <span class="fu">lm</span>(heart_health <span class="sc">~</span> exercise <span class="sc">+</span> genetics, <span class="at">data =</span> df)</span>
+<span id="cb47-3"><a href="bias-and-identification.html#cb47-3" tabindex="-1"></a><span class="fu">summary</span>(model_adjusted)<span class="sc">$</span>coefficients[<span class="st">&quot;exercise&quot;</span>, ]</span></code></pre></div>
+<pre><code>##      Estimate    Std. Error       t value      Pr(&gt;|t|) 
+##  8.075163e-01  2.214339e-02  3.646759e+01 1.327977e-223</code></pre>
+<p>This output shows that after adjusting for genetics, the estimated causal effect of exercise on heart health is approximately 0.79, which is close to the true effect (0.8). This confirms that adjusting for the confounder (genetics) produces an unbiased estimate.</p>
+<p><strong>2. Collider Bias (Path: exercise → health_app_usage ← heart_health) </strong>
+- Health App Usage is a collider; it is affected by both exercise and heart_health.<br />
+- If we condition on or adjust for this collider, we open a path between exercise and heart_health that wouldn’t exist otherwise.<br />
+- This introduces spurious correlation between the two, even if there’s no actual causal effect. This is collider stratification bias.<br />
+- Do not adjust for health_app_usage. Leave colliders unconditioned.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="bias-and-identification.html#cb49-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb49-2"><a href="bias-and-identification.html#cb49-2" tabindex="-1"></a>genetics <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb49-3"><a href="bias-and-identification.html#cb49-3" tabindex="-1"></a>exercise <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="sc">*</span> genetics <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb49-4"><a href="bias-and-identification.html#cb49-4" tabindex="-1"></a>heart_health <span class="ot">&lt;-</span> <span class="fl">0.8</span> <span class="sc">*</span> exercise <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> genetics <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb49-5"><a href="bias-and-identification.html#cb49-5" tabindex="-1"></a>health_app_usage <span class="ot">&lt;-</span> <span class="fl">0.7</span> <span class="sc">*</span> exercise <span class="sc">+</span> <span class="fl">0.7</span> <span class="sc">*</span> heart_health <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb49-6"><a href="bias-and-identification.html#cb49-6" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="bias-and-identification.html#cb49-7" tabindex="-1"></a><span class="co"># Model 1: Without Collider (Correct Model)</span></span>
+<span id="cb49-8"><a href="bias-and-identification.html#cb49-8" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(heart_health <span class="sc">~</span> exercise))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = heart_health ~ exercise)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.8337 -0.7760 -0.0077  0.7386  3.1452 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.01118    0.02431    0.46    0.646    
+## exercise     1.02103    0.02160   47.26   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.087 on 1998 degrees of freedom
+## Multiple R-squared:  0.5278, Adjusted R-squared:  0.5276 
+## F-statistic:  2234 on 1 and 1998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="bias-and-identification.html#cb51-1" tabindex="-1"></a><span class="co"># Model 2: Including Collider (Incorrect Model)</span></span>
+<span id="cb51-2"><a href="bias-and-identification.html#cb51-2" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(heart_health <span class="sc">~</span> exercise <span class="sc">+</span> health_app_usage))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = heart_health ~ exercise + health_app_usage)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.94963 -0.58504  0.02185  0.60526  2.62263 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      -0.01233    0.01952  -0.632    0.528    
+## exercise          0.30574    0.02763  11.066   &lt;2e-16 ***
+## health_app_usage  0.51022    0.01535  33.250   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.8723 on 1997 degrees of freedom
+## Multiple R-squared:  0.6961, Adjusted R-squared:  0.6958 
+## F-statistic:  2287 on 2 and 1997 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Including the collider (health_app_usage) in the regression distorts the estimate of the effect of exercise on heart_health, biasing it downward from 1.0 to about 0.3. This demonstrates collider bias — conditioning on a variable influenced by both the treatment and the outcome can open an unwanted path, introducing bias into your causal effect estimate.</p>
 
 </div>
 </div>
