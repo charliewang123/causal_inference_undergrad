@@ -1,4 +1,4 @@
-# Foundations: Causal Thinking in Public Health
+# Foundations of Causal Thinking in Public Health
 
 > ## Class materials
 >
@@ -23,6 +23,7 @@
 > -   Association vs. Causation  
 > -   Introduction to Counterfactuals and Potential Outcomes  
 > -   Causal Estimands and Identification  
+> -   Critical reading exercise: analyzing causal claims in public health news  
 
 ## Association vs. Causation
 
@@ -50,13 +51,13 @@ Lastly, this regression model quantifies the relationship between treatment, dis
 
 **Step 1: Simulate Data and Compute Death Rates Across Groups**
 
+- Simulated data for 2,000 trials of patients by severity and treatment.  
+- Stored average death rates for each subgroup and for Treatment A vs B.  
+
 ```{r}
 
-# Simulates data for 2,000 trials of patients by severity and treatment.
-# Calculates average death rates for each subgroup and for Treatment A vs B.
-
-library(ggplot2)
-library(dplyr)
+# library(ggplot2)
+# library(dplyr)
 
 n_simulations <- 2000
 
@@ -101,9 +102,9 @@ for (i in 1:n_simulations) {
 
 **Step 2: Summary Table of Death Rates**
 
-```{r}
+- Calculated average death rates for each group and printed a summary table.  
 
-# Calculates average death rates for each group and prints a summary table.
+```{r}
 
 avg_rate11 <- mean(rate11) * 100  
 avg_rate12 <- mean(rate12) * 100
@@ -125,15 +126,14 @@ final_table
 
 **Step 3: Visualizing Simpson's Paradox**
 
+This code creates two plots:  
+1. Overall trend ignoring severity
+2. Subgroup trends by severity 
+
 ```{r}
 
-# This chunk creates two plots:
-# 1. Overall trend ignoring severity (showing the paradox)
-# 2. Subgroup trends by severity (revealing the truth)
-# Warnings are suppressed for a cleaner output
-
 suppressWarnings({
-  library(gridExtra)
+  # library(gridExtra)
 
   # Plot 1: Overall treatment death risk comparison
   overall_plot_data <- data.frame(
@@ -185,11 +185,11 @@ suppressWarnings({
 ```
 
 **Step 4: Fit Regression Model to Test for Interaction**
+  
+- Fitted a linear model to estimate how treatment and severity affect death risk  
+- Graphed if there's an interaction between them  
 
 ```{r}
-
-# Fits a linear model to estimate how treatment and severity affect death risk
-# Displays if there's an interaction between them
 
 regression_data <- data.frame(
   Death_rate = c(rate11, rate12, rate21, rate22),
@@ -226,13 +226,15 @@ In causal inference, the **Individual Treatment Effect** (ITE) measures how much
 
 A fundamental problem in causal inference is that we can never observe both Yi(1) and Yi(0) for the same person, because each person either receives the treatment or does not, meaning one of the outcomes is missing. This is known as the fundamental problem of causal inference, and because of this, we use statistical methodologies and machine learning techniques to estimate ITE.  
 
-To illustrate this concept, here is a healthcare scenario where I estimated the effect of a new blood pressure drug on patients. I accounted for characteristics in each patient like their age, BMI, and cholesterol levels, which may influence if they get the treatment or not and may influence their response to the treatment. Since I cannot observe each patient's blood pressure both with and without the drug, I must estimate ITE by using statistical models.  
-
-To do this, I first simulated healthcare data, including patient characteristics (covariates) and potential blood pressure outcomes. Next, I estimated the potential outcomes Y(0) and Y(1) using linear regression models for treated and untreated patients. Finally, I calculated the ITE as the difference between the predicted outcomes for each patient. By following this approach, I observed which patients benefit the most from the treatment.  
-
-First up, I simulated the patient data. I created potential outcomes Y(0) and Y(1) for blood pressure. I intentionally assigned older people who have high cholesterol levels. Then, I computed the true ITE for each patient.
+To do this, I simulated healthcare data.
 
 **Simulating the Patient Data**  
+
+- Simulated 2,000 individuals, each with baseline characteristics: age, BMI, and cholesterol.  
+- Treatment assignment is based on a model where older individuals with higher cholesterol are more likely to receive treatment.  
+- Generated two potential outcomes for each individual: Y(0) (if untreated) and Y(1) (if treated).  
+- The observed outcome depends on whether each person actually received treatment or not.  
+- Calculated the true individual treatment effect (ITE) as the difference between Y(1) and Y(0).  
 
 ```{r}
 
@@ -286,20 +288,16 @@ Next, I estimated treatment effects using regression. Since I can't observe both
 
 ```{r}
 
-# Fit separate linear models for control and treatment groups
 control_model <- lm(y ~ age + bmi + cholesterol, data = data, 
                     subset = (treatment == 0))
 treatment_model <- lm(y ~ age + bmi + cholesterol, data = data, 
                       subset = (treatment == 1))
 
-# Predict outcomes under control and treatment for everyone
-data$y0_hat <- predict(control_model, newdata = data)  # predicted Y(0)
-data$y1_hat <- predict(treatment_model, newdata = data)  # predicted Y(1)
+data$y0_hat <- predict(control_model, newdata = data) 
+data$y1_hat <- predict(treatment_model, newdata = data) 
 
-# Estimate ITE as the difference between predicted outcomes
 data$ite_estimate <- data$y1_hat - data$y0_hat
 
-# Show predicted potential outcomes and estimated ITEs
 head(data[c("ite_estimate", "y0_hat", "y1_hat")])
 
 ```
@@ -310,7 +308,7 @@ Now, I plotted the true ITE vs the estimated ITE. Here, each point is a patient,
 
 ```{r}
 
-library(ggplot2)
+# library(ggplot2)
 
 ggplot(data, aes(x = true_ite, y = ite_estimate)) + 
   geom_point(alpha = 0.5) + 
@@ -323,13 +321,14 @@ ggplot(data, aes(x = true_ite, y = ite_estimate)) +
 
 **Visualizing the Esimated ITE Without Looking at Confounding**  
 
+- Estimated average potential outcomes without adjusting for covariates.  
+- Filled in predicted values based on group averages.  
+
 ```{r}
 
-# Estimate average potential outcomes without adjusting for covariates
 y0_hat_simple <- mean(data$y[data$treatment == 0])  
 y1_hat_simple <- mean(data$y[data$treatment == 1])  
 
-# Fill in predicted values based on group averages
 data$y0_hat_simple <- ifelse(data$treatment == 1, y0_hat_simple, data$y)  
 data$y1_hat_simple <- ifelse(data$treatment == 0, y1_hat_simple, data$y)  
 
@@ -378,7 +377,7 @@ The Conditional Average Treatment Effect (CATE) represents the expected treatmen
 
 For example, in clinical trials, a drug may work more effectively for older patients than younger ones. Another example would be a job program working more effectively on people with college degrees than people without college degrees. Estimating CATE allows business owners, researchers, and policymakers to make effective decisions that optimize outcomes for all groups.  
 
-To estimate CATE from observational data, I must fit separate predictive models for the treated and control groups and then compute the expected difference in outcomes for different subgroups. I can estimate the CATE for age groups by splitting the data into younger individuals (age \< 40 years) and older individuals (age \>= 40 years) and then computing the average Individual Treatment Effect (ITE) within each group. I used the patient data from the above simulation and I estimated the individual treatment effect (ITE). Then, I computed the conditional average treatment effect (CATE) for age groups (young and old).  
+To estimate CATE from observational data, I fitted separate predictive models for the treated and control groups and then computed the expected difference in outcomes for different subgroups. I estimated the CATE for age groups by splitting the data into younger individuals (age \< 40 years) and older individuals (age \>= 40 years) and then computing the average Individual Treatment Effect (ITE) within each group. 
 
 **Computing the Conditional Average Treatment Effect (CATE) for Age Groups**  
 
@@ -412,7 +411,6 @@ From the table, we can see that the CATE is more negative for older individuals,
 
 ```{r}
 
-# Compute standard errors for ITE estimates in younger and older subgroups
 cate_young_se <- sd(data$ite_estimate[data$age < threshold]) / sqrt(sum(data$age < threshold))
 cate_old_se <- sd(data$ite_estimate[data$age >= threshold]) / sqrt(sum(data$age >= threshold))
 
@@ -454,13 +452,11 @@ Here is a visualization for the **Average Treatment Effect (ATE)**. I created a 
 
 ```{r}
 
-# Compute standard errors for ITE estimates in control and treated groups
 control_se <- 
   sd(data$ite_estimate[data$treatment == 0]) / sqrt(sum(data$treatment == 0))
 treated_se <- 
   sd(data$ite_estimate[data$treatment == 1]) / sqrt(sum(data$treatment == 1))
 
-# Get mean predicted potential outcomes for each group
 control_mean <- mean(data$y0_hat[data$treatment == 0])
 treated_mean <- mean(data$y1_hat[data$treatment == 1])
 
@@ -522,11 +518,9 @@ Now, I've created a visualization comparing how the treatment effect differs for
 
 ```{r}
 
-# Standard error for ATT: variability among treated individuals
 att_se <- sd(data$ite_estimate[data$treatment == 1]) / 
   sqrt(sum(data$treatment == 1))
 
-# Standard error for ATC: variability among control individuals
 atc_se <- sd(data$ite_estimate[data$treatment == 0]) / 
   sqrt(sum(data$treatment == 0))
 

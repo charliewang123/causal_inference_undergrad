@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit</title>
   <meta name="description" content="An undergraduate course on causal inference" />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
   <meta property="og:title" content="7 Measurement, Missing Data, and Selection Bias | Causal-Inference-Graduate.knit" />
   <meta property="og:type" content="book" />
@@ -29,7 +29,7 @@
   
   
 <link rel="prev" href="effect-modification-and-interaction.html"/>
-<link rel="next" href="sensitivity-analysis.html"/>
+<link rel="next" href="from-identification-to-estimation.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -159,26 +159,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#why-include-this"><i class="fa fa-check"></i>Why include this?</a></li>
 <li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#base-r-version-simple"><i class="fa fa-check"></i>Base R version (simple)</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html"><i class="fa fa-check"></i><b>1</b> Foundations: Causal Thinking in Public Health</a>
+<li class="chapter" data-level="1" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html"><i class="fa fa-check"></i><b>1</b> Foundations of Causal Thinking in Public Health</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html#association-vs.-causation"><i class="fa fa-check"></i><b>1.1</b> Association vs. Causation</a></li>
-<li class="chapter" data-level="1.2" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html#introduction-to-counterfactuals-and-potential-outcomes"><i class="fa fa-check"></i><b>1.2</b> Introduction to Counterfactuals and Potential Outcomes</a></li>
-<li class="chapter" data-level="1.3" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html#causal-estimands-and-identification"><i class="fa fa-check"></i><b>1.3</b> Causal Estimands and Identification</a></li>
+<li class="chapter" data-level="1.1" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#association-vs.-causation"><i class="fa fa-check"></i><b>1.1</b> Association vs. Causation</a></li>
+<li class="chapter" data-level="1.2" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#introduction-to-counterfactuals-and-potential-outcomes"><i class="fa fa-check"></i><b>1.2</b> Introduction to Counterfactuals and Potential Outcomes</a></li>
+<li class="chapter" data-level="1.3" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#causal-estimands-and-identification"><i class="fa fa-check"></i><b>1.3</b> Causal Estimands and Identification</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="foundations-ii-causal-graphs-study-designs.html"><a href="foundations-ii-causal-graphs-study-designs.html"><i class="fa fa-check"></i><b>2</b> Foundations II: Causal Graphs &amp; Study Designs</a></li>
-<li class="chapter" data-level="3" data-path="bias-and-identification.html"><a href="bias-and-identification.html"><i class="fa fa-check"></i><b>3</b> Bias and Identification</a>
+<li class="chapter" data-level="2" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html"><i class="fa fa-check"></i><b>2</b> Randomized Control Trials</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bias-and-identification.html"><a href="bias-and-identification.html#confounding-bias-and-how-it-arises"><i class="fa fa-check"></i><b>3.1</b> Confounding Bias and How It Arises</a></li>
-<li class="chapter" data-level="3.2" data-path="bias-and-identification.html"><a href="bias-and-identification.html#collider-bias-and-overcontrol"><i class="fa fa-check"></i><b>3.2</b> Collider Bias and Overcontrol</a></li>
-<li class="chapter" data-level="3.3" data-path="bias-and-identification.html"><a href="bias-and-identification.html#selection-bias-and-missing-data"><i class="fa fa-check"></i><b>3.3</b> Selection Bias and Missing Data</a></li>
-<li class="chapter" data-level="3.4" data-path="bias-and-identification.html"><a href="bias-and-identification.html#identifiability-of-causal-effects"><i class="fa fa-check"></i><b>3.4</b> Identifiability of Causal Effects</a></li>
-<li class="chapter" data-level="3.5" data-path="bias-and-identification.html"><a href="bias-and-identification.html#using-dags-to-reason-about-sources-of-bias"><i class="fa fa-check"></i><b>3.5</b> Using DAGs to Reason About Sources of Bias</a></li>
+<li class="chapter" data-level="2.1" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#randomized-controlled-trials-the-gold-standard"><i class="fa fa-check"></i><b>2.1</b> Randomized controlled trials: the gold standard</a></li>
+<li class="chapter" data-level="2.2" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#basic-experimental-design-principles"><i class="fa fa-check"></i><b>2.2</b> Basic Experimental Design Principles</a></li>
+<li class="chapter" data-level="2.3" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#limitations-of-rcts-in-public-health-contexts"><i class="fa fa-check"></i><b>2.3</b> Limitations of RCTs in Public Health Contexts</a></li>
+<li class="chapter" data-level="2.4" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#common-threats-to-internal-and-external-validity"><i class="fa fa-check"></i><b>2.4</b> Common Threats to Internal and External Validity</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html"><i class="fa fa-check"></i><b>4</b> Randomized Controlled Trials (RCTs) and Quasi-Experiments</a></li>
-<li class="chapter" data-level="5" data-path="observational-studies-and-bias-adjustment.html"><a href="observational-studies-and-bias-adjustment.html"><i class="fa fa-check"></i><b>5</b> Observational Studies and Bias Adjustment</a></li>
-<li class="chapter" data-level="6" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html"><i class="fa fa-check"></i><b>6</b> Effect Modification and Interaction</a></li>
-<li class="chapter" data-level="7" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html"><i class="fa fa-check"></i><b>7</b> Measurement, Missing Data, and Selection Bias</a></li>
-<li class="chapter" data-level="8" data-path="sensitivity-analysis.html"><a href="sensitivity-analysis.html"><i class="fa fa-check"></i><b>8</b> Sensitivity Analysis</a></li>
+<li class="chapter" data-level="3" data-path="observational-studies.html"><a href="observational-studies.html"><i class="fa fa-check"></i><b>3</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="observational-studies.html"><a href="observational-studies.html#the-challenge-of-confounding-in-public-health-and-medical-research"><i class="fa fa-check"></i><b>3.1</b> The challenge of confounding in public health and medical research</a></li>
+<li class="chapter" data-level="3.2" data-path="observational-studies.html"><a href="observational-studies.html#exchangeability-positivity-and-consistency"><i class="fa fa-check"></i><b>3.2</b> Exchangeability, positivity, and consistency</a></li>
+<li class="chapter" data-level="3.3" data-path="observational-studies.html"><a href="observational-studies.html#effect-identification-in-observational-studies"><i class="fa fa-check"></i><b>3.3</b> Effect Identification in Observational Studies</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html"><i class="fa fa-check"></i><b>4</b> Randomized Controlled Trials (RCTs) and Quasi-Experiments</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#effect-modification-and-adjustment-methods"><i class="fa fa-check"></i><b>4.1</b> Effect Modification and Adjustment Methods</a></li>
+<li class="chapter" data-level="4.2" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#identifying-interaction"><i class="fa fa-check"></i><b>4.2</b> Identifying Interaction</a></li>
+<li class="chapter" data-level="4.3" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#effect-modification-vs-interaction"><i class="fa fa-check"></i><b>4.3</b> Effect Modification vs Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html"><i class="fa fa-check"></i><b>5</b> Introduction to Causal Diagrams</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#basic-principles-of-directed-acyclic-graphs-dags"><i class="fa fa-check"></i><b>5.1</b> Basic principles of directed acyclic graphs (DAGs)</a></li>
+<li class="chapter" data-level="5.2" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#common-causal-structures-in-public-health"><i class="fa fa-check"></i><b>5.2</b> Common Causal Structures in Public Health</a></li>
+<li class="chapter" data-level="5.3" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#using-dags-to-introduce-and-understand-selection-bias"><i class="fa fa-check"></i><b>5.3</b> Using DAGs to introduce and understand selection bias</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html"><i class="fa fa-check"></i><b>6</b> Effect Modification and Interaction</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#the-structure-of-confounding"><i class="fa fa-check"></i><b>6.1</b> The Structure of Confounding</a></li>
+<li class="chapter" data-level="6.2" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#how-to-adjust-for-confounding"><i class="fa fa-check"></i><b>6.2</b> How to Adjust for Confounding</a></li>
+<li class="chapter" data-level="6.3" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#the-form-of-selection-bias"><i class="fa fa-check"></i><b>6.3</b> The Form of Selection Bias</a></li>
+<li class="chapter" data-level="6.4" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#how-to-adjust-for-selection-bias"><i class="fa fa-check"></i><b>6.4</b> How to Adjust for Selection Bias</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html"><i class="fa fa-check"></i><b>7</b> Measurement, Missing Data, and Selection Bias</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#measurement-bias"><i class="fa fa-check"></i><b>7.1</b> Measurement Bias</a></li>
+<li class="chapter" data-level="7.2" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#non-causal-diagrams"><i class="fa fa-check"></i><b>7.2</b> Non-Causal Diagrams</a></li>
+<li class="chapter" data-level="7.3" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#publication-bias-and-p-hacking"><i class="fa fa-check"></i><b>7.3</b> Publication Bias and P-Hacking</a></li>
+<li class="chapter" data-level="7.4" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#over--and-mis-interpretation-of-statistical-analyses"><i class="fa fa-check"></i><b>7.4</b> Over- and Mis-Interpretation of Statistical Analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="from-identification-to-estimation.html"><a href="from-identification-to-estimation.html"><i class="fa fa-check"></i><b>8</b> From Identification to Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="from-identification-to-estimation.html"><a href="from-identification-to-estimation.html#identification-and-estimation"><i class="fa fa-check"></i><b>8.1</b> Identification and Estimation</a></li>
+</ul></li>
 <li class="chapter" data-level="9" data-path="systems-thinking-and-policy-translation.html"><a href="systems-thinking-and-policy-translation.html"><i class="fa fa-check"></i><b>9</b> Systems Thinking and Policy Translation</a></li>
 <li class="chapter" data-level="10" data-path="final-project-presentations.html"><a href="final-project-presentations.html"><i class="fa fa-check"></i><b>10</b> Final Project Presentations</a></li>
 <li class="divider"></li>
@@ -220,14 +249,58 @@ Examples of misclassification and selection bias in public health research</p>
 <blockquote>
 <h2 id="topics-covered-6" class="hasAnchor">Topics covered<a href="measurement-missing-data-and-selection-bias.html#topics-covered-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Measurement error and misclassification</li>
-<li>Missing data: types, sources, and consequences</li>
-<li>Mechanisms of missingness (MCAR, MAR, MNAR)</li>
-<li>Introduction to selection bias and non-random loss to follow-up</li>
-<li>Strategies to address missing data and bias</li>
+<li>Measurement bias</li>
+<li>Non-causal diagrams</li>
+<li>Publication bias and p-hacking</li>
+<li>Over- and mis-interpretation of statistical analyses</li>
+<li>Application: developing a checklist for critical reading of causal claims</li>
 </ul>
 </blockquote>
+<div id="measurement-bias" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Measurement Bias<a href="measurement-missing-data-and-selection-bias.html#measurement-bias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Measurement bias occurs when the method used to collect data leads to systematic errors in the values recorded for a variable. This can happen when an exposure, outcome, or confounder is misclassified or inaccurately measured in a way that consistently overstates or understates the true value. Measurement bias is problematic because it can distort observed associations and lead to incorrect conclusions about the relationships between variables. Unlike random measurement error, which tends to cancel out over large samples, measurement bias introduces consistent errors that don’t disappear with more data. It can arise from faulty instruments, poorly worded survey questions, or inconsistent data collection procedures, and it often goes unnoticed unless explicitly tested for.</p>
+<p>In public health and medical research, measurement bias can affect both exposure and outcome variables. For example, if smoking behavior is self-reported and individuals tend to underreport how much they smoke, the study will underestimate the true relationship between smoking and lung cancer. Similarly, if age is recorded in broad categories rather than precise years, it can limit the ability to adjust accurately for confounding. Even adjusting for confounders may not correct measurement bias if those confounders are also measured with error. This makes it critical to use reliable, validated measurement tools and to account for potential misclassification during analysis, especially in observational studies where data quality may vary widely.</p>
+<p>This simulation demonstrates measurement bias by comparing the estimated effect of smoking on lung cancer using the true smoking values versus mismeasured (underreported) smoking. The model using mismeasured smoking underestimates the true effect, showing how systematic error in recording an exposure can bias causal estimates toward zero.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="measurement-missing-data-and-selection-bias.html#cb63-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb63-2"><a href="measurement-missing-data-and-selection-bias.html#cb63-2" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="measurement-missing-data-and-selection-bias.html#cb63-3" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb63-4"><a href="measurement-missing-data-and-selection-bias.html#cb63-4" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="measurement-missing-data-and-selection-bias.html#cb63-5" tabindex="-1"></a>true_smoking <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> age <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb63-6"><a href="measurement-missing-data-and-selection-bias.html#cb63-6" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="measurement-missing-data-and-selection-bias.html#cb63-7" tabindex="-1"></a><span class="co"># no age to isolate measurement bias in smoking</span></span>
+<span id="cb63-8"><a href="measurement-missing-data-and-selection-bias.html#cb63-8" tabindex="-1"></a>lung_cancer <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> true_smoking <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb63-9"><a href="measurement-missing-data-and-selection-bias.html#cb63-9" tabindex="-1"></a></span>
+<span id="cb63-10"><a href="measurement-missing-data-and-selection-bias.html#cb63-10" tabindex="-1"></a>measured_smoking <span class="ot">&lt;-</span> true_smoking <span class="sc">-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="fl">0.5</span>)</span>
+<span id="cb63-11"><a href="measurement-missing-data-and-selection-bias.html#cb63-11" tabindex="-1"></a></span>
+<span id="cb63-12"><a href="measurement-missing-data-and-selection-bias.html#cb63-12" tabindex="-1"></a>true_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(lung_cancer <span class="sc">~</span> true_smoking <span class="sc">+</span> age)</span>
+<span id="cb63-13"><a href="measurement-missing-data-and-selection-bias.html#cb63-13" tabindex="-1"></a></span>
+<span id="cb63-14"><a href="measurement-missing-data-and-selection-bias.html#cb63-14" tabindex="-1"></a>biased_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(lung_cancer <span class="sc">~</span> measured_smoking <span class="sc">+</span> age)</span>
+<span id="cb63-15"><a href="measurement-missing-data-and-selection-bias.html#cb63-15" tabindex="-1"></a></span>
+<span id="cb63-16"><a href="measurement-missing-data-and-selection-bias.html#cb63-16" tabindex="-1"></a>true_coef <span class="ot">&lt;-</span> <span class="fu">summary</span>(true_model)<span class="sc">$</span>coefficients[<span class="st">&quot;true_smoking&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
+<span id="cb63-17"><a href="measurement-missing-data-and-selection-bias.html#cb63-17" tabindex="-1"></a></span>
+<span id="cb63-18"><a href="measurement-missing-data-and-selection-bias.html#cb63-18" tabindex="-1"></a>biased_coef <span class="ot">&lt;-</span> <span class="fu">summary</span>(biased_model)<span class="sc">$</span>coefficients[<span class="st">&quot;measured_smoking&quot;</span>, <span class="st">&quot;Estimate&quot;</span>]</span>
+<span id="cb63-19"><a href="measurement-missing-data-and-selection-bias.html#cb63-19" tabindex="-1"></a></span>
+<span id="cb63-20"><a href="measurement-missing-data-and-selection-bias.html#cb63-20" tabindex="-1"></a>true_coef</span></code></pre></div>
+<pre><code>## [1] 2.99423</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="measurement-missing-data-and-selection-bias.html#cb65-1" tabindex="-1"></a>biased_coef</span></code></pre></div>
+<pre><code>## [1] 2.389077</code></pre>
+</div>
+<div id="non-causal-diagrams" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Non-Causal Diagrams<a href="measurement-missing-data-and-selection-bias.html#non-causal-diagrams" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Non-causal diagrams represent associations between variables that do not imply direct cause-and-effect relationships. These diagrams are useful for illustrating statistical relationships that arise from shared causes, correlations due to bias, or measurement artifacts. In non-causal diagrams, arrows may still indicate directional influence, but they are used to reflect associations or data-generating processes, not claims about interventions. Unlike causal diagrams, which are designed to identify and estimate the effects of manipulating one variable on another, non-causal diagrams help clarify patterns in the data without asserting that changing one variable will necessarily change another.</p>
+<p>In the context of our simulation, we can use a non-causal diagram to represent the observed association between age and lung cancer without assuming a direct causal relationship. While age and lung cancer may be strongly correlated — older individuals tend to have higher cancer risk — this relationship does not imply that age causes lung cancer in an interventional sense. Instead, age may be acting as a proxy for other underlying factors like cumulative exposure to smoking or environmental risks. A non-causal diagram helps us visualize this statistical association without attributing it to a direct, manipulable pathway, highlighting that not all observed relationships in data should be interpreted as causal.</p>
+</div>
+<div id="publication-bias-and-p-hacking" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Publication Bias and P-Hacking<a href="measurement-missing-data-and-selection-bias.html#publication-bias-and-p-hacking" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Publication bias occurs when the likelihood of a study being published depends on the nature or direction of its results — typically favoring studies with statistically significant or “positive” findings. This creates a distorted picture of the evidence in a field, because null or contradictory results are less likely to be seen. P-hacking refers to the practice of manipulating statistical analyses or data collection until a desired (usually statistically significant) result is achieved. This can include selectively reporting outcomes, running many analyses and only publishing those with low p-values, or stopping data collection once a significant result appears. Both practices inflate false-positive rates and undermine the credibility of scientific findings.</p>
+<p>In the context of the simulation we ran — whether it involves confounding, selection bias, or measurement error — it’s easy to see how p-hacking or publication bias could skew interpretations. For example, imagine rerunning the simulation many times and only reporting the version where the naive model shows a significant effect of smoking on lung cancer (even if the underlying data or causal structure doesn’t support it). Or selectively reporting only the adjusted model that produces a “clean” result while hiding others. These practices can make even a carefully designed simulation appear misleading. The simulation reinforces the idea that statistical significance is not the same as truth, and that transparency in modeling choices and full reporting of results are critical for avoiding biased conclusions.</p>
+</div>
+<div id="over--and-mis-interpretation-of-statistical-analyses" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Over- and Mis-Interpretation of Statistical Analyses<a href="measurement-missing-data-and-selection-bias.html#over--and-mis-interpretation-of-statistical-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Over-interpretation occurs when researchers draw stronger conclusions from statistical results than the data can justify, while mis-interpretation involves misunderstanding what the results actually mean. A common example is interpreting a statistically significant association as proof of causation, even when the study design or model does not support that claim. Another frequent error is overstating the practical importance of a small effect size or assuming that a non-significant result means “no effect.” These issues are often driven by pressure to produce definitive conclusions, even when the data are limited, noisy, or confounded. Careful interpretation requires understanding the limits of the methods used and being transparent about uncertainty, assumptions, and alternative explanations.</p>
+<p>In the simulations we’ve conducted — such as estimating the effect of smoking on lung cancer under different types of bias — it’s easy to see how results can be over- or mis-interpreted. For instance, in a model affected by measurement bias or confounding, one might find a statistically significant association between smoking and lung cancer, but incorrectly conclude that the estimated effect size reflects the true causal effect. Alternatively, if the biased model appears significant and the true model does not, someone might misinterpret that as evidence that adjustment “eliminated” the effect, when in fact it corrected for bias. These examples highlight how even simple models can be misunderstood or overstated, and underscore the importance of grounding interpretation in study design, data limitations, and causal reasoning — not just statistical output.</p>
 
+</div>
 </div>
             </section>
 
@@ -235,7 +308,7 @@ Examples of misclassification and selection bias in public health research</p>
         </div>
       </div>
 <a href="effect-modification-and-interaction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sensitivity-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="from-identification-to-estimation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -266,7 +339,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/07_missing_data.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/07_common_pitfalls.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -274,7 +347,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/07_missing_data.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/07_common_pitfalls.Rmd",
     "text": null
   },
   "download": null,

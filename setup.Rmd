@@ -15,10 +15,7 @@ Packages we’ll use:
 
 ```{r}
 
-install.packages(c("ggplot2", "dplyr", "gridExtra", "pacman"))
-
-# Optional: for tidying model output
-install.packages("broom")
+# install.packages(c("ggplot2", "dplyr", "gridExtra", "pacman", "broom"))
 
 ```
 

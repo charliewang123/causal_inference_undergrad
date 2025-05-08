@@ -1,4 +1,4 @@
-# Sensitivity Analysis
+# From Identification to Estimation
 
 > ## Class materials
 >
@@ -19,8 +19,49 @@
 
 > ## Topics covered
 >
-> -   Introduction to sensitivity analysis
-> -   Quantifying the potential impact of unmeasured confounding
-> -   The E-value: interpretation and calculation
-> -   Designing more robust studies
-> -   Communicating uncertainty in causal claims
+> -   Identification versus estimation
+> -   Estimation of causal effects
+> -   Taxonomy of estimation models
+> -   Critical reading exercise: evaluating identification and estimation in a published study
+
+## Identification and Estimation
+
+In causal inference, identification refers to the theoretical question of whether a causal effect can be determined from the observed data and the assumptions encoded in the study design or model. It answers the question: "Can we, in principle, express the causal effect of interest as a function of the observed variables?" Identification depends on assumptions such as exchangeability (no unmeasured confounding), positivity, and consistency, and often involves tools like potential outcomes or directed acyclic graphs (DAGs). If a causal effect is not identifiable, no amount of statistical analysis will yield a valid estimate — because the data alone cannot disentangle the causal effect from bias or confounding.
+
+Once identification is established, the next step is estimation, which involves applying statistical methods to calculate the size of the effect using real data. Estimation uses techniques like regression, inverse probability weighting, or matching to quantify the identified causal relationship. In our simulations, for example, once we specify that the causal effect of smoking on lung cancer is identifiable by adjusting for age, we use regression to estimate that effect. If we skip the identification step and go straight to estimation without accounting for confounding or bias, our estimates may be precise — but wrong. Together, identification and estimation form the backbone of credible causal analysis: one ensures that we're asking the right question, and the other that we're answering it correctly.
+
+This simulation is the same one used in Week 6 and represents an observational study where smoking is not randomized but influenced by age. Age also directly affects lung cancer, making it a confounder that biases the naive estimate of smoking’s effect. By adjusting for age in the regression model, we recover a more accurate estimate of the true causal effect of smoking on lung cancer.
+
+This simulation illustrates the concepts of identification and estimation by showing that, without adjusting for the confounder (age), the causal effect of smoking on lung cancer cannot be correctly identified. Once the effect is identified through proper adjustment, it can then be accurately estimated using regression.
+
+```{r}
+
+n <- 2000
+
+age <- rnorm(2000, mean = 50, sd = 10)
+
+smoking <- 2 * age + rnorm(n)
+
+lung_cancer <- 3 * smoking + 4 * age + rnorm(n)
+
+df <- data.frame(
+  Age = age,
+  Smoking = smoking,
+  Lung_Cancer = lung_cancer
+)
+
+model_naive <- lm(lung_cancer ~ smoking, data = df)
+
+model_adjusted <- lm(lung_cancer ~ smoking + age, data = df)
+
+coef_naive <- summary(model_naive)$coefficients["smoking", "Estimate"]
+
+coef_adjusted <- summary(model_adjusted)$coefficients["smoking", "Estimate"]
+
+coef_naive
+
+coef_adjusted
+
+```
+
+

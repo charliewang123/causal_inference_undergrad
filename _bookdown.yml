@@ -9,11 +9,11 @@ rmd_files:
   - setup.Rmd
   - 01_potential_outcomes.Rmd
   - 02_rcts.Rmd
-  - 03_causal_graphs.Rmd
-  - 04_observational1.Rmd
-  - 05_observational2.Rmd
-  - 06_hte.Rmd
-  - 07_missing_data.Rmd
+  - 03_observational_studies.Rmd
+  - 04_effect_modification.Rmd
+  - 05_causal_dags.Rmd
+  - 06_confounding_bias.Rmd
+  - 07_common_pitfalls.Rmd
   - 08_missing_data.Rmd
   - 09_missing_data.Rmd
   - 10_missing_data.Rmd

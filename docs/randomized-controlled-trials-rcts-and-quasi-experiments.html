@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Randomized Controlled Trials (RCTs) and Quasi-Experiments | Causal-Inference-Graduate.knit</title>
   <meta name="description" content="An undergraduate course on causal inference" />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Randomized Controlled Trials (RCTs) and Quasi-Experiments | Causal-Inference-Graduate.knit" />
   <meta property="og:type" content="book" />
@@ -28,8 +28,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="bias-and-identification.html"/>
-<link rel="next" href="observational-studies-and-bias-adjustment.html"/>
+<link rel="prev" href="observational-studies.html"/>
+<link rel="next" href="introduction-to-causal-diagrams.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -159,26 +159,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#why-include-this"><i class="fa fa-check"></i>Why include this?</a></li>
 <li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#base-r-version-simple"><i class="fa fa-check"></i>Base R version (simple)</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html"><i class="fa fa-check"></i><b>1</b> Foundations: Causal Thinking in Public Health</a>
+<li class="chapter" data-level="1" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html"><i class="fa fa-check"></i><b>1</b> Foundations of Causal Thinking in Public Health</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html#association-vs.-causation"><i class="fa fa-check"></i><b>1.1</b> Association vs. Causation</a></li>
-<li class="chapter" data-level="1.2" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html#introduction-to-counterfactuals-and-potential-outcomes"><i class="fa fa-check"></i><b>1.2</b> Introduction to Counterfactuals and Potential Outcomes</a></li>
-<li class="chapter" data-level="1.3" data-path="foundations-causal-thinking-in-public-health.html"><a href="foundations-causal-thinking-in-public-health.html#causal-estimands-and-identification"><i class="fa fa-check"></i><b>1.3</b> Causal Estimands and Identification</a></li>
+<li class="chapter" data-level="1.1" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#association-vs.-causation"><i class="fa fa-check"></i><b>1.1</b> Association vs. Causation</a></li>
+<li class="chapter" data-level="1.2" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#introduction-to-counterfactuals-and-potential-outcomes"><i class="fa fa-check"></i><b>1.2</b> Introduction to Counterfactuals and Potential Outcomes</a></li>
+<li class="chapter" data-level="1.3" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#causal-estimands-and-identification"><i class="fa fa-check"></i><b>1.3</b> Causal Estimands and Identification</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="foundations-ii-causal-graphs-study-designs.html"><a href="foundations-ii-causal-graphs-study-designs.html"><i class="fa fa-check"></i><b>2</b> Foundations II: Causal Graphs &amp; Study Designs</a></li>
-<li class="chapter" data-level="3" data-path="bias-and-identification.html"><a href="bias-and-identification.html"><i class="fa fa-check"></i><b>3</b> Bias and Identification</a>
+<li class="chapter" data-level="2" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html"><i class="fa fa-check"></i><b>2</b> Randomized Control Trials</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bias-and-identification.html"><a href="bias-and-identification.html#confounding-bias-and-how-it-arises"><i class="fa fa-check"></i><b>3.1</b> Confounding Bias and How It Arises</a></li>
-<li class="chapter" data-level="3.2" data-path="bias-and-identification.html"><a href="bias-and-identification.html#collider-bias-and-overcontrol"><i class="fa fa-check"></i><b>3.2</b> Collider Bias and Overcontrol</a></li>
-<li class="chapter" data-level="3.3" data-path="bias-and-identification.html"><a href="bias-and-identification.html#selection-bias-and-missing-data"><i class="fa fa-check"></i><b>3.3</b> Selection Bias and Missing Data</a></li>
-<li class="chapter" data-level="3.4" data-path="bias-and-identification.html"><a href="bias-and-identification.html#identifiability-of-causal-effects"><i class="fa fa-check"></i><b>3.4</b> Identifiability of Causal Effects</a></li>
-<li class="chapter" data-level="3.5" data-path="bias-and-identification.html"><a href="bias-and-identification.html#using-dags-to-reason-about-sources-of-bias"><i class="fa fa-check"></i><b>3.5</b> Using DAGs to Reason About Sources of Bias</a></li>
+<li class="chapter" data-level="2.1" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#randomized-controlled-trials-the-gold-standard"><i class="fa fa-check"></i><b>2.1</b> Randomized controlled trials: the gold standard</a></li>
+<li class="chapter" data-level="2.2" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#basic-experimental-design-principles"><i class="fa fa-check"></i><b>2.2</b> Basic Experimental Design Principles</a></li>
+<li class="chapter" data-level="2.3" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#limitations-of-rcts-in-public-health-contexts"><i class="fa fa-check"></i><b>2.3</b> Limitations of RCTs in Public Health Contexts</a></li>
+<li class="chapter" data-level="2.4" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#common-threats-to-internal-and-external-validity"><i class="fa fa-check"></i><b>2.4</b> Common Threats to Internal and External Validity</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html"><i class="fa fa-check"></i><b>4</b> Randomized Controlled Trials (RCTs) and Quasi-Experiments</a></li>
-<li class="chapter" data-level="5" data-path="observational-studies-and-bias-adjustment.html"><a href="observational-studies-and-bias-adjustment.html"><i class="fa fa-check"></i><b>5</b> Observational Studies and Bias Adjustment</a></li>
-<li class="chapter" data-level="6" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html"><i class="fa fa-check"></i><b>6</b> Effect Modification and Interaction</a></li>
-<li class="chapter" data-level="7" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html"><i class="fa fa-check"></i><b>7</b> Measurement, Missing Data, and Selection Bias</a></li>
-<li class="chapter" data-level="8" data-path="sensitivity-analysis.html"><a href="sensitivity-analysis.html"><i class="fa fa-check"></i><b>8</b> Sensitivity Analysis</a></li>
+<li class="chapter" data-level="3" data-path="observational-studies.html"><a href="observational-studies.html"><i class="fa fa-check"></i><b>3</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="observational-studies.html"><a href="observational-studies.html#the-challenge-of-confounding-in-public-health-and-medical-research"><i class="fa fa-check"></i><b>3.1</b> The challenge of confounding in public health and medical research</a></li>
+<li class="chapter" data-level="3.2" data-path="observational-studies.html"><a href="observational-studies.html#exchangeability-positivity-and-consistency"><i class="fa fa-check"></i><b>3.2</b> Exchangeability, positivity, and consistency</a></li>
+<li class="chapter" data-level="3.3" data-path="observational-studies.html"><a href="observational-studies.html#effect-identification-in-observational-studies"><i class="fa fa-check"></i><b>3.3</b> Effect Identification in Observational Studies</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html"><i class="fa fa-check"></i><b>4</b> Randomized Controlled Trials (RCTs) and Quasi-Experiments</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#effect-modification-and-adjustment-methods"><i class="fa fa-check"></i><b>4.1</b> Effect Modification and Adjustment Methods</a></li>
+<li class="chapter" data-level="4.2" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#identifying-interaction"><i class="fa fa-check"></i><b>4.2</b> Identifying Interaction</a></li>
+<li class="chapter" data-level="4.3" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#effect-modification-vs-interaction"><i class="fa fa-check"></i><b>4.3</b> Effect Modification vs Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html"><i class="fa fa-check"></i><b>5</b> Introduction to Causal Diagrams</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#basic-principles-of-directed-acyclic-graphs-dags"><i class="fa fa-check"></i><b>5.1</b> Basic principles of directed acyclic graphs (DAGs)</a></li>
+<li class="chapter" data-level="5.2" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#common-causal-structures-in-public-health"><i class="fa fa-check"></i><b>5.2</b> Common Causal Structures in Public Health</a></li>
+<li class="chapter" data-level="5.3" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#using-dags-to-introduce-and-understand-selection-bias"><i class="fa fa-check"></i><b>5.3</b> Using DAGs to introduce and understand selection bias</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html"><i class="fa fa-check"></i><b>6</b> Effect Modification and Interaction</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#the-structure-of-confounding"><i class="fa fa-check"></i><b>6.1</b> The Structure of Confounding</a></li>
+<li class="chapter" data-level="6.2" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#how-to-adjust-for-confounding"><i class="fa fa-check"></i><b>6.2</b> How to Adjust for Confounding</a></li>
+<li class="chapter" data-level="6.3" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#the-form-of-selection-bias"><i class="fa fa-check"></i><b>6.3</b> The Form of Selection Bias</a></li>
+<li class="chapter" data-level="6.4" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#how-to-adjust-for-selection-bias"><i class="fa fa-check"></i><b>6.4</b> How to Adjust for Selection Bias</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html"><i class="fa fa-check"></i><b>7</b> Measurement, Missing Data, and Selection Bias</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#measurement-bias"><i class="fa fa-check"></i><b>7.1</b> Measurement Bias</a></li>
+<li class="chapter" data-level="7.2" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#non-causal-diagrams"><i class="fa fa-check"></i><b>7.2</b> Non-Causal Diagrams</a></li>
+<li class="chapter" data-level="7.3" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#publication-bias-and-p-hacking"><i class="fa fa-check"></i><b>7.3</b> Publication Bias and P-Hacking</a></li>
+<li class="chapter" data-level="7.4" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#over--and-mis-interpretation-of-statistical-analyses"><i class="fa fa-check"></i><b>7.4</b> Over- and Mis-Interpretation of Statistical Analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="from-identification-to-estimation.html"><a href="from-identification-to-estimation.html"><i class="fa fa-check"></i><b>8</b> From Identification to Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="from-identification-to-estimation.html"><a href="from-identification-to-estimation.html#identification-and-estimation"><i class="fa fa-check"></i><b>8.1</b> Identification and Estimation</a></li>
+</ul></li>
 <li class="chapter" data-level="9" data-path="systems-thinking-and-policy-translation.html"><a href="systems-thinking-and-policy-translation.html"><i class="fa fa-check"></i><b>9</b> Systems Thinking and Policy Translation</a></li>
 <li class="chapter" data-level="10" data-path="final-project-presentations.html"><a href="final-project-presentations.html"><i class="fa fa-check"></i><b>10</b> Final Project Presentations</a></li>
 <li class="divider"></li>
@@ -214,28 +243,120 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <blockquote>
 <h2 id="supplementary-reading-3" class="hasAnchor">Supplementary reading<a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#supplementary-reading-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://rss.onlinelibrary.wiley.com/doi/full/10.1111/j.1467-985X.2007.00500.x"><strong>Freedman, D. A. (2008). On types of scientific inquiry: The role of RCTs in health policy. Journal of the Royal Statistical Society: Series A, 171(2), 359–385.</strong></a><br />
-Examples of quasi-experiments from public health and education</p>
+<p><a href="https://rss.onlinelibrary.wiley.com/doi/full/10.1111/j.1467-985X.2007.00500.x"><strong>Freedman, D. A. (2008). On types of scientific inquiry: The role of RCTs in health policy. Journal of the Royal Statistical Society: Series A, 171(2), 359–385.</strong></a>  Examples of quasi-experiments from public health and education</p>
 </blockquote>
 <blockquote>
 <h2 id="topics-covered-3" class="hasAnchor">Topics covered<a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#topics-covered-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Introduction to Randomized Controlled Trials (RCTs)</li>
-<li>Randomization and exchangeability</li>
-<li>Intent-to-treat vs. per-protocol analyses</li>
-<li>Quasi-experiments: definition and types</li>
-<li>Strengths and limitations of RCTs and quasi-experiments</li>
+<li>Effect modification and adjustment methods<br />
+</li>
+<li>Identifying interaction<br />
+</li>
+<li>Effect modification vs interaction<br />
+</li>
+<li>Critical reading exercise: evaluating effect modification and interaction in studies</li>
 </ul>
 </blockquote>
+<div id="effect-modification-and-adjustment-methods" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Effect Modification and Adjustment Methods<a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#effect-modification-and-adjustment-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Effect modification occurs when the effect of an exposure on an outcome differs depending on the level of another variable. Unlike confounding, which biases the estimated effect, effect modification reflects a real variation in the causal effect across different subgroups. Recognizing effect modification is important because it can reveal that a treatment or exposure is beneficial for some groups but not for others. Adjustment methods like stratification or including interaction terms in regression models help detect and describe effect modification rather than “control” it away.</p>
+<p>Adjustment methods typically aim to control for confounding, but they can also be used to detect effect modification when interaction terms are included. When effect modification is present, a single summary effect estimate (like an overall average) can be misleading. Instead, researchers often report subgroup-specific effects. Careful modeling and interpretation are necessary to distinguish between true effect modification and residual confounding.</p>
+<p>Simulation to Demonstrate Effect Modification</p>
+<p>We simulate a case where exercise improves heart health, but the effect of exercise is stronger for people with a good diet. That is, diet modifies the effect of exercise on heart health.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb43-2"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-2" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-3" tabindex="-1"></a>diet <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb43-4"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-4" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-5" tabindex="-1"></a>exercise <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb43-6"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-6" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-7" tabindex="-1"></a>heart_health <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> diet) <span class="sc">*</span> exercise <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> diet <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb43-8"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-8" tabindex="-1"></a></span>
+<span id="cb43-9"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-9" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(heart_health, exercise, diet)</span>
+<span id="cb43-10"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-10" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-11" tabindex="-1"></a>naive_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(heart_health <span class="sc">~</span> exercise <span class="sc">+</span> diet, <span class="at">data =</span> df)</span>
+<span id="cb43-12"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-12" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-13" tabindex="-1"></a>interaction_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(heart_health <span class="sc">~</span> exercise <span class="sc">*</span> diet, <span class="at">data =</span> df)</span>
+<span id="cb43-14"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-14" tabindex="-1"></a></span>
+<span id="cb43-15"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb43-15" tabindex="-1"></a><span class="fu">summary</span>(naive_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = heart_health ~ exercise + diet, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.8511  -1.0723   0.0289   1.1524  11.2562 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.03500    0.04955  -0.706     0.48    
+## exercise     0.87283    0.04955  17.615   &lt;2e-16 ***
+## diet         3.09912    0.04982  62.204   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.212 on 1997 degrees of freedom
+## Multiple R-squared:  0.6742, Adjusted R-squared:  0.6739 
+## F-statistic:  2066 on 2 and 1997 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb45-1" tabindex="-1"></a><span class="fu">summary</span>(interaction_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = heart_health ~ exercise * diet, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4082 -0.7163 -0.0293  0.7105  3.7744 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   0.005304   0.022735   0.233    0.816    
+## exercise      0.975227   0.022759  42.850   &lt;2e-16 ***
+## diet          3.017560   0.022872 131.930   &lt;2e-16 ***
+## exercise:diet 1.989111   0.022975  86.576   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.015 on 1996 degrees of freedom
+## Multiple R-squared:  0.9315, Adjusted R-squared:  0.9314 
+## F-statistic:  9045 on 3 and 1996 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Plot showing the differences between people with high genetics and low genetics</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-1" tabindex="-1"></a><span class="co"># library(ggplot2)</span></span>
+<span id="cb47-2"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-2" tabindex="-1"></a><span class="co"># library(dplyr)</span></span>
+<span id="cb47-3"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-3" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-4" tabindex="-1"></a>df_grouped <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb47-5"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diet_group =</span> <span class="fu">ifelse</span>(diet <span class="sc">&gt;</span> <span class="fu">median</span>(diet), <span class="st">&quot;Good Diet&quot;</span>, <span class="st">&quot;Bad Diet&quot;</span>))</span>
+<span id="cb47-6"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-6" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-7" tabindex="-1"></a><span class="fu">ggplot</span>(df_grouped, <span class="fu">aes</span>(<span class="at">x =</span> exercise, <span class="at">y =</span> heart_health, <span class="at">color =</span> diet_group)) <span class="sc">+</span></span>
+<span id="cb47-8"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb47-9"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-9" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb47-10"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Effect Modification: Exercise and Diet&quot;</span>,</span>
+<span id="cb47-11"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-11" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Separate Regression Lines for Good and Bad Diet&quot;</span>,</span>
+<span id="cb47-12"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-12" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Exercise Level&quot;</span>,</span>
+<span id="cb47-13"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-13" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Heart Health&quot;</span>,</span>
+<span id="cb47-14"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-14" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Diet Group&quot;</span>) <span class="sc">+</span></span>
+<span id="cb47-15"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#cb47-15" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>In this simulation, the benefit of exercise on heart health is stronger for individuals with better diet. When we run a naive model without an interaction term, we miss this important difference and incorrectly estimate a single average effect. When we include an interaction term between exercise and diet, we correctly capture that the effect of exercise varies across diet (healthy to unhealthy). The plot shows how heart health depends not just on exercise but also on how diet modifies the strength of that effect — illustrating why detecting and modeling effect modification is crucial in public health research.</p>
+</div>
+<div id="identifying-interaction" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Identifying Interaction<a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#identifying-interaction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Identifying interaction is crucial when studying causal relationships because it tells us whether the effect of an exposure on an outcome varies across levels of another variable. An interaction exists when the impact of one variable depends on the value of another, meaning the combined effect is not simply additive. Rather than being a source of bias like confounding, interaction reveals real differences in how subgroups respond to exposures or treatments. Detecting interaction helps researchers understand for whom and under what conditions an intervention works best, allowing for more tailored public health strategies and clinical recommendations.</p>
+<p>In our previous simulation with exercise and diet, interaction was present because the benefit of exercise on heart health was greater for individuals with a better diet. By fitting a model with an interaction term between exercise and diet, we were able to identify and quantify this effect modification. Without testing for interaction, we would have incorrectly assumed that exercise has the same benefit for everyone, masking important subgroup differences. Identifying interaction thus helps uncover nuanced causal relationships that average treatment effects alone may miss.</p>
+</div>
+<div id="effect-modification-vs-interaction" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Effect Modification vs Interaction<a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#effect-modification-vs-interaction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Effect modification and interaction are closely related concepts, but they serve slightly different purposes in causal analysis. Effect modification refers to a real difference in the causal effect of an exposure on an outcome across levels of another variable. It describes a biological or contextual phenomenon where an exposure has varying impacts depending on a modifier, such as a treatment working better for younger patients than older ones. In contrast, interaction is a modeling term: it refers to the inclusion of a product term (like exposure × modifier) in a statistical model to detect and estimate effect modification. In essence, effect modification is a feature of reality, while interaction is how we model and identify it in data.</p>
+<p>In our previous simulation with exercise and diet, the true underlying process involved <strong>effect modification: the benefit of exercise on heart health was greater for individuals with better diet.</strong> To uncover this, we included an <strong>interaction term between exercise and diet (exercise * diet)</strong> in our regression model. Without including the interaction, the model would have incorrectly assumed a constant effect of exercise across all diets (healthy to unhealthy). This distinction highlights why researchers must carefully model interactions when they suspect effect modification is present — otherwise, important subgroup differences in treatment effects can be hidden by overly simple models.</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="bias-and-identification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="observational-studies-and-bias-adjustment.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="observational-studies.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-to-causal-diagrams.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -266,7 +387,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/04_observational1.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/04_effect_modification.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -274,7 +395,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/04_observational1.Rmd",
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/04_effect_modification.Rmd",
     "text": null
   },
   "download": null,
