@@ -1,0 +1,82 @@
+# Measurement, Missing Data, and Selection Bias
+
+> ## Class materials
+>
+> Slides: [**Module 7**](https://your-slide-link.com)
+>
+> Recording: [**Module 7, Part 1**](https://your-recording-link.com)
+>
+> Recording: [**Module 7, Part 2**](https://your-recording-link.com)
+
+> ## Textbook reading
+>
+> [**Hernán & Robins, Causal Inference: What If – Chapters 12–13**](https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf)
+
+> ## Supplementary reading
+>
+> [**Groenwold, R. H., et al. (2012). Dealing with missing outcome data in randomized trials and observational studies. American Journal of Epidemiology, 175(3), 210–217.**](https://academic.oup.com/aje/article/175/3/210/155666)\
+> Examples of misclassification and selection bias in public health research
+
+> ## Topics covered
+>
+> -   Measurement bias
+> -   Non-causal diagrams
+> -   Publication bias and p-hacking
+> -   Over- and mis-interpretation of statistical analyses
+> -   Application: developing a checklist for critical reading of causal claims
+
+## Measurement Bias
+
+Measurement bias occurs when the method used to collect data leads to systematic errors in the values recorded for a variable. This can happen when an exposure, outcome, or confounder is misclassified or inaccurately measured in a way that consistently overstates or understates the true value. Measurement bias is problematic because it can distort observed associations and lead to incorrect conclusions about the relationships between variables. Unlike random measurement error, which tends to cancel out over large samples, measurement bias introduces consistent errors that don’t disappear with more data. It can arise from faulty instruments, poorly worded survey questions, or inconsistent data collection procedures, and it often goes unnoticed unless explicitly tested for.
+
+In public health and medical research, measurement bias can affect both exposure and outcome variables. For example, if smoking behavior is self-reported and individuals tend to underreport how much they smoke, the study will underestimate the true relationship between smoking and lung cancer. Similarly, if age is recorded in broad categories rather than precise years, it can limit the ability to adjust accurately for confounding. Even adjusting for confounders may not correct measurement bias if those confounders are also measured with error. This makes it critical to use reliable, validated measurement tools and to account for potential misclassification during analysis, especially in observational studies where data quality may vary widely.
+
+This simulation demonstrates measurement bias by comparing the estimated effect of smoking on lung cancer using the true smoking values versus mismeasured (underreported) smoking. The model using mismeasured smoking underestimates the true effect, showing how systematic error in recording an exposure can bias causal estimates toward zero.
+
+```{r}
+
+n <- 2000
+
+age <- rnorm(n, mean = 50, sd = 10)
+
+true_smoking <- 2 * age + rnorm(n)
+
+# no age to isolate measurement bias in smoking
+lung_cancer <- 3 * true_smoking + rnorm(n)
+
+measured_smoking <- true_smoking - rnorm(n, mean = 1, sd = 0.5)
+
+true_model <- lm(lung_cancer ~ true_smoking + age)
+
+biased_model <- lm(lung_cancer ~ measured_smoking + age)
+
+true_coef <- summary(true_model)$coefficients["true_smoking", "Estimate"]
+
+biased_coef <- summary(biased_model)$coefficients["measured_smoking", "Estimate"]
+
+true_coef
+
+biased_coef
+
+```
+
+## Non-Causal Diagrams
+
+Non-causal diagrams represent associations between variables that do not imply direct cause-and-effect relationships. These diagrams are useful for illustrating statistical relationships that arise from shared causes, correlations due to bias, or measurement artifacts. In non-causal diagrams, arrows may still indicate directional influence, but they are used to reflect associations or data-generating processes, not claims about interventions. Unlike causal diagrams, which are designed to identify and estimate the effects of manipulating one variable on another, non-causal diagrams help clarify patterns in the data without asserting that changing one variable will necessarily change another.
+
+In the context of our simulation, we can use a non-causal diagram to represent the observed association between age and lung cancer without assuming a direct causal relationship. While age and lung cancer may be strongly correlated — older individuals tend to have higher cancer risk — this relationship does not imply that age causes lung cancer in an interventional sense. Instead, age may be acting as a proxy for other underlying factors like cumulative exposure to smoking or environmental risks. A non-causal diagram helps us visualize this statistical association without attributing it to a direct, manipulable pathway, highlighting that not all observed relationships in data should be interpreted as causal.
+
+## Publication Bias and P-Hacking
+
+Publication bias occurs when the likelihood of a study being published depends on the nature or direction of its results — typically favoring studies with statistically significant or “positive” findings. This creates a distorted picture of the evidence in a field, because null or contradictory results are less likely to be seen. P-hacking refers to the practice of manipulating statistical analyses or data collection until a desired (usually statistically significant) result is achieved. This can include selectively reporting outcomes, running many analyses and only publishing those with low p-values, or stopping data collection once a significant result appears. Both practices inflate false-positive rates and undermine the credibility of scientific findings.
+
+In the context of the simulation we ran — whether it involves confounding, selection bias, or measurement error — it’s easy to see how p-hacking or publication bias could skew interpretations. For example, imagine rerunning the simulation many times and only reporting the version where the naive model shows a significant effect of smoking on lung cancer (even if the underlying data or causal structure doesn’t support it). Or selectively reporting only the adjusted model that produces a "clean" result while hiding others. These practices can make even a carefully designed simulation appear misleading. The simulation reinforces the idea that statistical significance is not the same as truth, and that transparency in modeling choices and full reporting of results are critical for avoiding biased conclusions.
+
+## Over- and Mis-Interpretation of Statistical Analyses
+
+Over-interpretation occurs when researchers draw stronger conclusions from statistical results than the data can justify, while mis-interpretation involves misunderstanding what the results actually mean. A common example is interpreting a statistically significant association as proof of causation, even when the study design or model does not support that claim. Another frequent error is overstating the practical importance of a small effect size or assuming that a non-significant result means "no effect." These issues are often driven by pressure to produce definitive conclusions, even when the data are limited, noisy, or confounded. Careful interpretation requires understanding the limits of the methods used and being transparent about uncertainty, assumptions, and alternative explanations.
+
+In the simulations we've conducted — such as estimating the effect of smoking on lung cancer under different types of bias — it's easy to see how results can be over- or mis-interpreted. For instance, in a model affected by measurement bias or confounding, one might find a statistically significant association between smoking and lung cancer, but incorrectly conclude that the estimated effect size reflects the true causal effect. Alternatively, if the biased model appears significant and the true model does not, someone might misinterpret that as evidence that adjustment "eliminated" the effect, when in fact it corrected for bias. These examples highlight how even simple models can be misunderstood or overstated, and underscore the importance of grounding interpretation in study design, data limitations, and causal reasoning — not just statistical output.
+
+
+

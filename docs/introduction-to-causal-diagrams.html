@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Introduction to Causal Diagrams | Causal-Inference-Graduate.knit</title>
+  <meta name="description" content="An undergraduate course on causal inference" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Introduction to Causal Diagrams | Causal-Inference-Graduate.knit" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="An undergraduate course on causal inference" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Introduction to Causal Diagrams | Causal-Inference-Graduate.knit" />
+  
+  <meta name="twitter:description" content="An undergraduate course on causal inference" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="randomized-controlled-trials-rcts-and-quasi-experiments.html"/>
+<link rel="next" href="effect-modification-and-interaction.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Causal Inference</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course Description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#instructor"><i class="fa fa-check"></i>Instructor</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#teaching-assistants"><i class="fa fa-check"></i>Teaching Assistants</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-logistics"><i class="fa fa-check"></i>Course Logistics</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#required-materials"><i class="fa fa-check"></i>Required Materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-objectives"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#upon-successful-completion-of-this-course-students-will-be-able-to"><i class="fa fa-check"></i>Upon successful completion of this course, students will be able to:</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#tools"><i class="fa fa-check"></i>Tools</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#useful-links"><i class="fa fa-check"></i>Useful Links</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#installing-and-using-required-packages"><i class="fa fa-check"></i>Installing and Using Required Packages</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#loading-packages"><i class="fa fa-check"></i>Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#difference-between-install.packages-and-library"><i class="fa fa-check"></i>Difference Between install.packages() and library()</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#session-information"><i class="fa fa-check"></i>Session Information</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#why-include-this"><i class="fa fa-check"></i>Why include this?</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#base-r-version-simple"><i class="fa fa-check"></i>Base R version (simple)</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html"><i class="fa fa-check"></i><b>1</b> Foundations of Causal Thinking in Public Health</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#association-vs.-causation"><i class="fa fa-check"></i><b>1.1</b> Association vs. Causation</a></li>
+<li class="chapter" data-level="1.2" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#introduction-to-counterfactuals-and-potential-outcomes"><i class="fa fa-check"></i><b>1.2</b> Introduction to Counterfactuals and Potential Outcomes</a></li>
+<li class="chapter" data-level="1.3" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#causal-estimands-and-identification"><i class="fa fa-check"></i><b>1.3</b> Causal Estimands and Identification</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html"><i class="fa fa-check"></i><b>2</b> Randomized Control Trials</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#randomized-controlled-trials-the-gold-standard"><i class="fa fa-check"></i><b>2.1</b> Randomized controlled trials: the gold standard</a></li>
+<li class="chapter" data-level="2.2" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#basic-experimental-design-principles"><i class="fa fa-check"></i><b>2.2</b> Basic Experimental Design Principles</a></li>
+<li class="chapter" data-level="2.3" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#limitations-of-rcts-in-public-health-contexts"><i class="fa fa-check"></i><b>2.3</b> Limitations of RCTs in Public Health Contexts</a></li>
+<li class="chapter" data-level="2.4" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#common-threats-to-internal-and-external-validity"><i class="fa fa-check"></i><b>2.4</b> Common Threats to Internal and External Validity</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="observational-studies.html"><a href="observational-studies.html"><i class="fa fa-check"></i><b>3</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="observational-studies.html"><a href="observational-studies.html#the-challenge-of-confounding-in-public-health-and-medical-research"><i class="fa fa-check"></i><b>3.1</b> The challenge of confounding in public health and medical research</a></li>
+<li class="chapter" data-level="3.2" data-path="observational-studies.html"><a href="observational-studies.html#exchangeability-positivity-and-consistency"><i class="fa fa-check"></i><b>3.2</b> Exchangeability, positivity, and consistency</a></li>
+<li class="chapter" data-level="3.3" data-path="observational-studies.html"><a href="observational-studies.html#effect-identification-in-observational-studies"><i class="fa fa-check"></i><b>3.3</b> Effect Identification in Observational Studies</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html"><i class="fa fa-check"></i><b>4</b> Randomized Controlled Trials (RCTs) and Quasi-Experiments</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#effect-modification-and-adjustment-methods"><i class="fa fa-check"></i><b>4.1</b> Effect Modification and Adjustment Methods</a></li>
+<li class="chapter" data-level="4.2" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#identifying-interaction"><i class="fa fa-check"></i><b>4.2</b> Identifying Interaction</a></li>
+<li class="chapter" data-level="4.3" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#effect-modification-vs-interaction"><i class="fa fa-check"></i><b>4.3</b> Effect Modification vs Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html"><i class="fa fa-check"></i><b>5</b> Introduction to Causal Diagrams</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#basic-principles-of-directed-acyclic-graphs-dags"><i class="fa fa-check"></i><b>5.1</b> Basic principles of directed acyclic graphs (DAGs)</a></li>
+<li class="chapter" data-level="5.2" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#common-causal-structures-in-public-health"><i class="fa fa-check"></i><b>5.2</b> Common Causal Structures in Public Health</a></li>
+<li class="chapter" data-level="5.3" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#using-dags-to-introduce-and-understand-selection-bias"><i class="fa fa-check"></i><b>5.3</b> Using DAGs to introduce and understand selection bias</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html"><i class="fa fa-check"></i><b>6</b> Effect Modification and Interaction</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#the-structure-of-confounding"><i class="fa fa-check"></i><b>6.1</b> The Structure of Confounding</a></li>
+<li class="chapter" data-level="6.2" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#how-to-adjust-for-confounding"><i class="fa fa-check"></i><b>6.2</b> How to Adjust for Confounding</a></li>
+<li class="chapter" data-level="6.3" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#the-form-of-selection-bias"><i class="fa fa-check"></i><b>6.3</b> The Form of Selection Bias</a></li>
+<li class="chapter" data-level="6.4" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#how-to-adjust-for-selection-bias"><i class="fa fa-check"></i><b>6.4</b> How to Adjust for Selection Bias</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html"><i class="fa fa-check"></i><b>7</b> Measurement, Missing Data, and Selection Bias</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#measurement-bias"><i class="fa fa-check"></i><b>7.1</b> Measurement Bias</a></li>
+<li class="chapter" data-level="7.2" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#non-causal-diagrams"><i class="fa fa-check"></i><b>7.2</b> Non-Causal Diagrams</a></li>
+<li class="chapter" data-level="7.3" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#publication-bias-and-p-hacking"><i class="fa fa-check"></i><b>7.3</b> Publication Bias and P-Hacking</a></li>
+<li class="chapter" data-level="7.4" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#over--and-mis-interpretation-of-statistical-analyses"><i class="fa fa-check"></i><b>7.4</b> Over- and Mis-Interpretation of Statistical Analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="from-identification-to-estimation.html"><a href="from-identification-to-estimation.html"><i class="fa fa-check"></i><b>8</b> From Identification to Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="from-identification-to-estimation.html"><a href="from-identification-to-estimation.html#identification-and-estimation"><i class="fa fa-check"></i><b>8.1</b> Identification and Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="systems-thinking-and-policy-translation.html"><a href="systems-thinking-and-policy-translation.html"><i class="fa fa-check"></i><b>9</b> Systems Thinking and Policy Translation</a></li>
+<li class="chapter" data-level="10" data-path="final-project-presentations.html"><a href="final-project-presentations.html"><i class="fa fa-check"></i><b>10</b> Final Project Presentations</a></li>
+<li class="divider"></li>
+<li><a href="https://www.falcobargaglistoffi.com/" target="blank">Instructor: Falco J. Bargagli-Stoffi</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-causal-diagrams" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Introduction to Causal Diagrams<a href="introduction-to-causal-diagrams.html#introduction-to-causal-diagrams" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<blockquote>
+<h2 id="class-materials-4" class="hasAnchor">Class materials<a href="introduction-to-causal-diagrams.html#class-materials-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Slides: <a href="https://drive.google.com/drive/folders/14Iymvk2FlZqVsWrtbDLmwSzR5aNS-Mcg?usp=sharing"><strong>Module 5</strong></a></p>
+<p>Recording: <a href="https://your-recording-link.com"><strong>Module 5, Part 1</strong></a></p>
+<p>Recording: <a href="https://your-recording-link.com"><strong>Module 5, Part 2</strong></a></p>
+</blockquote>
+<blockquote>
+<h2 id="textbook-reading-4" class="hasAnchor">Textbook reading<a href="introduction-to-causal-diagrams.html#textbook-reading-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf"><strong>Hernán &amp; Robins, Causal Inference: What If – Chapters 9–10</strong></a></p>
+</blockquote>
+<blockquote>
+<h2 id="supplementary-reading-4" class="hasAnchor">Supplementary reading<a href="introduction-to-causal-diagrams.html#supplementary-reading-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://academic.oup.com/biomet/article/70/1/41/284423"><strong>Rosenbaum, P.R., &amp; Rubin, D.B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41–55.</strong></a><br />
+Examples from public health studies involving confounding adjustment</p>
+</blockquote>
+<blockquote>
+<h2 id="topics-covered-4" class="hasAnchor">Topics covered<a href="introduction-to-causal-diagrams.html#topics-covered-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Basic principles of directed acyclic graphs (DAGs)</li>
+<li>Common causal structures in public health</li>
+<li>Using DAGs to introduce and understand selection bias</li>
+<li>Application: drawing DAGs for public health scenarios</li>
+</ul>
+</blockquote>
+<div id="basic-principles-of-directed-acyclic-graphs-dags" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Basic principles of directed acyclic graphs (DAGs)<a href="introduction-to-causal-diagrams.html#basic-principles-of-directed-acyclic-graphs-dags" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Directed acyclic graphs (DAGs) are powerful tools in causal inference that visually represent assumptions about how variables are related. In a DAG, nodes represent variables, and arrows (directed edges) represent causal influences from one variable to another. DAGs are acyclic, meaning you cannot return to the same variable by following a sequence of arrows — this prevents feedback loops. The key strength of DAGs lies in their ability to clarify causal pathways, distinguish between confounding and mediation, and identify the variables we need to control for to estimate causal effects accurately. By encoding assumptions explicitly, DAGs help researchers determine whether observed associations reflect true causal relationships or are biased by omitted variables or incorrect conditioning.</p>
+<p>In our simulation, we use a DAG to represent a common public health structure involving diet, exercise, and heart health. Diet is a confounder: it directly influences both how much people exercise and their overall heart health. If we ignore diet when estimating the effect of exercise on heart health, we risk attributing diet’s effect to exercise — leading to confounding bias. The DAG for this scenario includes arrows from diet to both exercise and heart health, and from exercise to heart health. We also introduce selection bias by conditioning on individuals with moderate-to-high exercise levels. In DAG terms, this is equivalent to conditioning on a collider (exercise), which can open a non-causal backdoor path and bias our results. Modeling this setup with a DAG allows us to see clearly that to obtain an unbiased estimate of the causal effect of exercise, we must adjust for diet and avoid conditioning on colliders like selection into the sample.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="introduction-to-causal-diagrams.html#cb49-1" tabindex="-1"></a><span class="co"># library(ggplot2)</span></span>
+<span id="cb49-2"><a href="introduction-to-causal-diagrams.html#cb49-2" tabindex="-1"></a><span class="co"># library(dplyr)</span></span>
+<span id="cb49-3"><a href="introduction-to-causal-diagrams.html#cb49-3" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">&quot;ggdag&quot;</span>)</span>
+<span id="cb49-4"><a href="introduction-to-causal-diagrams.html#cb49-4" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="introduction-to-causal-diagrams.html#cb49-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb49-6"><a href="introduction-to-causal-diagrams.html#cb49-6" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="introduction-to-causal-diagrams.html#cb49-7" tabindex="-1"></a>diet <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb49-8"><a href="introduction-to-causal-diagrams.html#cb49-8" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="introduction-to-causal-diagrams.html#cb49-9" tabindex="-1"></a>exercise <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> diet <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb49-10"><a href="introduction-to-causal-diagrams.html#cb49-10" tabindex="-1"></a></span>
+<span id="cb49-11"><a href="introduction-to-causal-diagrams.html#cb49-11" tabindex="-1"></a>heart_health <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> exercise <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> diet <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb49-12"><a href="introduction-to-causal-diagrams.html#cb49-12" tabindex="-1"></a></span>
+<span id="cb49-13"><a href="introduction-to-causal-diagrams.html#cb49-13" tabindex="-1"></a>health_dagified <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb49-14"><a href="introduction-to-causal-diagrams.html#cb49-14" tabindex="-1"></a>  heart_health <span class="sc">~</span> diet,</span>
+<span id="cb49-15"><a href="introduction-to-causal-diagrams.html#cb49-15" tabindex="-1"></a>  heart_health <span class="sc">~</span> exercise,</span>
+<span id="cb49-16"><a href="introduction-to-causal-diagrams.html#cb49-16" tabindex="-1"></a>  exercise <span class="sc">~</span> diet</span>
+<span id="cb49-17"><a href="introduction-to-causal-diagrams.html#cb49-17" tabindex="-1"></a>)</span>
+<span id="cb49-18"><a href="introduction-to-causal-diagrams.html#cb49-18" tabindex="-1"></a></span>
+<span id="cb49-19"><a href="introduction-to-causal-diagrams.html#cb49-19" tabindex="-1"></a><span class="fu">ggdag</span>(health_dagified)</span></code></pre></div>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+</div>
+<div id="common-causal-structures-in-public-health" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Common Causal Structures in Public Health<a href="introduction-to-causal-diagrams.html#common-causal-structures-in-public-health" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In public health research, understanding the causal relationships between variables is essential for identifying risk factors, designing interventions, and making policy decisions. Common causal structures include <strong>confounding, mediation, and collider bias,</strong> each of which influences how we interpret observed associations. A confounder is a variable that affects both the exposure and the outcome, potentially biasing the estimated effect if not properly adjusted for. A mediator lies on the causal pathway between exposure and outcome, helping to explain how the exposure exerts its effect. A collider, on the other hand, is influenced by two variables, and conditioning on it can introduce spurious associations. Identifying these structures often requires drawing directed acyclic graphs (DAGs) to map out assumptions and determine which variables to adjust for when estimating causal effects.</p>
+<p>In our simulation, we modeled a classic confounding structure, where diet influences both exercise and heart health. This mirrors real-world public health situations where health behaviors and biological outcomes are shaped by shared underlying factors like nutrition, socioeconomic status, or genetics. If we were to estimate the effect of exercise on heart health without adjusting for diet, we would risk attributing some of diet’s impact to exercise — a classic confounding problem. By visualizing the relationships using a DAG and including diet as a covariate in our regression model, we can block the backdoor path and isolate the true causal effect of exercise. This illustrates how understanding and modeling common causal structures is critical to producing valid and meaningful results in public health research.</p>
+</div>
+<div id="using-dags-to-introduce-and-understand-selection-bias" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Using DAGs to introduce and understand selection bias<a href="introduction-to-causal-diagrams.html#using-dags-to-introduce-and-understand-selection-bias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Selection bias</strong> occurs when the group of individuals included in a study is systematically different from the target population in a way that distorts the relationship between exposure and outcome. This can happen when inclusion into the study depends on variables that are related to either the exposure, the outcome, or both. Selection bias becomes especially problematic when researchers condition on a collider — a variable that is influenced by two or more variables in the causal model — because doing so can open non-causal paths and create spurious associations. In practical terms, this means that even if there is no causal relationship between an exposure and an outcome, conditioning on a collider can make it look like there is one, or it can distort the strength of a real effect.</p>
+<p>In our simulation, we introduced selection bias by only including individuals with moderate to high diet scores. Since diet is a confounder that affects both exercise and heart health, restricting our analysis to individuals with good diets creates a biased sample — one that no longer reflects the full population variation in diet. This conditioning on diet essentially blocks our ability to observe the full confounding relationship and can make the estimated effect of exercise on heart health appear stronger, weaker, or even reverse. By simulating this, we demonstrate how selection bias — even when introduced through something seemingly harmless like focusing on healthier individuals — can lead to incorrect causal conclusions if not properly accounted for.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="introduction-to-causal-diagrams.html#cb50-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(diet, exercise, heart_health)</span>
+<span id="cb50-2"><a href="introduction-to-causal-diagrams.html#cb50-2" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="introduction-to-causal-diagrams.html#cb50-3" tabindex="-1"></a>df_selected <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">filter</span>(diet <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb50-4"><a href="introduction-to-causal-diagrams.html#cb50-4" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="introduction-to-causal-diagrams.html#cb50-5" tabindex="-1"></a>model_naive <span class="ot">&lt;-</span> <span class="fu">lm</span>(heart_health <span class="sc">~</span> exercise, <span class="at">data =</span> df_selected)</span>
+<span id="cb50-6"><a href="introduction-to-causal-diagrams.html#cb50-6" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="introduction-to-causal-diagrams.html#cb50-7" tabindex="-1"></a>model_adjusted <span class="ot">&lt;-</span> <span class="fu">lm</span>(heart_health <span class="sc">~</span> exercise <span class="sc">+</span> diet, <span class="at">data =</span> df_selected)</span>
+<span id="cb50-8"><a href="introduction-to-causal-diagrams.html#cb50-8" tabindex="-1"></a></span>
+<span id="cb50-9"><a href="introduction-to-causal-diagrams.html#cb50-9" tabindex="-1"></a><span class="fu">summary</span>(model_naive)<span class="sc">$</span>coefficients[<span class="st">&quot;exercise&quot;</span>, ]</span></code></pre></div>
+<pre><code>##     Estimate   Std. Error      t value     Pr(&gt;|t|) 
+##   4.21502546   0.03651214 115.44174459   0.00000000</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="introduction-to-causal-diagrams.html#cb52-1" tabindex="-1"></a><span class="fu">summary</span>(model_adjusted)<span class="sc">$</span>coefficients[<span class="st">&quot;exercise&quot;</span>, ]</span></code></pre></div>
+<pre><code>##    Estimate  Std. Error     t value    Pr(&gt;|t|) 
+##  2.98562234  0.03161254 94.44424333  0.00000000</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="introduction-to-causal-diagrams.html#cb54-1" tabindex="-1"></a><span class="co"># selection = healthy people</span></span>
+<span id="cb54-2"><a href="introduction-to-causal-diagrams.html#cb54-2" tabindex="-1"></a>selection_bias_dagified <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb54-3"><a href="introduction-to-causal-diagrams.html#cb54-3" tabindex="-1"></a>  exercise <span class="sc">~</span> diet,</span>
+<span id="cb54-4"><a href="introduction-to-causal-diagrams.html#cb54-4" tabindex="-1"></a>  heart_health <span class="sc">~</span> diet,</span>
+<span id="cb54-5"><a href="introduction-to-causal-diagrams.html#cb54-5" tabindex="-1"></a>  heart_health <span class="sc">~</span> exercise,</span>
+<span id="cb54-6"><a href="introduction-to-causal-diagrams.html#cb54-6" tabindex="-1"></a>  selection <span class="sc">~</span> diet</span>
+<span id="cb54-7"><a href="introduction-to-causal-diagrams.html#cb54-7" tabindex="-1"></a>)</span>
+<span id="cb54-8"><a href="introduction-to-causal-diagrams.html#cb54-8" tabindex="-1"></a></span>
+<span id="cb54-9"><a href="introduction-to-causal-diagrams.html#cb54-9" tabindex="-1"></a><span class="fu">ggdag</span>(selection_bias_dagified)</span></code></pre></div>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="randomized-controlled-trials-rcts-and-quasi-experiments.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="effect-modification-and-interaction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/05_causal_dags.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/05_causal_dags.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

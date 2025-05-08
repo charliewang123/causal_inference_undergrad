@@ -1,0 +1,100 @@
+# Observational Studies  
+
+> ## Class materials  
+>
+> Slides: [**Module 3**](https://drive.google.com/drive/folders/14Iymvk2FlZqVsWrtbDLmwSzR5aNS-Mcg?usp=sharing)  
+>
+> Recording: [**Module 3, Part 1**](https://your-recording-link.com)  
+>
+> Recording: [**Module 3, Part 2**](https://your-recording-link.com)  
+
+> ## Textbook reading  
+>
+> [**Hernán & Robins, Causal Inference: What If – Chapters 5–6**](https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf)  
+
+> ## Supplementary reading  
+>
+> [**Greenland, S. (2003). Quantifying biases in causal models: classical confounding vs collider-stratification bias. Epidemiology, 14(3), 300–306.**](https://journals.lww.com/epidem/Fulltext/2003/05000/Quantifying_Biases_in_Causal_Models__Classical.7.aspx)\  
+> Additional DAG exercises provided in class  
+
+> ## Topics covered  
+>
+> -   The challenge of confounding in public health and medical research  
+> -   Exchangeability, positivity, and consistency  
+> -   Effect identification in observational studies  
+> -   Critical reading exercise: evaluating a published observational study  
+
+## The challenge of confounding in public health and medical research  
+
+Confounding is a major challenge in public health and medical research because it can create misleading associations between exposures and outcomes. A confounder is a third variable that is associated with both the exposure and the outcome, potentially distorting the true causal relationship. For example, if we observe that people who carry lighters tend to have higher rates of lung cancer, we might wrongly conclude that carrying a lighter causes cancer. In reality, smoking is the confounding variable: smokers are more likely to carry lighters and also more likely to develop lung cancer. Without properly adjusting for confounders, studies risk producing biased estimates, leading to incorrect conclusions about risk factors, treatments, or interventions.  
+
+Addressing confounding is crucial but not always straightforward. Methods such as stratification, multivariable regression, propensity score matching, and randomized controlled trials (RCTs) are commonly used to try to adjust for or eliminate confounding effects. However, identifying all relevant confounders can be difficult, especially when dealing with observational data where randomization is not possible. Unmeasured or unknown confounders remain a constant threat to validity. Therefore, careful study design, domain knowledge, and sensitivity analyses are essential to minimize the impact of confounding and ensure more reliable and actionable public health research findings.  
+
+**Example Setup** Let’s say we want to study the effect of Exercise (X) on Heart Health (Y), but there’s a Genetic Factor (Z) that causes both Exercise and Heart Health. In this case, Z is a confounder, and we should adjust for it.  
+
+```{r}
+
+n <- 2000
+
+genetics <- rnorm(n)
+
+exercise <- 0.6 * genetics + rnorm(n) 
+
+heart_health <- 0.8 * exercise + 0.5 * genetics + rnorm(n)
+
+df <- data.frame(heart_health, exercise, genetics)
+
+model_naive <- lm(heart_health ~ exercise, data = df)
+
+summary(model_naive)$coefficients["exercise", ]
+
+model_adjusted <- lm(heart_health ~ exercise + genetics, data = df)
+
+summary(model_adjusted)$coefficients["exercise", ]
+
+```
+
+```{r}
+
+# library(ggplot2)
+
+naive_estimate <- summary(model_naive)$coefficients["exercise", "Estimate"]
+
+adjusted_estimate <- summary(model_adjusted)$coefficients["exercise", "Estimate"]
+
+estimates <- data.frame(
+  Model = c("Naive", "Adjusted"),
+  Estimate = c(naive_estimate, adjusted_estimate)
+)
+
+ggplot(estimates, aes(x = Model, y = Estimate, fill = Model)) +
+  geom_col(width = 0.5) +
+  labs(title = "Comparison of Naive vs Adjusted Estimates",
+       y = "Estimated Effect of Exercise",
+       x = "") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+In this simulation, we model a situation where Genetics (Z) is a confounder that influences both Exercise (X) and Heart Health (Y). The naive model, which regresses Heart Health on Exercise without adjusting for Genetics, gives a biased estimate of the effect of Exercise. This happens because part of the observed association is actually due to Genetics, not Exercise itself. When we adjust for Genetics in the second model, the estimate of Exercise’s effect becomes more accurate, isolating its true relationship with Heart Health. This example highlights how failing to account for confounding can lead researchers to overstate or misinterpret causal effects in public health and medical studies.  
+
+## Exchangeability, positivity, and consistency  
+
+In causal inference, particularly when analyzing observational data, three critical assumptions must hold for estimates to reflect true causal relationships: **exchangeability, positivity, and consistency.** These assumptions ensure that the comparisons we make between groups are valid and that the effects we estimate correspond to real-world interventions. Without them, causal conclusions can be biased or entirely invalid.  
+
+- Exchangeability means that after adjusting for confounders, the treatment and comparison groups are similar in all relevant ways except for the exposure itself.  
+- Positivity means that every individual has a nonzero probability of receiving each level of the exposure, regardless of their confounder values.  
+- Consistency means that the observed outcome under the actual exposure is the same as the potential outcome we are trying to measure for that exposure level.  
+
+In our previous simulation studying exercise and heart health, adjusting for genetics aimed to restore exchangeability by balancing genetic differences between individuals with different exercise levels. Positivity was satisfied because individuals at all levels of genetics still varied in how much they exercised. Consistency was assumed because the way we measured exercise and heart health accurately reflected the underlying causal relationship. Together, these assumptions allowed us to interpret the adjusted effect of exercise on heart health as a causal effect.  
+
+## Effect Identification in Observational Studies  
+
+In observational studies, identifying causal effects is challenging because researchers do not control exposure assignments. Unlike randomized controlled trials, individuals self-select into exposure groups, leading to potential confounding. Effect identification requires careful strategies to mimic the conditions of randomization and ensure that observed associations reflect true causal relationships rather than biases from confounding or selection.  
+
+- Confounding control: Adjust for confounders through methods like regression, stratification, matching, or weighting to approximate randomization.  
+- Assumptions: Rely on assumptions like exchangeability, positivity, and consistency to justify causal interpretation.  
+- Sensitivity analysis: Explore how robust the estimated effect is to potential unmeasured confounding.   
+
+In our simulation of exercise and heart health, we identified the causal effect of exercise by adjusting for the confounding effect of genetics. Without randomization, genetics could have biased the relationship between exercise and health outcomes. By including genetics as a covariate in our model, we attempted to recreate the conditions needed for causal identification in an observational setting, relying on the assumptions of exchangeability, positivity, and consistency to interpret the adjusted exercise effect as causal.  

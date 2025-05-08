@@ -1,0 +1,94 @@
+# Randomized Controlled Trials (RCTs) and Quasi-Experiments
+
+> ## Class materials
+>
+> Slides: [**Module 4**](https://drive.google.com/drive/folders/14Iymvk2FlZqVsWrtbDLmwSzR5aNS-Mcg?usp=sharing)
+>
+> Recording: [**Module 4, Part 1**](https://your-recording-link.com)
+>
+> Recording: [**Module 4, Part 2**](https://your-recording-link.com)
+
+> ## Textbook reading
+>
+> [**Hernán & Robins, Causal Inference: What If – Chapters 7–8**](https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf)
+
+> ## Supplementary reading
+>
+> [**Freedman, D. A. (2008). On types of scientific inquiry: The role of RCTs in health policy. Journal of the Royal Statistical Society: Series A, 171(2), 359–385.**](https://rss.onlinelibrary.wiley.com/doi/full/10.1111/j.1467-985X.2007.00500.x)  Examples of quasi-experiments from public health and education
+
+> ## Topics covered
+>
+> -   Effect modification and adjustment methods\
+> -   Identifying interaction\
+> -   Effect modification vs interaction\
+> -   Critical reading exercise: evaluating effect modification and interaction in studies
+
+## Effect Modification and Adjustment Methods
+
+Effect modification occurs when the effect of an exposure on an outcome differs depending on the level of another variable. Unlike confounding, which biases the estimated effect, effect modification reflects a real variation in the causal effect across different subgroups. Recognizing effect modification is important because it can reveal that a treatment or exposure is beneficial for some groups but not for others. Adjustment methods like stratification or including interaction terms in regression models help detect and describe effect modification rather than "control" it away.
+
+Adjustment methods typically aim to control for confounding, but they can also be used to detect effect modification when interaction terms are included. When effect modification is present, a single summary effect estimate (like an overall average) can be misleading. Instead, researchers often report subgroup-specific effects. Careful modeling and interpretation are necessary to distinguish between true effect modification and residual confounding.
+
+Simulation to Demonstrate Effect Modification
+
+We simulate a case where exercise improves heart health, but the effect of exercise is stronger for people with a good diet. That is, diet modifies the effect of exercise on heart health.
+
+```{r}
+
+n <- 2000
+
+diet <- rnorm(n)
+
+exercise <- rnorm(n)
+
+heart_health <- (1 + 2 * diet) * exercise + 3 * diet + rnorm(n)
+
+df <- data.frame(heart_health, exercise, diet)
+
+naive_model <- lm(heart_health ~ exercise + diet, data = df)
+
+interaction_model <- lm(heart_health ~ exercise * diet, data = df)
+
+summary(naive_model)
+
+summary(interaction_model)
+
+```
+
+Plot showing the differences between people with high genetics and low genetics
+
+```{r}
+
+# library(ggplot2)
+# library(dplyr)
+
+df_grouped <- df |>
+  mutate(diet_group = ifelse(diet > median(diet), "Good Diet", "Bad Diet"))
+
+ggplot(df_grouped, aes(x = exercise, y = heart_health, color = diet_group)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Effect Modification: Exercise and Diet",
+       subtitle = "Separate Regression Lines for Good and Bad Diet",
+       x = "Exercise Level",
+       y = "Heart Health",
+       color = "Diet Group") +
+  theme_minimal()
+
+```
+
+In this simulation, the benefit of exercise on heart health is stronger for individuals with better diet. When we run a naive model without an interaction term, we miss this important difference and incorrectly estimate a single average effect. When we include an interaction term between exercise and diet, we correctly capture that the effect of exercise varies across diet (healthy to unhealthy). The plot shows how heart health depends not just on exercise but also on how diet modifies the strength of that effect — illustrating why detecting and modeling effect modification is crucial in public health research.
+
+## Identifying Interaction
+
+Identifying interaction is crucial when studying causal relationships because it tells us whether the effect of an exposure on an outcome varies across levels of another variable. An interaction exists when the impact of one variable depends on the value of another, meaning the combined effect is not simply additive. Rather than being a source of bias like confounding, interaction reveals real differences in how subgroups respond to exposures or treatments. Detecting interaction helps researchers understand for whom and under what conditions an intervention works best, allowing for more tailored public health strategies and clinical recommendations.
+
+In our previous simulation with exercise and diet, interaction was present because the benefit of exercise on heart health was greater for individuals with a better diet. By fitting a model with an interaction term between exercise and diet, we were able to identify and quantify this effect modification. Without testing for interaction, we would have incorrectly assumed that exercise has the same benefit for everyone, masking important subgroup differences. Identifying interaction thus helps uncover nuanced causal relationships that average treatment effects alone may miss.
+
+## Effect Modification vs Interaction
+
+Effect modification and interaction are closely related concepts, but they serve slightly different purposes in causal analysis. Effect modification refers to a real difference in the causal effect of an exposure on an outcome across levels of another variable. It describes a biological or contextual phenomenon where an exposure has varying impacts depending on a modifier, such as a treatment working better for younger patients than older ones. In contrast, interaction is a modeling term: it refers to the inclusion of a product term (like exposure × modifier) in a statistical model to detect and estimate effect modification. In essence, effect modification is a feature of reality, while interaction is how we model and identify it in data.
+
+In our previous simulation with exercise and diet, the true underlying process involved **effect modification: the benefit of exercise on heart health was greater for individuals with better diet.** To uncover this, we included an **interaction term between exercise and diet (exercise \* diet)** in our regression model. Without including the interaction, the model would have incorrectly assumed a constant effect of exercise across all diets (healthy to unhealthy). This distinction highlights why researchers must carefully model interactions when they suspect effect modification is present — otherwise, important subgroup differences in treatment effects can be hidden by overly simple models.
+
+

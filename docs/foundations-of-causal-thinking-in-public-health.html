@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Foundations of Causal Thinking in Public Health | Causal-Inference-Graduate.knit</title>
+  <meta name="description" content="An undergraduate course on causal inference" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Foundations of Causal Thinking in Public Health | Causal-Inference-Graduate.knit" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="An undergraduate course on causal inference" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Foundations of Causal Thinking in Public Health | Causal-Inference-Graduate.knit" />
+  
+  <meta name="twitter:description" content="An undergraduate course on causal inference" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="setup.html"/>
+<link rel="next" href="randomized-control-trials.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Causal Inference</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course Description</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#instructor"><i class="fa fa-check"></i>Instructor</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#teaching-assistants"><i class="fa fa-check"></i>Teaching Assistants</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-logistics"><i class="fa fa-check"></i>Course Logistics</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#required-materials"><i class="fa fa-check"></i>Required Materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-objectives"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#upon-successful-completion-of-this-course-students-will-be-able-to"><i class="fa fa-check"></i>Upon successful completion of this course, students will be able to:</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#tools"><i class="fa fa-check"></i>Tools</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#useful-links"><i class="fa fa-check"></i>Useful Links</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i>Setup</a>
+<ul>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#installing-and-using-required-packages"><i class="fa fa-check"></i>Installing and Using Required Packages</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#loading-packages"><i class="fa fa-check"></i>Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#difference-between-install.packages-and-library"><i class="fa fa-check"></i>Difference Between install.packages() and library()</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#session-information"><i class="fa fa-check"></i>Session Information</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#why-include-this"><i class="fa fa-check"></i>Why include this?</a></li>
+<li class="chapter" data-level="" data-path="setup.html"><a href="setup.html#base-r-version-simple"><i class="fa fa-check"></i>Base R version (simple)</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html"><i class="fa fa-check"></i><b>1</b> Foundations of Causal Thinking in Public Health</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#association-vs.-causation"><i class="fa fa-check"></i><b>1.1</b> Association vs. Causation</a></li>
+<li class="chapter" data-level="1.2" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#introduction-to-counterfactuals-and-potential-outcomes"><i class="fa fa-check"></i><b>1.2</b> Introduction to Counterfactuals and Potential Outcomes</a></li>
+<li class="chapter" data-level="1.3" data-path="foundations-of-causal-thinking-in-public-health.html"><a href="foundations-of-causal-thinking-in-public-health.html#causal-estimands-and-identification"><i class="fa fa-check"></i><b>1.3</b> Causal Estimands and Identification</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html"><i class="fa fa-check"></i><b>2</b> Randomized Control Trials</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#randomized-controlled-trials-the-gold-standard"><i class="fa fa-check"></i><b>2.1</b> Randomized controlled trials: the gold standard</a></li>
+<li class="chapter" data-level="2.2" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#basic-experimental-design-principles"><i class="fa fa-check"></i><b>2.2</b> Basic Experimental Design Principles</a></li>
+<li class="chapter" data-level="2.3" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#limitations-of-rcts-in-public-health-contexts"><i class="fa fa-check"></i><b>2.3</b> Limitations of RCTs in Public Health Contexts</a></li>
+<li class="chapter" data-level="2.4" data-path="randomized-control-trials.html"><a href="randomized-control-trials.html#common-threats-to-internal-and-external-validity"><i class="fa fa-check"></i><b>2.4</b> Common Threats to Internal and External Validity</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="observational-studies.html"><a href="observational-studies.html"><i class="fa fa-check"></i><b>3</b> Observational Studies</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="observational-studies.html"><a href="observational-studies.html#the-challenge-of-confounding-in-public-health-and-medical-research"><i class="fa fa-check"></i><b>3.1</b> The challenge of confounding in public health and medical research</a></li>
+<li class="chapter" data-level="3.2" data-path="observational-studies.html"><a href="observational-studies.html#exchangeability-positivity-and-consistency"><i class="fa fa-check"></i><b>3.2</b> Exchangeability, positivity, and consistency</a></li>
+<li class="chapter" data-level="3.3" data-path="observational-studies.html"><a href="observational-studies.html#effect-identification-in-observational-studies"><i class="fa fa-check"></i><b>3.3</b> Effect Identification in Observational Studies</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html"><i class="fa fa-check"></i><b>4</b> Randomized Controlled Trials (RCTs) and Quasi-Experiments</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#effect-modification-and-adjustment-methods"><i class="fa fa-check"></i><b>4.1</b> Effect Modification and Adjustment Methods</a></li>
+<li class="chapter" data-level="4.2" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#identifying-interaction"><i class="fa fa-check"></i><b>4.2</b> Identifying Interaction</a></li>
+<li class="chapter" data-level="4.3" data-path="randomized-controlled-trials-rcts-and-quasi-experiments.html"><a href="randomized-controlled-trials-rcts-and-quasi-experiments.html#effect-modification-vs-interaction"><i class="fa fa-check"></i><b>4.3</b> Effect Modification vs Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html"><i class="fa fa-check"></i><b>5</b> Introduction to Causal Diagrams</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#basic-principles-of-directed-acyclic-graphs-dags"><i class="fa fa-check"></i><b>5.1</b> Basic principles of directed acyclic graphs (DAGs)</a></li>
+<li class="chapter" data-level="5.2" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#common-causal-structures-in-public-health"><i class="fa fa-check"></i><b>5.2</b> Common Causal Structures in Public Health</a></li>
+<li class="chapter" data-level="5.3" data-path="introduction-to-causal-diagrams.html"><a href="introduction-to-causal-diagrams.html#using-dags-to-introduce-and-understand-selection-bias"><i class="fa fa-check"></i><b>5.3</b> Using DAGs to introduce and understand selection bias</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html"><i class="fa fa-check"></i><b>6</b> Effect Modification and Interaction</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#the-structure-of-confounding"><i class="fa fa-check"></i><b>6.1</b> The Structure of Confounding</a></li>
+<li class="chapter" data-level="6.2" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#how-to-adjust-for-confounding"><i class="fa fa-check"></i><b>6.2</b> How to Adjust for Confounding</a></li>
+<li class="chapter" data-level="6.3" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#the-form-of-selection-bias"><i class="fa fa-check"></i><b>6.3</b> The Form of Selection Bias</a></li>
+<li class="chapter" data-level="6.4" data-path="effect-modification-and-interaction.html"><a href="effect-modification-and-interaction.html#how-to-adjust-for-selection-bias"><i class="fa fa-check"></i><b>6.4</b> How to Adjust for Selection Bias</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html"><i class="fa fa-check"></i><b>7</b> Measurement, Missing Data, and Selection Bias</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#measurement-bias"><i class="fa fa-check"></i><b>7.1</b> Measurement Bias</a></li>
+<li class="chapter" data-level="7.2" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#non-causal-diagrams"><i class="fa fa-check"></i><b>7.2</b> Non-Causal Diagrams</a></li>
+<li class="chapter" data-level="7.3" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#publication-bias-and-p-hacking"><i class="fa fa-check"></i><b>7.3</b> Publication Bias and P-Hacking</a></li>
+<li class="chapter" data-level="7.4" data-path="measurement-missing-data-and-selection-bias.html"><a href="measurement-missing-data-and-selection-bias.html#over--and-mis-interpretation-of-statistical-analyses"><i class="fa fa-check"></i><b>7.4</b> Over- and Mis-Interpretation of Statistical Analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="from-identification-to-estimation.html"><a href="from-identification-to-estimation.html"><i class="fa fa-check"></i><b>8</b> From Identification to Estimation</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="from-identification-to-estimation.html"><a href="from-identification-to-estimation.html#identification-and-estimation"><i class="fa fa-check"></i><b>8.1</b> Identification and Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="systems-thinking-and-policy-translation.html"><a href="systems-thinking-and-policy-translation.html"><i class="fa fa-check"></i><b>9</b> Systems Thinking and Policy Translation</a></li>
+<li class="chapter" data-level="10" data-path="final-project-presentations.html"><a href="final-project-presentations.html"><i class="fa fa-check"></i><b>10</b> Final Project Presentations</a></li>
+<li class="divider"></li>
+<li><a href="https://www.falcobargaglistoffi.com/" target="blank">Instructor: Falco J. Bargagli-Stoffi</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="foundations-of-causal-thinking-in-public-health" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Foundations of Causal Thinking in Public Health<a href="foundations-of-causal-thinking-in-public-health.html#foundations-of-causal-thinking-in-public-health" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<blockquote>
+<h2 id="class-materials" class="hasAnchor">Class materials<a href="foundations-of-causal-thinking-in-public-health.html#class-materials" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Slides: <a href="https://drive.google.com/file/d/1ujOsEenrQy1sjIX4Zt_CfAqeF0o-KfY-/view?usp=sharing"><strong>Module 1</strong></a></p>
+<p>Recording: <a href="https://drive.google.com/file/d/14yxdT8so1w2LQV2pwoGm1ys3Ek5yuLET/view?usp=sharing"><strong>Module 1, Part 1.1</strong></a></p>
+<p>Recording: <a href="https://drive.google.com/file/d/1rUQnbOTkVk5DPu8Ghbu2W80NJ008Auyt/view?usp=sharing"><strong>Module 1, Part 2.1</strong></a></p>
+<p>Recording: <a href="https://drive.google.com/file/d/1hsA1CZ0jpVycsNmuH0A7C5AHmlvBpOvM/view?usp=sharing"><strong>Module 1, Part 2.2</strong></a></p>
+</blockquote>
+<blockquote>
+<h2 id="textbook-reading" class="hasAnchor">Textbook reading<a href="foundations-of-causal-thinking-in-public-health.html#textbook-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf"><strong>Hernán &amp; Robins, Causal Inference: What If – Chapters 1–2</strong></a></p>
+</blockquote>
+<blockquote>
+<h2 id="supplementary-reading" class="hasAnchor">Supplementary reading<a href="foundations-of-causal-thinking-in-public-health.html#supplementary-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://bayes.cs.ucla.edu/WHY/why-ch1.pdf"><strong>Pearl, J. and Mackenzie, D. (2018) The Book of Why: The New Science of Cause and Effect. Basic Books.</strong></a> Selected public health news articles (provided on the course site).</p>
+</blockquote>
+<blockquote>
+<h2 id="topics-covered" class="hasAnchor">Topics covered<a href="foundations-of-causal-thinking-in-public-health.html#topics-covered" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Association vs. Causation<br />
+</li>
+<li>Introduction to Counterfactuals and Potential Outcomes<br />
+</li>
+<li>Causal Estimands and Identification<br />
+</li>
+<li>Critical reading exercise: analyzing causal claims in public health news</li>
+</ul>
+</blockquote>
+<div id="association-vs.-causation" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Association vs. Causation<a href="foundations-of-causal-thinking-in-public-health.html#association-vs.-causation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Brief Discussion:</strong></p>
+<p><strong>Association</strong> refers to a statistical relationship or correlation between two variables, where changes in one variable are linked to changes in another. For example, there might be an association between ice cream sales and drowning incidents—both tend to increase during the summer. However, this does not mean one causes the other; rather, they are both influenced by a third factor: temperature. Association simply tells us that two variables move together in some way, but it does not imply that one variable directly affects or determines the other. These relationships are often observed in observational studies, where researchers record data without manipulating any variables.</p>
+<p><strong>Causation</strong>, on the other hand, implies a direct cause-and-effect relationship between two variables. If variable A causes variable B, then changes in A will produce changes in B. Establishing causation requires much stronger evidence than association and often involves controlled experiments, like randomized controlled trials, where researchers actively intervene and isolate variables to rule out confounding factors. In the ice cream example, just because two variables are associated doesn’t mean one causes the other—causation would only be claimed if rigorous testing shows that changes in one variable consistently lead to changes in the other, and alternative explanations have been ruled out.</p>
+<p><strong>Explanation of Simpson’s paradox</strong></p>
+<p><strong>Simpson’s Paradox</strong> is a concept in statistics where a trend or pattern observed within several groups is reversed when the groups are combined. This paradox occurs due to <strong>confounding variables</strong>. It highlights how the way data is aggregated can significantly alter the interpretation of the results.</p>
+<p>Within each group, there is a clear trend. However, when these groups are combined, the trend reverses because of the difference in weights and/or proportions within each group. A confounding variable is an unaccounted factor that has a direct effect on the relationship between the treatment and the effect. In Simpson’s Paradox, the confounding variable skews the results because it creates an imbalance between the two treatments.</p>
+<p>Simpson’s Paradox shows the importance of looking at data closely within groups rather than only looking at the aggregated data. It underscores the importance of considering context and tells a cautionary tale of how misinterpretations of data can lead to consequences. Before drawing conclusions, we must analyze data at the most specific level and consider all possible confounding variables.</p>
+<p>Here is a real-world example to consider. Imagine a hospital testing two treatments for pneumonia. Treatment A is given to mostly patients with mild cases of pneumonia, while treatment B is given to mostly given to patients with severe cases of pneumonia. When you examine each vaccine’s efficacy for each severity group (mild or severe), it seems that treatment B is slightly more effective than treatment A. However, when you look at treatment A and B as a whole without regarding the severity of the cases, then vaccine A looks to be more effective because the majority of patients who receive it have mild cases of pneumonia, bringing down the average death rate. I simulated the study 2000 times. In the end, I produced a 2 by 3 table with the average death rate in each matrix. This helped show that while there are variations between different studies, the overall average of 2000 studies is pretty similar to the expected values for each group.</p>
+<p>Next, I created two graphs demonstrating the effects of Simpson’s Paradox. The first graph illustrates the overall effects of Treatment A and Treatment B without considering disease severity as a confounding factor. Each treatment contains 2,000 data points, where each point represents the death rate for that treatment in a single simulation. The x-axis distinguishes between the two treatments, while the y-axis represents the risk of death. A linear model was then fitted to connect the two treatments, showing the overall trend in death risk between Treatment A and Treatment B. However, this graph does not account for the severity of the disease.</p>
+<p>The second graph accounts for disease severity, revealing the true relationship between treatment and death risk. I separated data into four groups: Mild and Treatment A, Mild and Treatment B, Severe and Treatment A, and Severe and Treatment B, with each group containing 2,000 data points representing death rates from individual simulations. Instead of a single linear model, two separate models are fitted; one for Mild cases and one for Severe cases. In the end, it is clear that Treatment B results in lower death risk than Treatment A within each severity group. This demonstrates Simpson’s Paradox, where the overall trend in the first graph is misleading because it fails to account for the confounding effect of disease severity.</p>
+<p>Lastly, this regression model quantifies the relationship between treatment, disease severity, and their influence on death risk. The dependent variable (response variable) is death risk, while the independent variables include treatment type (0 = Treatment A, 1 = Treatment B), disease severity (0 = Mild, 1 = Severe), and an interaction term (Treatment × Severity). The model estimates how switching treatments and increasing severity affect death risk, as well as whether the effectiveness of a treatment changes depending on severity. If the interaction term (between the treatment and the severity) is significant, it indicates that the effect of treatment differs for mild and severe cases, further confirming the presence of Simpson’s Paradox in the dataset.</p>
+<p><strong>Step 1: Simulate Data and Compute Death Rates Across Groups</strong></p>
+<ul>
+<li>Simulated data for 2,000 trials of patients by severity and treatment.<br />
+</li>
+<li>Stored average death rates for each subgroup and for Treatment A vs B.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-1" tabindex="-1"></a><span class="co"># library(ggplot2)</span></span>
+<span id="cb5-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-2" tabindex="-1"></a><span class="co"># library(dplyr)</span></span>
+<span id="cb5-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-4" tabindex="-1"></a>n_simulations <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb5-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-6" tabindex="-1"></a>rate11 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Mild &amp; Treatment A</span></span>
+<span id="cb5-7"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-7" tabindex="-1"></a>rate12 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Mild &amp; Treatment B</span></span>
+<span id="cb5-8"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-8" tabindex="-1"></a>rate21 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Severe &amp; Treatment A</span></span>
+<span id="cb5-9"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-9" tabindex="-1"></a>rate22 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Severe &amp; Treatment B</span></span>
+<span id="cb5-10"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-10" tabindex="-1"></a>rate1  <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Overall Treatment A</span></span>
+<span id="cb5-11"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-11" tabindex="-1"></a>rate2  <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)  <span class="co"># Overall Treatment B</span></span>
+<span id="cb5-12"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-12" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-13" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_simulations) {</span>
+<span id="cb5-14"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-14" tabindex="-1"></a>  severity <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Severe&quot;</span>), <span class="at">each =</span> <span class="dv">700</span>)</span>
+<span id="cb5-15"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-15" tabindex="-1"></a>  treatment <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Treatment A&quot;</span>, <span class="dv">600</span>), <span class="fu">rep</span>(<span class="st">&quot;Treatment B&quot;</span>, <span class="dv">100</span>), </span>
+<span id="cb5-16"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-16" tabindex="-1"></a>                 <span class="fu">rep</span>(<span class="st">&quot;Treatment A&quot;</span>, <span class="dv">100</span>), <span class="fu">rep</span>(<span class="st">&quot;Treatment B&quot;</span>, <span class="dv">600</span>))</span>
+<span id="cb5-17"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-17" tabindex="-1"></a>  outcome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rbinom</span>(<span class="dv">600</span>, <span class="dv">1</span>, <span class="fl">0.15</span>), <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="fl">0.1</span>), <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="fl">0.3</span>), </span>
+<span id="cb5-18"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-18" tabindex="-1"></a>               <span class="fu">rbinom</span>(<span class="dv">600</span>, <span class="dv">1</span>, <span class="fl">0.2</span>))</span>
+<span id="cb5-19"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-19" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-20" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Severity =</span> severity, <span class="at">Treatment =</span> treatment, </span>
+<span id="cb5-21"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-21" tabindex="-1"></a>                     <span class="at">Outcome =</span> outcome)</span>
+<span id="cb5-22"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-22" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-23" tabindex="-1"></a>  death_counts <span class="ot">&lt;-</span> <span class="fu">tapply</span>(data<span class="sc">$</span>Outcome, <span class="fu">list</span>(data<span class="sc">$</span>Severity, data<span class="sc">$</span>Treatment), </span>
+<span id="cb5-24"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-24" tabindex="-1"></a>                         sum)</span>
+<span id="cb5-25"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-25" tabindex="-1"></a>  total_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(data<span class="sc">$</span>Severity, data<span class="sc">$</span>Treatment)</span>
+<span id="cb5-26"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-26" tabindex="-1"></a>  proportions <span class="ot">&lt;-</span> death_counts <span class="sc">/</span> total_counts</span>
+<span id="cb5-27"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-27" tabindex="-1"></a>  </span>
+<span id="cb5-28"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-28" tabindex="-1"></a>  rate11[i] <span class="ot">&lt;-</span> proportions[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>]</span>
+<span id="cb5-29"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-29" tabindex="-1"></a>  rate12[i] <span class="ot">&lt;-</span> proportions[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>]</span>
+<span id="cb5-30"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-30" tabindex="-1"></a>  rate21[i] <span class="ot">&lt;-</span> proportions[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>]</span>
+<span id="cb5-31"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-31" tabindex="-1"></a>  rate22[i] <span class="ot">&lt;-</span> proportions[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>]</span>
+<span id="cb5-32"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-32" tabindex="-1"></a>  </span>
+<span id="cb5-33"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-33" tabindex="-1"></a>  rate1[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(death_counts[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>], </span>
+<span id="cb5-34"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-34" tabindex="-1"></a>                  death_counts[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>]) <span class="sc">/</span> </span>
+<span id="cb5-35"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-35" tabindex="-1"></a>              <span class="fu">sum</span>(total_counts[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>], </span>
+<span id="cb5-36"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-36" tabindex="-1"></a>                  total_counts[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment A&quot;</span>]) </span>
+<span id="cb5-37"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-37" tabindex="-1"></a>  rate2[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(death_counts[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>], </span>
+<span id="cb5-38"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-38" tabindex="-1"></a>                  death_counts[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>]) <span class="sc">/</span> </span>
+<span id="cb5-39"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-39" tabindex="-1"></a>              <span class="fu">sum</span>(total_counts[<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>], </span>
+<span id="cb5-40"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-40" tabindex="-1"></a>                  total_counts[<span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>])</span>
+<span id="cb5-41"><a href="foundations-of-causal-thinking-in-public-health.html#cb5-41" tabindex="-1"></a>}</span></code></pre></div>
+<p><strong>Step 2: Summary Table of Death Rates</strong></p>
+<ul>
+<li>Calculated average death rates for each group and printed a summary table.</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-1" tabindex="-1"></a>avg_rate11 <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate11) <span class="sc">*</span> <span class="dv">100</span>  </span>
+<span id="cb6-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-2" tabindex="-1"></a>avg_rate12 <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate12) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb6-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-3" tabindex="-1"></a>avg_rate21 <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate21) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb6-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-4" tabindex="-1"></a>avg_rate22 <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate22) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb6-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-5" tabindex="-1"></a>avg_rate1  <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate1) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb6-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-6" tabindex="-1"></a>avg_rate2  <span class="ot">&lt;-</span> <span class="fu">mean</span>(rate2) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb6-7"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-7" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-8" tabindex="-1"></a>final_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-9"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-9" tabindex="-1"></a>  <span class="at">Treatment =</span> <span class="fu">c</span>(<span class="st">&quot;Treatment A&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>),</span>
+<span id="cb6-10"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-10" tabindex="-1"></a>  <span class="at">Mild_Avg =</span> <span class="fu">paste</span>(<span class="fu">round</span>(<span class="fu">c</span>(avg_rate11, avg_rate12), <span class="dv">1</span>), <span class="st">&quot;%&quot;</span>),</span>
+<span id="cb6-11"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-11" tabindex="-1"></a>  <span class="at">Severe_Avg =</span> <span class="fu">paste</span>(<span class="fu">round</span>(<span class="fu">c</span>(avg_rate21, avg_rate22), <span class="dv">1</span>), <span class="st">&quot;%&quot;</span>),</span>
+<span id="cb6-12"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-12" tabindex="-1"></a>  <span class="at">Total_Avg =</span> <span class="fu">paste</span>(<span class="fu">round</span>(<span class="fu">c</span>(avg_rate1, avg_rate2), <span class="dv">1</span>), <span class="st">&quot;%&quot;</span>)</span>
+<span id="cb6-13"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-13" tabindex="-1"></a>)</span>
+<span id="cb6-14"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-14" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="foundations-of-causal-thinking-in-public-health.html#cb6-15" tabindex="-1"></a>final_table</span></code></pre></div>
+<pre><code>##     Treatment Mild_Avg Severe_Avg Total_Avg
+## 1 Treatment A     15 %       30 %    17.1 %
+## 2 Treatment B     10 %     19.9 %    18.5 %</code></pre>
+<p><strong>Step 3: Visualizing Simpson’s Paradox</strong></p>
+<p>This code creates two plots:<br />
+1. Overall trend ignoring severity
+2. Subgroup trends by severity</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-1" tabindex="-1"></a><span class="fu">suppressWarnings</span>({</span>
+<span id="cb8-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-2" tabindex="-1"></a>  <span class="co"># library(gridExtra)</span></span>
+<span id="cb8-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-4" tabindex="-1"></a>  <span class="co"># Plot 1: Overall treatment death risk comparison</span></span>
+<span id="cb8-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-5" tabindex="-1"></a>  overall_plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-6" tabindex="-1"></a>    <span class="at">X_Pos =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">each =</span> n_simulations), </span>
+<span id="cb8-7"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-7" tabindex="-1"></a>    <span class="at">Death_rate =</span> <span class="fu">c</span>(rate1, rate2),  </span>
+<span id="cb8-8"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-8" tabindex="-1"></a>    <span class="at">Treatment =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Treatment A&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>), <span class="at">each =</span> n_simulations)</span>
+<span id="cb8-9"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-9" tabindex="-1"></a>  )</span>
+<span id="cb8-10"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-10" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-11" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(overall_plot_data, <span class="fu">aes</span>(<span class="at">x =</span> X_Pos, <span class="at">y =</span> Death_rate, </span>
+<span id="cb8-12"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-12" tabindex="-1"></a>                                      <span class="at">color =</span> Treatment)) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-13" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.05</span>), </span>
+<span id="cb8-14"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-14" tabindex="-1"></a>               <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb8-15"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-15" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">xend =</span> <span class="dv">2</span>, <span class="at">y =</span> avg_rate1 <span class="sc">/</span> <span class="dv">100</span>, </span>
+<span id="cb8-16"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-16" tabindex="-1"></a>                     <span class="at">yend =</span> avg_rate2 <span class="sc">/</span> <span class="dv">100</span>), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-17"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-17" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb8-18"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-18" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Treatment A&quot;</span>, <span class="st">&quot;Treatment B&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb8-19"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-19" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Treatment A&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb8-20"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-20" tabindex="-1"></a>                                  <span class="st">&quot;Treatment B&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb8-21"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-21" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Overall Trend (Simpson&#39;s Paradox)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb8-22"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-22" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&quot;Risk of Death&quot;</span>)</span>
+<span id="cb8-23"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-23" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-24" tabindex="-1"></a>  <span class="co"># Plot 2: By severity</span></span>
+<span id="cb8-25"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-25" tabindex="-1"></a>  plot_data_p2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-26"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-26" tabindex="-1"></a>    <span class="at">X_Pos =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">each =</span> n_simulations),</span>
+<span id="cb8-27"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-27" tabindex="-1"></a>    <span class="at">Death_rate =</span> <span class="fu">c</span>(rate11, rate12, rate21, rate22),</span>
+<span id="cb8-28"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-28" tabindex="-1"></a>    <span class="at">Group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Mild - A&quot;</span>, <span class="st">&quot;Mild - B&quot;</span>, <span class="st">&quot;Severe - A&quot;</span>, <span class="st">&quot;Severe - B&quot;</span>), </span>
+<span id="cb8-29"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-29" tabindex="-1"></a>                <span class="at">each =</span> n_simulations),</span>
+<span id="cb8-30"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-30" tabindex="-1"></a>    <span class="at">Severity =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Severe&quot;</span>, <span class="st">&quot;Severe&quot;</span>), <span class="at">each =</span> n_simulations)</span>
+<span id="cb8-31"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-31" tabindex="-1"></a>  )</span>
+<span id="cb8-32"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-32" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-33" tabindex="-1"></a>  p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(plot_data_p2, <span class="fu">aes</span>(<span class="at">x =</span> X_Pos, <span class="at">y =</span> Death_rate, <span class="at">color =</span> Group)) <span class="sc">+</span></span>
+<span id="cb8-34"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-34" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.05</span>)) <span class="sc">+</span></span>
+<span id="cb8-35"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-35" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">data =</span> <span class="fu">subset</span>(plot_data_p2, Severity <span class="sc">==</span> <span class="st">&quot;Mild&quot;</span>), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb8-36"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-36" tabindex="-1"></a>                <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-37"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-37" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">data =</span> <span class="fu">subset</span>(plot_data_p2, Severity <span class="sc">==</span> <span class="st">&quot;Severe&quot;</span>), </span>
+<span id="cb8-38"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-38" tabindex="-1"></a>                <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-39"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-39" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, </span>
+<span id="cb8-40"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-40" tabindex="-1"></a>              <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Mild - A&quot;</span>, <span class="st">&quot;Mild - B&quot;</span>, <span class="st">&quot;Severe - A&quot;</span>, <span class="st">&quot;Severe - B&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb8-41"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-41" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Mild - A&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;Mild - B&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb8-42"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-42" tabindex="-1"></a>                                  <span class="st">&quot;Severe - A&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkred&quot;</span>, </span>
+<span id="cb8-43"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-43" tabindex="-1"></a>                                  <span class="st">&quot;Severe - B&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkblue&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb8-44"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-44" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Risk by Severity (Mild vs. Severe)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb8-45"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-45" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&quot;Risk of Death&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-46"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-46" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb8-47"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-47" tabindex="-1"></a></span>
+<span id="cb8-48"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-48" tabindex="-1"></a>  <span class="fu">grid.arrange</span>(p1, p2, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb8-49"><a href="foundations-of-causal-thinking-in-public-health.html#cb8-49" tabindex="-1"></a>})</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><strong>Step 4: Fit Regression Model to Test for Interaction</strong></p>
+<ul>
+<li>Fitted a linear model to estimate how treatment and severity affect death risk<br />
+</li>
+<li>Graphed if there’s an interaction between them</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-1" tabindex="-1"></a>regression_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb10-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-2" tabindex="-1"></a>  <span class="at">Death_rate =</span> <span class="fu">c</span>(rate11, rate12, rate21, rate22),</span>
+<span id="cb10-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-3" tabindex="-1"></a>  <span class="at">Treatment =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">each =</span> n_simulations),</span>
+<span id="cb10-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-4" tabindex="-1"></a>  <span class="at">Severity =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">each =</span> n_simulations)</span>
+<span id="cb10-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-5" tabindex="-1"></a>)</span>
+<span id="cb10-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-6" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-7" tabindex="-1"></a>regression_data<span class="sc">$</span>Interaction <span class="ot">&lt;-</span> regression_data<span class="sc">$</span>Treatment <span class="sc">*</span> </span>
+<span id="cb10-8"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-8" tabindex="-1"></a>  regression_data<span class="sc">$</span>Severity</span>
+<span id="cb10-9"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-9" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-10" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Death_rate <span class="sc">~</span> Treatment <span class="sc">+</span> Severity <span class="sc">+</span> Interaction, </span>
+<span id="cb10-11"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-11" tabindex="-1"></a>            <span class="at">data =</span> regression_data)</span>
+<span id="cb10-12"><a href="foundations-of-causal-thinking-in-public-health.html#cb10-12" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Death_rate ~ Treatment + Severity + Interaction, 
+##     data = regression_data)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.139980 -0.015903 -0.000175  0.015354  0.160020 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.1496458  0.0006593  226.97   &lt;2e-16 ***
+## Treatment   -0.0494708  0.0009324  -53.06   &lt;2e-16 ***
+## Severity     0.1503342  0.0009324  161.23   &lt;2e-16 ***
+## Interaction -0.0512733  0.0013187  -38.88   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.02949 on 7996 degrees of freedom
+## Multiple R-squared:  0.8627, Adjusted R-squared:  0.8627 
+## F-statistic: 1.675e+04 on 3 and 7996 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="introduction-to-counterfactuals-and-potential-outcomes" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Introduction to Counterfactuals and Potential Outcomes<a href="foundations-of-causal-thinking-in-public-health.html#introduction-to-counterfactuals-and-potential-outcomes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>At the heart of causal inference lies a simple yet powerful idea: counterfactuals — what would have happened if something else had occurred. To formalize this, the Potential Outcomes Framework defines two outcomes for each individual:</p>
+<p>Y(1): The outcome if the individual receives the treatment<br />
+Y(0): The outcome if the individual does not receive the treatment<br />
+The causal effect for an individual is the difference: τi = Yi(1) − Yi(0)</p>
+<p>But here’s the catch: we can never observe both outcomes for the same person. This is known as the Fundamental Problem of Causal Inference. We only observe the outcome under the condition that actually occurred — everything else is unobserved, or counterfactual.</p>
+<p>As shown in the Simpson’s Paradox example above, failing to account for confounding variables can lead to conclusions that completely misrepresent the true causal effect. When we simply compare outcomes between treated and untreated groups without considering differences in their underlying characteristics (like disease severity), we risk attributing differences to the treatment that are actually due to selection bias. By thinking in terms of potential outcomes — what would have happened under treatment vs. no treatment — we can see how causal claims require more than just association. This framework makes clear that understanding the data-generating process is critical, and it motivates the need for methods that can uncover hidden structure in the data.</p>
+<p>While the average treatment effect (ATE) helps summarize the overall impact of a treatment, it often masks important variation across individuals. In practice, not everyone responds to treatment the same way — some benefit more than others, and some may even be harmed. This brings us to the concept of the Individual Treatment Effect (ITE), which asks: what was the treatment effect for this specific person? Although we can never observe both potential outcomes for a single individual, we can use modeling techniques to estimate ITEs and explore treatment effect heterogeneity. The following example demonstrates how this was done using simulated data.</p>
+<p><strong>Individual Treatment Effect (ITE)</strong></p>
+<p>In causal inference, the <strong>Individual Treatment Effect</strong> (ITE) measures how much one specific patient benefits from a treatment. ITE focuses on personalized benefits - how much an intervention would change the outcome for each person at the same time. The formula for the ITE is Yi(1) - Yi(0), where Yi(1) is the outcome if the person receives the treatment while Yi(0) is the outcome if the person does not receive the treatment.</p>
+<p>A fundamental problem in causal inference is that we can never observe both Yi(1) and Yi(0) for the same person, because each person either receives the treatment or does not, meaning one of the outcomes is missing. This is known as the fundamental problem of causal inference, and because of this, we use statistical methodologies and machine learning techniques to estimate ITE.</p>
+<p>To do this, I simulated healthcare data.</p>
+<p><strong>Simulating the Patient Data</strong></p>
+<ul>
+<li>Simulated 2,000 individuals, each with baseline characteristics: age, BMI, and cholesterol.<br />
+</li>
+<li>Treatment assignment is based on a model where older individuals with higher cholesterol are more likely to receive treatment.<br />
+</li>
+<li>Generated two potential outcomes for each individual: Y(0) (if untreated) and Y(1) (if treated).<br />
+</li>
+<li>The observed outcome depends on whether each person actually received treatment or not.<br />
+</li>
+<li>Calculated the true individual treatment effect (ITE) as the difference between Y(1) and Y(0).</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-1" tabindex="-1"></a><span class="co"># Simulate data for 2,000 individuals</span></span>
+<span id="cb12-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb12-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-4" tabindex="-1"></a><span class="co"># Generate baseline covariates (age, BMI, cholesterol)</span></span>
+<span id="cb12-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-5" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)           </span>
+<span id="cb12-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-6" tabindex="-1"></a><span class="co"># Normally distributed age centered around 50</span></span>
+<span id="cb12-7"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-7" tabindex="-1"></a>bmi <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">25</span>, <span class="at">sd =</span> <span class="dv">4</span>)            </span>
+<span id="cb12-8"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-8" tabindex="-1"></a><span class="co"># BMI centered around 25</span></span>
+<span id="cb12-9"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-9" tabindex="-1"></a>cholesterol <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">200</span>, <span class="at">sd =</span> <span class="dv">30</span>)  </span>
+<span id="cb12-10"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-10" tabindex="-1"></a><span class="co"># Cholesterol centered around 200</span></span>
+<span id="cb12-11"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-11" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-12" tabindex="-1"></a><span class="co"># Simulate treatment assignment using logistic regression:</span></span>
+<span id="cb12-13"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-13" tabindex="-1"></a><span class="co"># Older individuals with higher cholesterol are more likely to be treated</span></span>
+<span id="cb12-14"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-14" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">plogis</span>(<span class="fl">0.05</span> <span class="sc">*</span> age <span class="sc">+</span> <span class="fl">0.01</span> <span class="sc">*</span> cholesterol <span class="sc">-</span> <span class="dv">2</span>))</span>
+<span id="cb12-15"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-15" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-16" tabindex="-1"></a><span class="co"># Simulate potential outcome without treatment (Y(0))</span></span>
+<span id="cb12-17"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-17" tabindex="-1"></a><span class="co"># Outcome depends on age, BMI, and cholesterol plus random noise</span></span>
+<span id="cb12-18"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-18" tabindex="-1"></a>y_0 <span class="ot">&lt;-</span> <span class="dv">140</span> <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> age <span class="sc">+</span> <span class="fl">0.3</span> <span class="sc">*</span> bmi <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> cholesterol <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb12-19"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-19" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-20" tabindex="-1"></a><span class="co"># Simulate potential outcome with treatment (Y(1))</span></span>
+<span id="cb12-21"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-21" tabindex="-1"></a><span class="co"># Treatment effect varies with age and cholesterol and adds its own noise</span></span>
+<span id="cb12-22"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-22" tabindex="-1"></a>y_1 <span class="ot">&lt;-</span> y_0 <span class="sc">-</span> (<span class="dv">40</span> <span class="sc">+</span> <span class="fl">1.0</span> <span class="sc">*</span> age <span class="sc">-</span> <span class="fl">0.3</span> <span class="sc">*</span> cholesterol) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb12-23"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-23" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-24" tabindex="-1"></a><span class="co"># Observed outcome: if treated, observe Y(1); otherwise, observe Y(0)</span></span>
+<span id="cb12-25"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-25" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(treatment <span class="sc">==</span> <span class="dv">1</span>, y_1, y_0)</span>
+<span id="cb12-26"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-26" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-27" tabindex="-1"></a><span class="co"># Calculate the true Individual Treatment Effect (ITE)</span></span>
+<span id="cb12-28"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-28" tabindex="-1"></a>true_ite <span class="ot">&lt;-</span> y_1 <span class="sc">-</span> y_0  <span class="co"># Difference between potential outcomes for each person</span></span>
+<span id="cb12-29"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-29" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-30" tabindex="-1"></a><span class="co"># Combine into a data frame for analysis</span></span>
+<span id="cb12-31"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-31" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb12-32"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-32" tabindex="-1"></a>  age,</span>
+<span id="cb12-33"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-33" tabindex="-1"></a>  bmi,</span>
+<span id="cb12-34"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-34" tabindex="-1"></a>  cholesterol,</span>
+<span id="cb12-35"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-35" tabindex="-1"></a>  treatment,</span>
+<span id="cb12-36"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-36" tabindex="-1"></a>  y,           <span class="co"># observed outcome</span></span>
+<span id="cb12-37"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-37" tabindex="-1"></a>  true_ite     <span class="co"># the true (unobserved) individual causal effect</span></span>
+<span id="cb12-38"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-38" tabindex="-1"></a>)</span>
+<span id="cb12-39"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-39" tabindex="-1"></a></span>
+<span id="cb12-40"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-40" tabindex="-1"></a><span class="co"># Preview the first few rows of the dataset</span></span>
+<span id="cb12-41"><a href="foundations-of-causal-thinking-in-public-health.html#cb12-41" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##        age      bmi cholesterol treatment        y   true_ite
+## 1 54.45999 27.08737    181.6246         1 113.1107 -38.728938
+## 2 50.64002 29.62283    168.6709         1 110.8176 -40.852011
+## 3 39.66598 26.73194    223.0281         1 162.3560 -13.976386
+## 4 61.29016 22.67335    170.9318         1 103.2053 -49.593669
+## 5 23.78709 23.74274    245.7394         1 197.9835   9.149834
+## 6 66.48774 26.10152    249.8538         1 128.4293 -33.076054</code></pre>
+<p>Next, I estimated treatment effects using regression. Since I can’t observe both Y(0) and Y(1) for any individual, I used separate regressions for treatment and control groups. I used the models to predict counter factual outcomes for all patients and to compute the estimated ITE as the difference between Y(1) and Y(0).</p>
+<p><strong>Estimate Treatment Effects Using Regression</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb14-1" tabindex="-1"></a>control_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> age <span class="sc">+</span> bmi <span class="sc">+</span> cholesterol, <span class="at">data =</span> data, </span>
+<span id="cb14-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb14-2" tabindex="-1"></a>                    <span class="at">subset =</span> (treatment <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb14-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb14-3" tabindex="-1"></a>treatment_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> age <span class="sc">+</span> bmi <span class="sc">+</span> cholesterol, <span class="at">data =</span> data, </span>
+<span id="cb14-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb14-4" tabindex="-1"></a>                      <span class="at">subset =</span> (treatment <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb14-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb14-5" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb14-6" tabindex="-1"></a>data<span class="sc">$</span>y0_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(control_model, <span class="at">newdata =</span> data) </span>
+<span id="cb14-7"><a href="foundations-of-causal-thinking-in-public-health.html#cb14-7" tabindex="-1"></a>data<span class="sc">$</span>y1_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(treatment_model, <span class="at">newdata =</span> data) </span>
+<span id="cb14-8"><a href="foundations-of-causal-thinking-in-public-health.html#cb14-8" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="foundations-of-causal-thinking-in-public-health.html#cb14-9" tabindex="-1"></a>data<span class="sc">$</span>ite_estimate <span class="ot">&lt;-</span> data<span class="sc">$</span>y1_hat <span class="sc">-</span> data<span class="sc">$</span>y0_hat</span>
+<span id="cb14-10"><a href="foundations-of-causal-thinking-in-public-health.html#cb14-10" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="foundations-of-causal-thinking-in-public-health.html#cb14-11" tabindex="-1"></a><span class="fu">head</span>(data[<span class="fu">c</span>(<span class="st">&quot;ite_estimate&quot;</span>, <span class="st">&quot;y0_hat&quot;</span>, <span class="st">&quot;y1_hat&quot;</span>)])</span></code></pre></div>
+<pre><code>##   ite_estimate   y0_hat   y1_hat
+## 1   -39.655480 156.8443 117.1888
+## 2   -39.843190 157.0249 117.1817
+## 3   -13.511383 173.6179 160.1065
+## 4   -48.940451 149.2109 100.2705
+## 5     8.606381 185.9213 194.5277
+## 6   -31.876970 164.8660 132.9890</code></pre>
+<p>Now, I plotted the true ITE vs the estimated ITE. Here, each point is a patient, and the red dashed line represents the ideal estimation. If the point fits well with the line, then the model is accurate.</p>
+<p><strong>Visualizing the Estimated ITE</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb16-1" tabindex="-1"></a><span class="co"># library(ggplot2)</span></span>
+<span id="cb16-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb16-3" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> true_ite, <span class="at">y =</span> ite_estimate)) <span class="sc">+</span> </span>
+<span id="cb16-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb16-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb16-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb16-5" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb16-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb16-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Estimated ITE vs True ITE (Blood Pressure Reduction)&quot;</span>,</span>
+<span id="cb16-7"><a href="foundations-of-causal-thinking-in-public-health.html#cb16-7" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">&quot;True ITE&quot;</span>,</span>
+<span id="cb16-8"><a href="foundations-of-causal-thinking-in-public-health.html#cb16-8" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">&quot;Estimated ITE&quot;</span>)</span></code></pre></div>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><strong>Visualizing the Esimated ITE Without Looking at Confounding</strong></p>
+<ul>
+<li>Estimated average potential outcomes without adjusting for covariates.<br />
+</li>
+<li>Filled in predicted values based on group averages.</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb17-1" tabindex="-1"></a>y0_hat_simple <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>y[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>])  </span>
+<span id="cb17-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb17-2" tabindex="-1"></a>y1_hat_simple <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>y[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>])  </span>
+<span id="cb17-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb17-3" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb17-4" tabindex="-1"></a>data<span class="sc">$</span>y0_hat_simple <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>, y0_hat_simple, data<span class="sc">$</span>y)  </span>
+<span id="cb17-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb17-5" tabindex="-1"></a>data<span class="sc">$</span>y1_hat_simple <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>, y1_hat_simple, data<span class="sc">$</span>y)  </span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb18-1" tabindex="-1"></a>data<span class="sc">$</span>ite_estimate_simple <span class="ot">&lt;-</span> data<span class="sc">$</span>y1_hat_simple <span class="sc">-</span> data<span class="sc">$</span>y0_hat_simple</span>
+<span id="cb18-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb18-2" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb18-3" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> true_ite, <span class="at">y =</span> ite_estimate_simple)) <span class="sc">+</span> </span>
+<span id="cb18-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb18-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb18-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb18-5" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb18-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb18-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Estimated ITE vs True ITE (No Confounder Adjustment)&quot;</span>,</span>
+<span id="cb18-7"><a href="foundations-of-causal-thinking-in-public-health.html#cb18-7" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;True ITE&quot;</span>,</span>
+<span id="cb18-8"><a href="foundations-of-causal-thinking-in-public-health.html#cb18-8" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Estimated ITE (Unadjusted)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb18-9"><a href="foundations-of-causal-thinking-in-public-health.html#cb18-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Here are the top 10 patients who benefited the most from the treatment. This helps me identify patients who are most likely to benefit, as well as focus on individuals with high predicted response.</p>
+<p><strong>Patients Who Benefit Most</strong></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb19-1" tabindex="-1"></a>top_beneficiaries <span class="ot">&lt;-</span> data[<span class="fu">order</span>(data<span class="sc">$</span>ite_estimate), ][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span>
+<span id="cb19-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb19-2" tabindex="-1"></a>top_beneficiaries[, <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;bmi&quot;</span>, <span class="st">&quot;cholesterol&quot;</span>, <span class="st">&quot;ite_estimate&quot;</span>)]</span></code></pre></div>
+<pre><code>##           age      bmi cholesterol ite_estimate
+## 97   78.34695 26.60703    136.3093    -75.66425
+## 1333 69.82785 23.76342    133.3150    -68.00008
+## 782  70.65504 25.29655    137.1374    -67.84998
+## 891  64.27831 34.47367    127.3768    -65.22164
+## 1840 74.22162 22.04756    162.2989    -63.88936
+## 152  67.10504 22.64657    139.1550    -63.60310
+## 166  74.25892 28.89061    169.1569    -62.56825
+## 1363 73.34981 24.51405    167.5176    -61.77414
+## 303  74.46456 24.30520    171.3490    -61.75056
+## 1145 79.35448 23.71253    189.6881    -61.24000</code></pre>
+</div>
+<div id="causal-estimands-and-identification" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Causal Estimands and Identification<a href="foundations-of-causal-thinking-in-public-health.html#causal-estimands-and-identification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Causal estimands are the quantities we aim to estimate to understand the effect of a treatment or intervention. The most common estimands include:<br />
+- Average Treatment Effect (ATE): Measures the average difference in outcomes if everyone received the treatment versus if no one did.<br />
+- Average Treatment Effect on the Treated (ATT): Measures the effect of treatment for those who actually received the treatment.<br />
+- Average Treatment Effect on the Controls (ATC): Measures the effect for those who did not receive the treatment.<br />
+- Conditional Average Treatment Effect (CATE): Measures the treatment effect for subgroups defined by observed characteristics (e.g., older vs. younger patients).</p>
+<p>Identification is the process of linking a causal estimand (like ATE) to observable data. Without valid identification, any estimates we produce may be biased or incorrect. One major challenge in causal inference is that we can never observe both potential outcomes for the same person — only the outcome under the actual treatment they received. This is the Fundamental Problem of Causal Inference.</p>
+<p>To overcome this, we make assumptions (like unconfoundedness or selection on observables) and use statistical models to estimate the missing potential outcome.</p>
+<p><strong>Conditional Average Treatment Effect (CATE)</strong></p>
+<p>The Conditional Average Treatment Effect (CATE) represents the expected treatment effect for a specific subgroup of patients with a particular characteristic. Unlike the Average Treatment Effect (ATE), which measures the treatment’s effect on the entire population, CATE understands that the population is not homogeneous and conditions on certain variables (e.g. age, BMI, cholesterol). CATE can be described as E[Y(1) - Y(0) | X], where X is the observed characteristics. This allows researchers to see which groups benefit more or less from a treatment, which can in-turn affect future decisions.</p>
+<p>For example, in clinical trials, a drug may work more effectively for older patients than younger ones. Another example would be a job program working more effectively on people with college degrees than people without college degrees. Estimating CATE allows business owners, researchers, and policymakers to make effective decisions that optimize outcomes for all groups.</p>
+<p>To estimate CATE from observational data, I fitted separate predictive models for the treated and control groups and then computed the expected difference in outcomes for different subgroups. I estimated the CATE for age groups by splitting the data into younger individuals (age &lt; 40 years) and older individuals (age &gt;= 40 years) and then computing the average Individual Treatment Effect (ITE) within each group.</p>
+<p><strong>Computing the Conditional Average Treatment Effect (CATE) for Age Groups</strong></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb21-1" tabindex="-1"></a>threshold <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb21-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb21-3" tabindex="-1"></a>cate_young <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>age <span class="sc">&lt;</span> threshold])</span>
+<span id="cb21-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb21-4" tabindex="-1"></a>cate_old <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>age <span class="sc">&gt;=</span> threshold])</span></code></pre></div>
+<p>Finally, I stored and display the CATE results.</p>
+<p><strong>Store and Display CATE Results</strong></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb22-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb22-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb22-2" tabindex="-1"></a>  <span class="at">age_group =</span> <span class="fu">c</span>(<span class="st">&quot;&lt; 40 years&quot;</span>, <span class="st">&quot;&gt;= 40 years&quot;</span>),</span>
+<span id="cb22-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb22-3" tabindex="-1"></a>  <span class="at">cate_estimate =</span> <span class="fu">c</span>(cate_young, cate_old)</span>
+<span id="cb22-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb22-4" tabindex="-1"></a>)</span>
+<span id="cb22-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb22-5" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb22-6" tabindex="-1"></a><span class="fu">print</span>(results)</span></code></pre></div>
+<pre><code>##     age_group cate_estimate
+## 1  &lt; 40 years     -22.50015
+## 2 &gt;= 40 years     -37.69914</code></pre>
+<p>From the table, we can see that the CATE is more negative for older individuals, meaning that the treatment appears to be more effective for people older than 40. Because the CATE for younger individuals is lower, this means that the treatment is less effective for young people. This shows that age influences the effectiveness of the treatment. Here is a visualization of the CATE estimates.</p>
+<p><strong>Visualization of the CATE Effects Based on Age</strong></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-1" tabindex="-1"></a>cate_young_se <span class="ot">&lt;-</span> <span class="fu">sd</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>age <span class="sc">&lt;</span> threshold]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span>age <span class="sc">&lt;</span> threshold))</span>
+<span id="cb24-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-2" tabindex="-1"></a>cate_old_se <span class="ot">&lt;-</span> <span class="fu">sd</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>age <span class="sc">&gt;=</span> threshold]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span>age <span class="sc">&gt;=</span> threshold))</span>
+<span id="cb24-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-3" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-4" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb24-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-5" tabindex="-1"></a>  <span class="at">age_group =</span> <span class="fu">c</span>(<span class="st">&quot;&lt; 50 years&quot;</span>, <span class="st">&quot;&gt;= 50 years&quot;</span>),</span>
+<span id="cb24-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-6" tabindex="-1"></a>  <span class="at">cate_estimate =</span> <span class="fu">c</span>(cate_young, cate_old),</span>
+<span id="cb24-7"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-7" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">c</span>(cate_young <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> cate_young_se, cate_old <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> cate_old_se),</span>
+<span id="cb24-8"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-8" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">c</span>(cate_young <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> cate_young_se, cate_old <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> cate_old_se)</span>
+<span id="cb24-9"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-9" tabindex="-1"></a>)</span>
+<span id="cb24-10"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-10" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-11" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">y =</span> age_group, <span class="at">x =</span> cate_estimate)) <span class="sc">+</span></span>
+<span id="cb24-12"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-12" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span>  </span>
+<span id="cb24-13"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-13" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lower, <span class="at">xmax =</span> upper), <span class="at">width =</span> <span class="fl">0.4</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb24-14"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-14" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb24-15"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Subgroup Analysis of Treatment Effect&quot;</span>,</span>
+<span id="cb24-16"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-16" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Conditional Average Treatment Effect (CATE)&quot;</span>,</span>
+<span id="cb24-17"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-17" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Age Group&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-18"><a href="foundations-of-causal-thinking-in-public-health.html#cb24-18" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><strong>Average Treatment Effect (ATE)</strong></p>
+<p>The <strong>Average Treatment Effect (ATE)</strong> represents the impact of a treatment or exposure across an entire population. It is the difference between the average outcome with treatment and the average outcome without treatment. ATE is expressed as E[Y(1)] - E[Y(0)] where Y(1) is the potential outcome if treated and Y(0) is the potential outcome if not treated. ATE measures the treatment’s effectiveness but it also assumes homogeneity between the two groups, meaning it doesn’t account for differences within the groups. In real-life, treatment effects can be mitigated or enhanced because of characteristics like age, income or gender, which is why the Conditional Average Treatment Effect (CATE) are used to study heterogeneity, or differences between the treated and non-treated groups.</p>
+<p><strong>Computing the Average Treatment Effect</strong></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb25-1" tabindex="-1"></a>ate <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>ite_estimate)</span>
+<span id="cb25-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb25-2" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb25-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The Average Treatment Effect (ATE) is&quot;</span>, <span class="fu">round</span>(ate, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;The Average Treatment Effect (ATE) is -30.1&quot;</code></pre>
+<p>Here is a visualization for the <strong>Average Treatment Effect (ATE)</strong>. I created a simple bar chart comparing the health outcome for treated and non-treated individuals. The bar chart shows a higher blood pressure for non-treated individuals and a lower blood pressure for treated individuals, showing the positive impacts of the treatment The height difference between the two bars represents the ATE.</p>
+<p><strong>ATE Visualization</strong></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-1" tabindex="-1"></a>control_se <span class="ot">&lt;-</span> </span>
+<span id="cb27-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-2" tabindex="-1"></a>  <span class="fu">sd</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb27-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-3" tabindex="-1"></a>treated_se <span class="ot">&lt;-</span> </span>
+<span id="cb27-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-4" tabindex="-1"></a>  <span class="fu">sd</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb27-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-5" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-6" tabindex="-1"></a>control_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>y0_hat[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb27-7"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-7" tabindex="-1"></a>treated_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>y1_hat[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>])</span>
+<span id="cb27-8"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-8" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-9" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb27-10"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-10" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">c</span>(<span class="st">&quot;Control (Y0)&quot;</span>, <span class="st">&quot;Treated (Y1)&quot;</span>),</span>
+<span id="cb27-11"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-11" tabindex="-1"></a>  <span class="at">ate_estimate =</span> <span class="fu">c</span>(control_mean, treated_mean),</span>
+<span id="cb27-12"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-12" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">c</span>(control_mean <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> control_se, treated_mean <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> treated_se),</span>
+<span id="cb27-13"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-13" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">c</span>(control_mean <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> control_se, treated_mean <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> treated_se)</span>
+<span id="cb27-14"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-14" tabindex="-1"></a>)</span>
+<span id="cb27-15"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-15" tabindex="-1"></a></span>
+<span id="cb27-16"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-16" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">y =</span> group, <span class="at">x =</span> ate_estimate)) <span class="sc">+</span></span>
+<span id="cb27-17"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-17" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span>  </span>
+<span id="cb27-18"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-18" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lower, <span class="at">xmax =</span> upper), <span class="at">width =</span> <span class="fl">0.4</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb27-19"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-19" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb27-20"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Estimated Average Treatment Effect&quot;</span>,</span>
+<span id="cb27-21"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-21" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Estimated Average Treatment Effect&quot;</span>,</span>
+<span id="cb27-22"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-22" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Control vs. Treated&quot;</span>) <span class="sc">+</span></span>
+<span id="cb27-23"><a href="foundations-of-causal-thinking-in-public-health.html#cb27-23" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><strong>Average Treatment Effect on the Treated (ATT)</strong></p>
+<p>The <strong>Average Treatment Effect on the Treated (ATT)</strong> measures the impact of a treatment or exposure only among people who received it. Unlike the <strong>Average Treatment Effect (ATE)</strong>, which looks at the effect across the entire population, ATT focuses on those that were actually exposed or treated. ATT is expressed as E[Y(1) - Y(0)|T=1] where Y(1) is the potential outcome with treatment and Y(0) is the potential outcome without treatment, and T=1 indicates only those people who were actually exposed or treated.</p>
+<p>ATT helps determine whether the intervention is effective or not for the treated population. It is particularly useful for analyzing policies or medical treatments when the treatment is not randomly assigned. In the case of looking at treatments and blood pressure changes, ATT helps answer the question: How much does the treatment impact the blood pressure of individuals who were actually treated?</p>
+<p><strong>Average Treatment Effect on the Treated (ATT) Calculated</strong></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb28-1" tabindex="-1"></a>att <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>])</span>
+<span id="cb28-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb28-2" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb28-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The Average Treatment Effect on the Treated (ATT) is&quot;</span>, </span>
+<span id="cb28-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb28-4" tabindex="-1"></a>            <span class="fu">round</span>(att, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;The Average Treatment Effect on the Treated (ATT) is -30.29&quot;</code></pre>
+<p><strong>Average Treatment Effect on the Control (ATC)</strong></p>
+<p>The <strong>Average Treatment Effect on the Control (ATC)</strong> measures the effect of a treatment on individuals who were not actually exposed to the treatment or exposure. Unlike the <strong>Average Treatment Effect on the Treated (ATT)</strong>, which estimates the impact for those who received the treatment, ATC explains how the control group would have been affected if they have been treated. ATC is expressed as E[Y(1) - Y(0)|T=0] where Y(1) represents the potential outcome with treatment, Y(0) represents the potential outcome without treatment, and T=0 represents people who did not receive treatment. ATC is useful when analyzing policies or medical treatments to understand how untreated individuals would have been affected by the intervention.</p>
+<p>In this scenario, ATC answers the question: How much would the treatment have affected individuals who were not exposed to it? To calculate ATC, I took the average treatment effect of the subset of the population that were not exposed to the treatment. If ATC is negative, it means that the treatment would have harmed the control group if they were exposed. By comparing the ATT and the ATC, it helps us determine if the treatment has differential effects across subgroups.</p>
+<p><strong>Average Treatment Effect on the Control (ATC) Calculated</strong></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb30-1" tabindex="-1"></a>atc <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb30-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb30-2" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb30-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The Average Treatment Effect on the Control (ATC) is&quot;</span>, </span>
+<span id="cb30-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb30-4" tabindex="-1"></a>            <span class="fu">round</span>(atc, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;The Average Treatment Effect on the Control (ATC) is -27.71&quot;</code></pre>
+<p>Now, I’ve created a visualization comparing how the treatment effect differs for treated and control groups.</p>
+<p><strong>ATT vs. ATC Visualization</strong></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-1" tabindex="-1"></a>att_se <span class="ot">&lt;-</span> <span class="fu">sd</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">/</span> </span>
+<span id="cb32-2"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-2" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb32-3"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-3" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-4" tabindex="-1"></a>atc_se <span class="ot">&lt;-</span> <span class="fu">sd</span>(data<span class="sc">$</span>ite_estimate[data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>]) <span class="sc">/</span> </span>
+<span id="cb32-5"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-5" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb32-6"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-6" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-7" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb32-8"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-8" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">c</span>(<span class="st">&quot;ATT (Treated)&quot;</span>, <span class="st">&quot;ATC (Control)&quot;</span>),</span>
+<span id="cb32-9"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-9" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="fu">c</span>(att, atc),</span>
+<span id="cb32-10"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-10" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">c</span>(att <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> att_se, atc <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> atc_se),</span>
+<span id="cb32-11"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-11" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">c</span>(att <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> att_se, atc <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> atc_se)</span>
+<span id="cb32-12"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-12" tabindex="-1"></a>)</span>
+<span id="cb32-13"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-13" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-14" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">y =</span> group, <span class="at">x =</span> estimate)) <span class="sc">+</span></span>
+<span id="cb32-15"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-15" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span>  </span>
+<span id="cb32-16"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-16" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lower, <span class="at">xmax =</span> upper), <span class="at">width =</span> <span class="fl">0.4</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb32-17"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-17" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb32-18"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-18" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Estimated ATT vs. ATC&quot;</span>,</span>
+<span id="cb32-19"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-19" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Estimated Treatment Effect&quot;</span>,</span>
+<span id="cb32-20"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-20" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Group&quot;</span>) <span class="sc">+</span></span>
+<span id="cb32-21"><a href="foundations-of-causal-thinking-in-public-health.html#cb32-21" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Causal-Inference-Graduate_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>Since the ATT is more negative than to ATC, it indicates that the treatment is more effective on the treated group. One potential explanation is that age and cholesterol are confounding variables. There are more older people and people with higher cholesterol levels in the treated group than the non-treated, meaning that this could skew the results as the groups are not homogenous.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="setup.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="randomized-control-trials.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/edit/main/01_potential_outcomes.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/fbargaglistoffi/causal_inference_graduate/blob/main/01_potential_outcomes.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

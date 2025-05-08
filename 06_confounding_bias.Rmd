@@ -1,0 +1,99 @@
+# Effect Modification and Interaction
+
+> ## Class materials
+>
+> Slides: [**Module 6**](https://drive.google.com/drive/folders/14Iymvk2FlZqVsWrtbDLmwSzR5aNS-Mcg?usp=sharing)
+>
+> Recording: [**Module 6, Part 1**](https://your-recording-link.com)
+>
+> Recording: [**Module 6, Part 2**](https://your-recording-link.com)
+
+> ## Textbook reading
+>
+> [**Hernán & Robins, Causal Inference: What If – Chapter 11**](https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf)
+
+> ## Supplementary reading
+>
+> [**Knol, M. J., & VanderWeele, T. J. (2012). Recommendations for presenting analyses of effect modification and interaction. International Journal of Epidemiology, 41(2), 514–520.**](https://academic.oup.com/ije/article/41/2/514/709435)\
+> Real-world public health examples of effect modification
+
+> ## Topics Covered
+>
+> -   The structure of confounding
+> -   How to adjust for confounding
+> -   The form of selection bias
+> -   How to adjust for selection bias
+> -   Critical reading exercise: sources of confounding and selection bias in public health
+
+## The Structure of Confounding
+
+Confounding occurs when an external variable influences both the exposure and the outcome, making it difficult to determine whether the observed association is truly causal. This third variable — the confounder — can create a misleading impression that the exposure causes the outcome, when in fact, the association may be driven entirely or partially by the confounder. The key structural feature of confounding is that the confounder must be related to both the exposure and the outcome. To obtain an accurate estimate of the exposure’s causal effect, researchers must adjust for confounding variables using methods like stratification, regression, or matching.
+
+In our simulation, age acts as a confounder because it affects both smoking behavior and lung cancer risk. Older individuals are more likely to smoke and also more likely to develop lung cancer, which can make smoking appear more harmful (or even less harmful) than it actually is if age isn’t taken into account. The naive model, which includes only smoking, produces a biased estimate because it doesn’t separate the effect of smoking from the effect of age. The adjusted model includes both smoking and age and provides a more accurate estimate of smoking’s effect by accounting for this confounding influence. This example highlights how confounding can distort findings and why controlling for related background variables is essential in observational research.
+
+```{r}
+
+n <- 2000
+
+age <- rnorm(2000, mean = 50, sd = 10)
+
+smoking <- 2 * age + rnorm(n)
+
+lung_cancer <- 3 * smoking + 4 * age + rnorm(n)
+
+df <- data.frame(
+  Age = age,
+  Smoking = smoking,
+  Lung_Cancer = lung_cancer
+)
+
+model_naive <- lm(lung_cancer ~ smoking, data = df)
+
+model_adjusted <- lm(lung_cancer ~ smoking + age, data = df)
+
+coef_naive <- summary(model_naive)$coefficients["smoking", "Estimate"]
+
+coef_adjusted <- summary(model_adjusted)$coefficients["smoking", "Estimate"]
+
+coef_naive
+
+coef_adjusted
+
+```
+
+## How to Adjust for Confounding
+
+Adjusting for confounding is essential when estimating causal effects from observational data. Since confounders are variables that influence both the exposure and the outcome, failing to account for them can lead to biased and misleading conclusions. One of the most common ways to adjust for confounders is through multiple regression, where confounders are included as covariates in the model. Other methods include stratification, where analyses are performed within levels of the confounder, and matching, where exposed and unexposed individuals are paired based on similar values of the confounding variable. These approaches aim to isolate the effect of the exposure by holding confounders constant, thereby mimicking the balance achieved in randomized experiments.
+
+In our simulation, we demonstrated adjustment for confounding using regression. The variable age was a confounder because it influenced both smoking and lung cancer. When we fit a naive model that only included smoking, the effect estimate was biased because it reflected both smoking’s and age’s contributions to lung cancer. By including age in the model as an additional predictor, we were able to adjust for its influence. This adjustment allowed us to estimate the effect of smoking on lung cancer more accurately, as if age were held constant. This simple regression approach illustrates a key principle in observational research: if you can measure the confounder and include it in your analysis, you can often remove its biasing effect and get closer to the true causal relationship.
+
+## The Form of Selection Bias
+
+Selection bias arises when the individuals included in a study are not representative of the target population due to a systematic filtering process. This filtering — whether intentional (like restricting analysis to a subgroup) or unintentional (like only including those who responded to a survey) — can distort the observed relationship between an exposure and an outcome. The core structure of selection bias involves inclusion in the study being related to variables that are also related to the exposure or the outcome. This means the analysis is performed on a biased subset of the population, which can create spurious associations or mask real ones, even when a true causal effect exists.
+
+In our simulation, we introduced selection bias by restricting the dataset to individuals with moderate to good diets. Because diet is related to both exercise and heart health, this restriction caused the analyzed sample to no longer reflect the full population. As a result, the apparent relationship between exercise and heart health in the filtered sample may differ from the true relationship in the full population. This demonstrates the form of selection bias: by conditioning on a variable that is related to both the exposure and the outcome (in this case, indirectly through diet), we introduced distortion into the analysis. This example shows how selection criteria — even seemingly benign ones — can alter causal interpretations if they create unbalanced or artificially restricted datasets.
+
+```{r}
+
+df_biased <- df |> filter(smoking > mean(smoking))
+
+model_naive <- lm(lung_cancer ~ smoking, data = df_biased)
+
+model_adjusted <- lm(lung_cancer ~ smoking + age, data = df_biased)
+
+coef_naive <- summary(model_naive)$coefficients["smoking", "Estimate"]
+
+coef_adjusted <- summary(model_adjusted)$coefficients["smoking", "Estimate"]
+
+coef_naive
+
+coef_adjusted
+
+```
+
+## How to Adjust for Selection Bias
+
+Adjusting for selection bias is more challenging than adjusting for confounding, because selection bias arises when the sample being analyzed is not representative of the target population due to a systematic inclusion process. This often happens when selection into the dataset depends on variables related to both the exposure and the outcome, introducing a spurious association that distorts causal estimates. Unlike confounding, which can often be handled by conditioning on measured variables, selection bias may require more complex strategies such as inverse probability weighting (IPW), sensitivity analysis, or explicitly modeling the selection mechanism. The key to adjusting for selection bias is understanding why and how certain individuals are excluded or included in the analysis — and then incorporating that information to correct the bias.
+
+In the simulation above, we introduced selection bias by filtering the dataset to include only individuals who smoked more than the average level. Because smoking is influenced by age and also affects lung cancer, conditioning on it distorts the relationship between age and lung cancer. While the naive model estimated the effect of smoking without accounting for age, the adjusted model included age as a covariate and produced a more accurate effect estimate. However, unlike confounding, adjusting for a covariate like age doesn't always fully correct for selection bias — especially when selection is based on a collider or a downstream consequence of both exposure and outcome. This illustrates that although standard regression adjustment can help, it may not completely remove bias introduced through selective inclusion, reinforcing the need to carefully consider how and why individuals are included in an analysis.
+

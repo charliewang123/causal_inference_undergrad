@@ -1,0 +1,96 @@
+# Introduction to Causal Diagrams
+
+> ## Class materials
+>
+> Slides: [**Module 5**](https://drive.google.com/drive/folders/14Iymvk2FlZqVsWrtbDLmwSzR5aNS-Mcg?usp=sharing)
+>
+> Recording: [**Module 5, Part 1**](https://your-recording-link.com)
+>
+> Recording: [**Module 5, Part 2**](https://your-recording-link.com)
+
+> ## Textbook reading
+>
+> [**Hernán & Robins, Causal Inference: What If – Chapters 9–10**](https://static1.squarespace.com/static/675db8b0dd37046447128f5f/t/677676888e31cc50c2c33877/1735816881944/hernanrobins_WhatIf_2jan25.pdf)
+
+> ## Supplementary reading
+>
+> [**Rosenbaum, P.R., & Rubin, D.B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41–55.**](https://academic.oup.com/biomet/article/70/1/41/284423)\
+> Examples from public health studies involving confounding adjustment
+
+> ## Topics covered
+>
+> -   Basic principles of directed acyclic graphs (DAGs)
+> -   Common causal structures in public health
+> -   Using DAGs to introduce and understand selection bias
+> -   Application: drawing DAGs for public health scenarios
+
+## Basic principles of directed acyclic graphs (DAGs)
+
+Directed acyclic graphs (DAGs) are powerful tools in causal inference that visually represent assumptions about how variables are related. In a DAG, nodes represent variables, and arrows (directed edges) represent causal influences from one variable to another. DAGs are acyclic, meaning you cannot return to the same variable by following a sequence of arrows — this prevents feedback loops. The key strength of DAGs lies in their ability to clarify causal pathways, distinguish between confounding and mediation, and identify the variables we need to control for to estimate causal effects accurately. By encoding assumptions explicitly, DAGs help researchers determine whether observed associations reflect true causal relationships or are biased by omitted variables or incorrect conditioning.
+
+In our simulation, we use a DAG to represent a common public health structure involving diet, exercise, and heart health. Diet is a confounder: it directly influences both how much people exercise and their overall heart health. If we ignore diet when estimating the effect of exercise on heart health, we risk attributing diet's effect to exercise — leading to confounding bias. The DAG for this scenario includes arrows from diet to both exercise and heart health, and from exercise to heart health. We also introduce selection bias by conditioning on individuals with moderate-to-high exercise levels. In DAG terms, this is equivalent to conditioning on a collider (exercise), which can open a non-causal backdoor path and bias our results. Modeling this setup with a DAG allows us to see clearly that to obtain an unbiased estimate of the causal effect of exercise, we must adjust for diet and avoid conditioning on colliders like selection into the sample.
+
+```{r}
+
+# library(ggplot2)
+# library(dplyr)
+pacman::p_load("ggdag")
+
+n <- 2000
+
+diet <- rnorm(n)
+
+exercise <- 2 * diet + rnorm(n)
+
+heart_health <- 3 * exercise + 4 * diet + rnorm(n)
+
+health_dagified <- dagify(
+  heart_health ~ diet,
+  heart_health ~ exercise,
+  exercise ~ diet
+)
+
+ggdag(health_dagified)
+
+```
+
+## Common Causal Structures in Public Health
+
+In public health research, understanding the causal relationships between variables is essential for identifying risk factors, designing interventions, and making policy decisions. Common causal structures include **confounding, mediation, and collider bias,** each of which influences how we interpret observed associations. A confounder is a variable that affects both the exposure and the outcome, potentially biasing the estimated effect if not properly adjusted for. A mediator lies on the causal pathway between exposure and outcome, helping to explain how the exposure exerts its effect. A collider, on the other hand, is influenced by two variables, and conditioning on it can introduce spurious associations. Identifying these structures often requires drawing directed acyclic graphs (DAGs) to map out assumptions and determine which variables to adjust for when estimating causal effects.
+
+In our simulation, we modeled a classic confounding structure, where diet influences both exercise and heart health. This mirrors real-world public health situations where health behaviors and biological outcomes are shaped by shared underlying factors like nutrition, socioeconomic status, or genetics. If we were to estimate the effect of exercise on heart health without adjusting for diet, we would risk attributing some of diet’s impact to exercise — a classic confounding problem. By visualizing the relationships using a DAG and including diet as a covariate in our regression model, we can block the backdoor path and isolate the true causal effect of exercise. This illustrates how understanding and modeling common causal structures is critical to producing valid and meaningful results in public health research.
+
+## Using DAGs to introduce and understand selection bias
+
+**Selection bias** occurs when the group of individuals included in a study is systematically different from the target population in a way that distorts the relationship between exposure and outcome. This can happen when inclusion into the study depends on variables that are related to either the exposure, the outcome, or both. Selection bias becomes especially problematic when researchers condition on a collider — a variable that is influenced by two or more variables in the causal model — because doing so can open non-causal paths and create spurious associations. In practical terms, this means that even if there is no causal relationship between an exposure and an outcome, conditioning on a collider can make it look like there is one, or it can distort the strength of a real effect.
+
+In our simulation, we introduced selection bias by only including individuals with moderate to high diet scores. Since diet is a confounder that affects both exercise and heart health, restricting our analysis to individuals with good diets creates a biased sample — one that no longer reflects the full population variation in diet. This conditioning on diet essentially blocks our ability to observe the full confounding relationship and can make the estimated effect of exercise on heart health appear stronger, weaker, or even reverse. By simulating this, we demonstrate how selection bias — even when introduced through something seemingly harmless like focusing on healthier individuals — can lead to incorrect causal conclusions if not properly accounted for.
+
+```{r}
+
+df <- data.frame(diet, exercise, heart_health)
+
+df_selected <- df |> filter(diet > 0)
+
+model_naive <- lm(heart_health ~ exercise, data = df_selected)
+
+model_adjusted <- lm(heart_health ~ exercise + diet, data = df_selected)
+
+summary(model_naive)$coefficients["exercise", ]
+
+summary(model_adjusted)$coefficients["exercise", ]
+
+```
+```{r}
+
+# selection = healthy people
+selection_bias_dagified <- dagify(
+  exercise ~ diet,
+  heart_health ~ diet,
+  heart_health ~ exercise,
+  selection ~ diet
+)
+
+ggdag(selection_bias_dagified)
+
+```
